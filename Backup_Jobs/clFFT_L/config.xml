@@ -1,0 +1,557 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description>Builds AMD&apos;s Open sourced clFFT library from GIT</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:prangana</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:kumarrav</permission>
+      <permission>hudson.model.Item.Workspace:prangana</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:prangana</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:prangana</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:kumarrav</permission>
+      <permission>hudson.model.Item.Configure:prangana</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:kumarrav</permission>
+      <permission>hudson.model.Item.Cancel:prangana</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Read:kumarrav</permission>
+      <permission>hudson.model.Item.Read:prangana</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:prangana</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:prangana</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:kumarrav</permission>
+      <permission>hudson.model.Item.Build:prangana</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Discover:kumarrav</permission>
+      <permission>hudson.model.Item.Discover:prangana</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Update:kumarrav</permission>
+      <permission>hudson.model.Run.Update:prangana</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11">
+      <projectUrl>https://github.com/clMathLibraries/clFFT/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>2</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>4</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SUBMINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35">
+          <name>BUILD_SELECTOR_APPSDK_BUILD_L</name>
+          <description>APPSDK Build to be used for AMDAPPSDKROOT</description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.7">
+          <name>BUILD_MATRIX</name>
+          <description></description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.91">
+      <info>
+        <groovyScriptContent>// ****************************************************************************************************
+// Copyright (c) 2015 Advanced Micro Devices, Inc. All rights reserved.
+def map = [:];
+
+if( JOB_NAME.contains( &quot;x86&quot; ) ) {
+	map.put( &quot;BUILD_64&quot;, &quot;OFF&quot; );
+	map.put( &quot;PLATFORM_ARCH_ALT&quot;, &quot;x86&quot; );
+}
+
+if( JOB_NAME.contains( &quot;amd64&quot; ) ) {
+	map.put( &quot;BUILD_64&quot;, &quot;ON&quot; );
+	map.put( &quot;PLATFORM_ARCH_ALT&quot;, &quot;x64&quot; );
+}
+
+println &apos;-------------------------------------&apos;
+println &apos;Evnironment Variables Added: &apos; + map;
+println &apos;JOB_NAME: &apos; + JOB_NAME;
+println &apos;-------------------------------------&apos;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/clMathLibraries/clFFT.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>LBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>C</name>
+      <values>
+        <string>Debug</string>
+        <string>Release</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>x86</string>
+        <string>amd64</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>gcc473</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelExpAxis>
+      <name>L</name>
+      <values>
+        <string>LBM</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+  </axes>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35">
+      <project>APPSDK_BUILD_L/L=LBM,P=${P},S=OpenCL,T=${T}</project>
+      <filter>APPSDK-linux-AMDAPPSDKROOT-*-noarch.tar.bz2</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_APPSDK_BUILD_L</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+# This shell script extracts the gcc sources and builds it
+
+echo [INFO]AMDAPPSDKROOT: $AMDAPPSDKROOT
+echo [INFO]MAJOR_NUMBER: $MAJOR_NUMBER
+echo [INFO]MINOR_NUMBER: $MINOR_NUMBER
+echo [INFO]SUBMINOR_NUMBER: $SUBMINOR_NUMBER
+
+mkdir -pv &quot;$AMDAPPSDKROOT&quot;
+
+echo [INFO]Extracting APPSDK-linux-AMDAPPSDKROOT-*-noarch.tar.bz2 to the directory $AMDAPPSDKROOT
+tar -jxvf APPSDK-linux-AMDAPPSDKROOT-*-noarch.tar.bz2 -C &quot;$AMDAPPSDKROOT&quot;
+if [ $? -eq 0 ]; then
+	NUMBER_OF_PROCESSORS=$(getconf _NPROCESSORS_ONLN)
+	PARALLEL_COMPILATIONS=$(($NUMBER_OF_PROCESSORS*1))
+	export PATH=/opt/${T}/bin:$PATH
+	export LD_LIBRARY_PATH=/opt/${T}/lib:/opt/${T}/dependent-libs:$LD_LIBRARY_PATH
+
+	echo [INFO]Using gcc: $(which gcc)
+	echo [INFO]Copying include and LIBs to AMDAPPSDKROOT
+	echo [INFO]Configuration: ${C}
+	echo [INFO]Bitness: ${P}
+	
+	OUTPUT_DIR=clFFT-$MAJOR_NUMBER.$MINOR_NUMBER.$SUBMINOR_NUMBER-Linux-$PLATFORM_ARCH_ALT
+	CMAKE_OPTIONS=&quot;-DCMAKE_CXX_COMPILER=/opt/${T}/bin/g++ -DCMAKE_C_COMPILER=/opt/${T}/bin/gcc -D CMAKE_BUILD_TYPE=$C -D BUILD64=${BUILD_64} -D CMAKE_INSTALL_PREFIX=$OUTPUT_DIR&quot;
+
+	echo [INFO]CMAKE_OPTIONS: $CMAKE_OPTIONS
+	cmake -G &quot;Unix Makefiles&quot; $CMAKE_OPTIONS src
+	if [ $? -eq 0 ]; then
+	  make -j $PARALLEL_COMPILATIONS
+	  if [ $? -eq 0 ]; then
+		make install
+		if [ $? -eq 0 ]; then
+			echo [INFO]Creating archive...
+			tar -cjvf &quot;clfft-${C}-$OSTYPE-$MAJOR_NUMBER.$MINOR_NUMBER.$SUBMINOR_NUMBER.$BUILD_NUMBER-${P}.tar.bz2&quot; $OUTPUT_DIR --exclude=$OUTPUT_DIR/lib*/src
+		fi
+	  fi
+	fi
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>clfft-${C}-$OSTYPE-$MAJOR_NUMBER.$MINOR_NUMBER.$SUBMINOR_NUMBER.$BUILD_NUMBER-${P}.tar.bz2</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+      <recipientList>Amit.Agarwal@amd.com,premkumar.j@amd.com,Tamil-Velan.Jayakumar@amd.com,Kishor.Kl@amd.com,Ravi1.Kumar@amd.com,Prakash.Raghavendra@amd.com,Pradeep.Rao@amd.com,cc:Neelakanth.Shigihalli@amd.com,Ronan.Keryell@amd.com,Kent.Knox@amd.com,Timmy.Liu@amd.com,Bragadeesh.Natarajan@amd.com,David.Tanner@amd.com,cc:Vivek.Viswanathan@amd.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>CAS Build System: clFFT Linux: $BUILD_STATUS!</defaultSubject>
+      <defaultContent>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional //EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=320, target-densitydpi=device-dpi&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			/* Mobile-specific Styles */
+			@media only screen and (max-width: 660px) { 
+			table[class=w0], td[class=w0] { width: 0 !important; }
+			table[class=w10], td[class=w10], img[class=w10] { width:10px !important; }
+			table[class=w15], td[class=w15], img[class=w15] { width:5px !important; }
+			table[class=w30], td[class=w30], img[class=w30] { width:10px !important; }
+			table[class=w60], td[class=w60], img[class=w60] { width:10px !important; }
+			table[class=w125], td[class=w125], img[class=w125] { width:80px !important; }
+			table[class=w130], td[class=w130], img[class=w130] { width:55px !important; }
+			table[class=w140], td[class=w140], img[class=w140] { width:90px !important; }
+			table[class=w160], td[class=w160], img[class=w160] { width:180px !important; }
+			table[class=w170], td[class=w170], img[class=w170] { width:100px !important; }
+			table[class=w180], td[class=w180], img[class=w180] { width:80px !important; }
+			table[class=w195], td[class=w195], img[class=w195] { width:80px !important; }
+			table[class=w220], td[class=w220], img[class=w220] { width:80px !important; }
+			table[class=w240], td[class=w240], img[class=w240] { width:180px !important; }
+			table[class=w255], td[class=w255], img[class=w255] { width:185px !important; }
+			table[class=w275], td[class=w275], img[class=w275] { width:135px !important; }
+			table[class=w280], td[class=w280], img[class=w280] { width:135px !important; }
+			table[class=w300], td[class=w300], img[class=w300] { width:140px !important; }
+			table[class=w325], td[class=w325], img[class=w325] { width:95px !important; }
+			table[class=w360], td[class=w360], img[class=w360] { width:140px !important; }
+			table[class=w410], td[class=w410], img[class=w410] { width:180px !important; }
+			table[class=w470], td[class=w470], img[class=w470] { width:200px !important; }
+			table[class=w580], td[class=w580], img[class=w580] { width:280px !important; }
+			table[class=w640], td[class=w640], img[class=w640] { width:300px !important; }
+			table[class*=hide], td[class*=hide], img[class*=hide], p[class*=hide], span[class*=hide] { display:none !important; }
+			table[class=h0], td[class=h0] { height: 0 !important; }
+			p[class=footer-content-left] { text-align: center !important; }
+			#headline p { font-size: 30px !important; }
+			.article-content, #left-sidebar{ -webkit-text-size-adjust: 90% !important; -ms-text-size-adjust: 90% !important; }
+			.header-content, .footer-content-left {-webkit-text-size-adjust: 80% !important; -ms-text-size-adjust: 80% !important;}
+			img { height: auto; line-height: 100%;}
+			 } 
+			/* Client-specific Styles */
+			#outlook a { padding: 0; }	/* Force Outlook to provide a &quot;view in browser&quot; button. */
+			body { width: 100% !important; }
+			.ReadMsgBody { width: 100%; }
+			.ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+			/* Reset Styles */
+			/* Add 100px so mobile switch bar doesn&apos;t cover street address. */
+			body { background-color: #ececec; margin: 0; padding: 0; }
+			img { outline: none; text-decoration: none; display: block;}
+			br, strong br, b br, em br, i br { line-height:100%; }
+			h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; }
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {	color: red !important; }
+			/* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
+			/* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */  
+			table td, table tr { border-collapse: collapse; }
+			.yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+			color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
+			}	/* Body text color for the New Yahoo.  This example sets the font of Yahoo&apos;s Shortcuts to black. */
+			/* This most probably won&apos;t work in all email clients. Don&apos;t include code blocks in email. */
+			code {
+			  white-space: normal;
+			  word-break: break-all;
+			}
+			#background-table { background-color: #ececec; }
+			/* Webkit Elements */
+			#top-bar { border-radius:6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius:6px 6px 0px 0px; -webkit-font-smoothing: antialiased; background-color: #043948; color: #e7cba3; }
+			#top-bar a { font-weight: bold; color: #e7cba3; text-decoration: none;}
+			#footer { border-radius:0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius:0px 0px 6px 6px; -webkit-font-smoothing: antialiased; }
+			/* Fonts and Content */
+			body, td { font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.header-content, .footer-content-left, .footer-content-right { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+			/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
+			.header-content { font-size: 12px; color: #e7cba3; }
+			.header-content a { font-weight: bold; color: #e7cba3; text-decoration: none; }
+			#headline p { color: #e7cba3; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
+			#headline p a { color: #e7cba3; text-decoration: none; }
+			.article-title { font-size: 18px; line-height:24px; color: #9a9661; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-title a { color: #9a9661; text-decoration: none; }
+			.article-title.with-meta {margin-bottom: 0;}
+			.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
+			.article-content { font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-content a { color: #00707b; font-weight:bold; text-decoration:none; }
+			.article-content img { max-width: 100% }
+			.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
+			.article-content li { font-size: 13px; line-height: 18px; color: #444444; }
+			.article-content li a { color: #00707b; text-decoration:underline; }
+			.article-content p {margin-bottom: 15px;}
+			.footer-content-left { font-size: 12px; line-height: 15px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-left a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			.footer-content-right { font-size: 11px; line-height: 16px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-right a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			#footer { background-color: #043948; color: #e2e2e2; }
+			#footer a { color: #e7cba3; text-decoration: none; font-weight: bold; }
+			#permission-reminder { white-space: normal; }
+			#street-address { color: #e7cba3; white-space: normal; }
+		&lt;/style&gt;
+		&lt;!--[if gte mso 9]&gt;
+		&lt;style _tmplitem=&quot;810&quot; &gt;
+		.article-content ol, .article-content ul {
+		   margin: 0 0 0 24px;
+		   padding: 0;
+		   list-style-position: inside;
+		}
+		&lt;/style&gt;
+		&lt;![endif]--&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;table id=&quot;background-table&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td align=&quot;center&quot; bgcolor=&quot;#ececec&quot;&gt;
+						&lt;table class=&quot;w640&quot; style=&quot;margin:0 10px;&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;20&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;top-bar&quot; class=&quot;w640&quot; bgcolor=&quot;#040707&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w325&quot; align=&quot;left&quot; valign=&quot;middle&quot; width=&quot;350&quot;&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;div class=&quot;header-content&quot;&gt;&lt;webversion&gt;&lt;a href=&quot;http://cas.amd.com:8080&quot;&gt;CAS Build System&lt;/a&gt;&lt;/webversion&gt;&lt;span class=&quot;hide&quot;&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;preferences lang=&quot;en&quot;&gt;Update preferences&lt;/preferences&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;unsubscribe&gt;Unsubscribe&lt;/unsubscribe&gt;&lt;/span&gt;&lt;/div&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w255&quot; align=&quot;right&quot; valign=&quot;middle&quot; width=&quot;255&quot;&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+															&lt;tbody&gt;&lt;tr/&gt;&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td id=&quot;header&quot; class=&quot;w640&quot; align=&quot;center&quot; bgcolor=&quot;#040707&quot; width=&quot;640&quot;&gt;
+										&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+													&lt;td class=&quot;w580&quot; height=&quot;30&quot; width=&quot;580&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+														&lt;div id=&quot;headline&quot; align=&quot;center&quot;&gt;
+															&lt;p&gt;
+																&lt;strong&gt;&lt;a href=&quot;$JOB_URL&quot;&gt;&lt;singleline label=&quot;Title&quot;&gt;clFFT Linux Build Notification&lt;/singleline&gt;&lt;/a&gt;&lt;/strong&gt;
+															&lt;/p&gt;
+														&lt;/div&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;30&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr id=&quot;simple-content-row&quot;&gt;&lt;td class=&quot;w640&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;
+									&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+													&lt;repeater&gt;
+														&lt;layout label=&quot;Text only&quot;&gt;
+															&lt;table class=&quot;w580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;580&quot;&gt;
+																&lt;tbody&gt;
+																	&lt;tr&gt;
+																		&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+																			&lt;p class=&quot;article-title&quot; align=&quot;left&quot;&gt;STATUS&lt;/p&gt;
+																			&lt;div class=&quot;article-content&quot; align=&quot;left&quot;&gt;
+																				The CAS Build System finished building the &lt;strong&gt;$PROJECT_NAME&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+																				Status: &lt;strong&gt;$BUILD_STATUS&lt;/strong&gt;&lt;br/&gt;
+																				BuildNumber: &lt;strong&gt;$MAJOR_NUMBER.$MINOR_NUMBER.$SUBMINOR_NUMBER.$BUILD_NUMBER&lt;/strong&gt;&lt;br/&gt;
+																				Originator: &lt;strong&gt;$CAUSE&lt;/strong&gt;&lt;br/&gt;
+																				Changes: &lt;strong&gt;$CHANGES&lt;/strong&gt;&lt;br/&gt;
+																				Download URL: &lt;strong&gt;$JOB_URL&lt;/strong&gt;&lt;br/&gt;
+																				Build Console: &lt;strong&gt;$BUILD_URL/console&lt;/strong&gt;
+																			&lt;/div&gt;
+																		&lt;/td&gt;
+																	&lt;/tr&gt;
+																&lt;/tbody&gt;
+															&lt;/table&gt;
+														&lt;/layout&gt;
+														&lt;layout label=&quot;Image gallery&quot;/&gt;
+													&lt;/repeater&gt;
+												&lt;/td&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;&lt;td class=&quot;w640&quot; height=&quot;15&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;footer&quot; class=&quot;w640&quot; bgcolor=&quot;#043948&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; valign=&quot;top&quot; width=&quot;360&quot;&gt;
+														&lt;span class=&quot;hide&quot;&gt;&lt;p id=&quot;permission-reminder&quot; class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;/p&gt;&lt;/span&gt;
+														&lt;p class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;preferences lang=&quot;en&quot;&gt;&lt;a href=&quot;http://www.amd.com&quot;&gt;AMD&lt;/a&gt;&lt;/preferences&gt; | &lt;a href=&quot;http://amdcentral.amd.com&quot;&gt;AMD Central&lt;/a&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; width=&quot;60&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; valign=&quot;top&quot; width=&quot;160&quot;&gt;
+														&lt;p id=&quot;street-address&quot; class=&quot;footer-content-right&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580 h0&quot; height=&quot;15&quot; width=&quot;360&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;60&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;160&quot;/&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;60&quot; width=&quot;640&quot;/&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>Manish1.Singh@amd.com</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+      <matrixTriggerMode>ONLY_PARENT</matrixTriggerMode>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.16"/>
+    <EnvInjectBuildWrapper plugin="envinject@1.91">
+      <info>
+        <propertiesContent>AMDAPPSDKROOT=${WORKSPACE}/AMDAPPSDKROOT</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;MAJOR_NUMBER&quot;}.${ENV,var=&quot;MINOR_NUMBER&quot;}.${ENV,var=&quot;SUBMINOR_NUMBER&quot;}.${BUILD_NUMBER}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>

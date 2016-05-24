@@ -1,0 +1,489 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>20</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:xi.guo</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msevenier</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:xi.guo</permission>
+      <permission>hudson.model.Run.Delete:msevenier</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Run.Delete:dbeda</permission>
+      <permission>hudson.model.Run.Delete:jerry.wong</permission>
+      <permission>hudson.model.Item.Workspace:xi.guo</permission>
+      <permission>hudson.model.Item.Workspace:msevenier</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>hudson.model.Item.Workspace:dbeda</permission>
+      <permission>hudson.model.Item.Workspace:jerry.wong</permission>
+      <permission>hudson.model.Item.Workspace:jjsbear</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:xi.guo</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msevenier</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:xi.guo</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msevenier</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:xi.guo</permission>
+      <permission>hudson.model.Item.Configure:msevenier</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Configure:dbeda</permission>
+      <permission>hudson.model.Item.Configure:jerry.wong</permission>
+      <permission>hudson.model.Item.Cancel:xi.guo</permission>
+      <permission>hudson.model.Item.Cancel:msevenier</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Cancel:dbeda</permission>
+      <permission>hudson.model.Item.Cancel:jerry.wong</permission>
+      <permission>hudson.model.Item.Cancel:jjsbear</permission>
+      <permission>hudson.model.Item.Read:xi.guo</permission>
+      <permission>hudson.model.Item.Read:msevenier</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Read:dbeda</permission>
+      <permission>hudson.model.Item.Read:jerry.wong</permission>
+      <permission>hudson.model.Item.Read:jjsbear</permission>
+      <permission>hudson.model.Item.Delete:xi.guo</permission>
+      <permission>hudson.model.Item.Delete:msevenier</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:xi.guo</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msevenier</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:jerry.wong</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:jjsbear</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:xi.guo</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msevenier</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:xi.guo</permission>
+      <permission>hudson.model.Item.Build:msevenier</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.Build:dbeda</permission>
+      <permission>hudson.model.Item.Build:jerry.wong</permission>
+      <permission>hudson.model.Item.Build:jjsbear</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Discover:xi.guo</permission>
+      <permission>hudson.model.Item.Discover:msevenier</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Item.Discover:dbeda</permission>
+      <permission>hudson.model.Item.Discover:jerry.wong</permission>
+      <permission>hudson.model.Item.Discover:jjsbear</permission>
+      <permission>hudson.model.Run.Update:xi.guo</permission>
+      <permission>hudson.model.Run.Update:msevenier</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Run.Update:dbeda</permission>
+      <permission>hudson.model.Run.Update:jerry.wong</permission>
+      <permission>hudson.model.Run.Update:jjsbear</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.1">
+      <useBuildBlocker>false</useBuildBlocker>
+      <blockLevel>UNDEFINED</blockLevel>
+      <scanQueueFor>DISABLED</scanQueueFor>
+      <blockingJobs></blockingJobs>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.12.0">
+      <projectUrl>https://github.com/MMASG/ContentManager2/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>true</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>ContentManager2</name>
+        <url>https://github.com/MMASG/ContentManager2</url>
+        <credentialsId>bc9c74a4-0122-41db-986b-89dd1179e3a6</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>WBM&amp;&amp;GIT</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>H H/3 * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+setlocal&#xd;
+&#xd;
+echo MSBUILD: %MSBUILD%&#xd;
+if Not Exist Y:\references (&#xd;
+	echo 3rdParty Tools not mapped. Mapping&#xd;
+	net use y: \\pae.amd.com\public\ContentManager\third_party /persistent:no&#xd;
+)&#xd;
+&#xd;
+dir y:&#xd;
+set CM_EXT_ROOT=Y:&#xd;
+&#xd;
+::- First get the Visual Studio version based on the Toolset&#xd;
+set T=v120&#xd;
+set P=x64&#xd;
+set C=Release&#xd;
+&#xd;
+echo Calling: %MSBUILD% /m /t:build /p:Configuration=%C% /p:Platform=%P% /p:PlatformToolset=%T% ContentManager\ContentManager.sln&#xd;
+&quot;%MSBUILD%&quot; /m /t:build /p:Configuration=%C% /p:Platform=%P% /p:PlatformToolset=%T% ContentManager\ContentManager.sln&#xd;
+&#xd;
+::- Unmap the 3rdParty network share.&#xd;
+net use y: /delete&#xd;
+&#xd;
+endlocal&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+      <exeName>7z.exe</exeName>
+      <cmdLineArgs>a -t7z ContentManager-$BUILD_NUMBER.7z -ir!ContentManager\x64\Release\*.*</cmdLineArgs>
+      <failBuild>true</failBuild>
+    </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>ContentManager-$BUILD_NUMBER.7z</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
+      <recipientList>mikael.sevenier@amd.com,Derek.Beda@amd.com,Jerry.Wong@amd.com,Xi.Guo@amd.com,Jinsong.Ji@amd.com,cc:Manish1.Singh@amd.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>CAS Build System: $PROJECT_NAME $BUILD_STATUS!</defaultSubject>
+      <defaultContent>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional //EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=320, target-densitydpi=device-dpi&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			/* Mobile-specific Styles */
+			@media only screen and (max-width: 660px) { 
+			table[class=w0], td[class=w0] { width: 0 !important; }
+			table[class=w10], td[class=w10], img[class=w10] { width:10px !important; }
+			table[class=w15], td[class=w15], img[class=w15] { width:5px !important; }
+			table[class=w30], td[class=w30], img[class=w30] { width:10px !important; }
+			table[class=w60], td[class=w60], img[class=w60] { width:10px !important; }
+			table[class=w125], td[class=w125], img[class=w125] { width:80px !important; }
+			table[class=w130], td[class=w130], img[class=w130] { width:55px !important; }
+			table[class=w140], td[class=w140], img[class=w140] { width:90px !important; }
+			table[class=w160], td[class=w160], img[class=w160] { width:180px !important; }
+			table[class=w170], td[class=w170], img[class=w170] { width:100px !important; }
+			table[class=w180], td[class=w180], img[class=w180] { width:80px !important; }
+			table[class=w195], td[class=w195], img[class=w195] { width:80px !important; }
+			table[class=w220], td[class=w220], img[class=w220] { width:80px !important; }
+			table[class=w240], td[class=w240], img[class=w240] { width:180px !important; }
+			table[class=w255], td[class=w255], img[class=w255] { width:185px !important; }
+			table[class=w275], td[class=w275], img[class=w275] { width:135px !important; }
+			table[class=w280], td[class=w280], img[class=w280] { width:135px !important; }
+			table[class=w300], td[class=w300], img[class=w300] { width:140px !important; }
+			table[class=w325], td[class=w325], img[class=w325] { width:95px !important; }
+			table[class=w360], td[class=w360], img[class=w360] { width:140px !important; }
+			table[class=w410], td[class=w410], img[class=w410] { width:180px !important; }
+			table[class=w470], td[class=w470], img[class=w470] { width:200px !important; }
+			table[class=w580], td[class=w580], img[class=w580] { width:280px !important; }
+			table[class=w640], td[class=w640], img[class=w640] { width:300px !important; }
+			table[class*=hide], td[class*=hide], img[class*=hide], p[class*=hide], span[class*=hide] { display:none !important; }
+			table[class=h0], td[class=h0] { height: 0 !important; }
+			p[class=footer-content-left] { text-align: center !important; }
+			#headline p { font-size: 30px !important; }
+			.article-content, #left-sidebar{ -webkit-text-size-adjust: 90% !important; -ms-text-size-adjust: 90% !important; }
+			.header-content, .footer-content-left {-webkit-text-size-adjust: 80% !important; -ms-text-size-adjust: 80% !important;}
+			img { height: auto; line-height: 100%;}
+			 } 
+			/* Client-specific Styles */
+			#outlook a { padding: 0; }	/* Force Outlook to provide a &quot;view in browser&quot; button. */
+			body { width: 100% !important; }
+			.ReadMsgBody { width: 100%; }
+			.ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+			/* Reset Styles */
+			/* Add 100px so mobile switch bar doesn&apos;t cover street address. */
+			body { background-color: #ececec; margin: 0; padding: 0; }
+			img { outline: none; text-decoration: none; display: block;}
+			br, strong br, b br, em br, i br { line-height:100%; }
+			h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; }
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {	color: red !important; }
+			/* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
+			/* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */  
+			table td, table tr { border-collapse: collapse; }
+			.yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+			color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
+			}	/* Body text color for the New Yahoo.  This example sets the font of Yahoo&apos;s Shortcuts to black. */
+			/* This most probably won&apos;t work in all email clients. Don&apos;t include code blocks in email. */
+			code {
+			  white-space: normal;
+			  word-break: break-all;
+			}
+			#background-table { background-color: #ececec; }
+			/* Webkit Elements */
+			#top-bar { border-radius:6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius:6px 6px 0px 0px; -webkit-font-smoothing: antialiased; background-color: #043948; color: #e7cba3; }
+			#top-bar a { font-weight: bold; color: #e7cba3; text-decoration: none;}
+			#footer { border-radius:0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius:0px 0px 6px 6px; -webkit-font-smoothing: antialiased; }
+			/* Fonts and Content */
+			body, td { font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.header-content, .footer-content-left, .footer-content-right { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+			/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
+			.header-content { font-size: 12px; color: #e7cba3; }
+			.header-content a { font-weight: bold; color: #e7cba3; text-decoration: none; }
+			#headline p { color: #e7cba3; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
+			#headline p a { color: #e7cba3; text-decoration: none; }
+			.article-title { font-size: 18px; line-height:24px; color: #9a9661; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-title a { color: #9a9661; text-decoration: none; }
+			.article-title.with-meta {margin-bottom: 0;}
+			.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
+			.article-content { font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-content a { color: #00707b; font-weight:bold; text-decoration:none; }
+			.article-content img { max-width: 100% }
+			.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
+			.article-content li { font-size: 13px; line-height: 18px; color: #444444; }
+			.article-content li a { color: #00707b; text-decoration:underline; }
+			.article-content p {margin-bottom: 15px;}
+			.footer-content-left { font-size: 12px; line-height: 15px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-left a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			.footer-content-right { font-size: 11px; line-height: 16px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-right a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			#footer { background-color: #043948; color: #e2e2e2; }
+			#footer a { color: #e7cba3; text-decoration: none; font-weight: bold; }
+			#permission-reminder { white-space: normal; }
+			#street-address { color: #e7cba3; white-space: normal; }
+		&lt;/style&gt;
+		&lt;!--[if gte mso 9]&gt;
+		&lt;style _tmplitem=&quot;810&quot; &gt;
+		.article-content ol, .article-content ul {
+		   margin: 0 0 0 24px;
+		   padding: 0;
+		   list-style-position: inside;
+		}
+		&lt;/style&gt;
+		&lt;![endif]--&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;table id=&quot;background-table&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td align=&quot;center&quot; bgcolor=&quot;#ececec&quot;&gt;
+						&lt;table class=&quot;w640&quot; style=&quot;margin:0 10px;&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;20&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;top-bar&quot; class=&quot;w640&quot; bgcolor=&quot;#040707&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w325&quot; align=&quot;left&quot; valign=&quot;middle&quot; width=&quot;350&quot;&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;div class=&quot;header-content&quot;&gt;&lt;webversion&gt;&lt;a href=&quot;http://cas.amd.com&quot;&gt;CAS Build System&lt;/a&gt;&lt;/webversion&gt;&lt;span class=&quot;hide&quot;&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;preferences lang=&quot;en&quot;&gt;Update preferences&lt;/preferences&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;unsubscribe&gt;Unsubscribe&lt;/unsubscribe&gt;&lt;/span&gt;&lt;/div&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w255&quot; align=&quot;right&quot; valign=&quot;middle&quot; width=&quot;255&quot;&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+															&lt;tbody&gt;&lt;tr/&gt;&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td id=&quot;header&quot; class=&quot;w640&quot; align=&quot;center&quot; bgcolor=&quot;#040707&quot; width=&quot;640&quot;&gt;
+										&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+													&lt;td class=&quot;w580&quot; height=&quot;30&quot; width=&quot;580&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+														&lt;div id=&quot;headline&quot; align=&quot;center&quot;&gt;
+															&lt;p&gt;
+																&lt;strong&gt;&lt;a href=&quot;$JOB_URL&quot;&gt;&lt;singleline label=&quot;Title&quot;&gt;ContentManager Build Notification&lt;/singleline&gt;&lt;/a&gt;&lt;/strong&gt;
+															&lt;/p&gt;
+														&lt;/div&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;30&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr id=&quot;simple-content-row&quot;&gt;&lt;td class=&quot;w640&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;
+									&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+													&lt;repeater&gt;
+														&lt;layout label=&quot;Text only&quot;&gt;
+															&lt;table class=&quot;w580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;580&quot;&gt;
+																&lt;tbody&gt;
+																	&lt;tr&gt;
+																		&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+																			&lt;p class=&quot;article-title&quot; align=&quot;left&quot;&gt;STATUS&lt;/p&gt;
+																			&lt;div class=&quot;article-content&quot; align=&quot;left&quot;&gt;
+																				The CAS Build System finished building the &lt;strong&gt;$PROJECT_NAME&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+																				Status: &lt;strong&gt;$BUILD_STATUS&lt;/strong&gt;&lt;br/&gt;
+																				BuildNumber: &lt;strong&gt;$BUILD_NUMBER&lt;/strong&gt;&lt;br /&gt;
+																				Originator: &lt;strong&gt;$CAUSE&lt;/strong&gt;&lt;br /&gt;
+																				Changes: &lt;strong&gt;$CHANGES&lt;/strong&gt;&lt;br /&gt;
+																				Download URL: &lt;strong&gt;http://cas.amd.com/view/MMASG/job/ContentManager/&lt;/strong&gt;&lt;br /&gt;
+																				Build Console: &lt;strong&gt;$BUILD_URL/console&lt;/strong&gt;
+																			&lt;/div&gt;
+																		&lt;/td&gt;
+																	&lt;/tr&gt;
+																&lt;/tbody&gt;
+															&lt;/table&gt;
+														&lt;/layout&gt;
+														&lt;layout label=&quot;Image gallery&quot;/&gt;
+													&lt;/repeater&gt;
+												&lt;/td&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;&lt;td class=&quot;w640&quot; height=&quot;15&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;footer&quot; class=&quot;w640&quot; bgcolor=&quot;#043948&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; valign=&quot;top&quot; width=&quot;360&quot;&gt;
+														&lt;span class=&quot;hide&quot;&gt;&lt;p id=&quot;permission-reminder&quot; class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;/p&gt;&lt;/span&gt;
+														&lt;p class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;preferences lang=&quot;en&quot;&gt;&lt;a href=&quot;http://www.amd.com&quot;&gt;AMD&lt;/a&gt;&lt;/preferences&gt; | &lt;a href=&quot;http://amdcentral.amd.com&quot;&gt;AMD Central&lt;/a&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; width=&quot;60&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; valign=&quot;top&quot; width=&quot;160&quot;&gt;
+														&lt;p id=&quot;street-address&quot; class=&quot;footer-content-right&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580 h0&quot; height=&quot;15&quot; width=&quot;360&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;60&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;160&quot;/&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;60&quot; width=&quot;640&quot;/&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>mikael.sevenier@amd.com</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+    <hudson.plugins.build__publisher.BuildPublisher plugin="build-publisher@1.21">
+      <serverName>PAE Jenkins</serverName>
+      <publishUnstableBuilds>false</publishUnstableBuilds>
+      <publishFailedBuilds>false</publishFailedBuilds>
+      <postActions class="vector"/>
+      <logRotator>
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>20</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </logRotator>
+    </hudson.plugins.build__publisher.BuildPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.26">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.7.1"/>
+  </buildWrappers>
+</project>

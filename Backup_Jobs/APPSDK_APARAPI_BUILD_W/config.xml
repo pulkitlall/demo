@@ -1,0 +1,447 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description>This job builds the APARAPI Sample Sources using the chosen JDK.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:prangana</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Run.Delete:nshigiha</permission>
+      <permission>hudson.model.Run.Delete:praghave</permission>
+      <permission>hudson.model.Item.Workspace:prangana</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>hudson.model.Item.Workspace:nshigiha</permission>
+      <permission>hudson.model.Item.Workspace:praghave</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:prangana</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Cancel:nshigiha</permission>
+      <permission>hudson.model.Item.Cancel:praghave</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:prangana</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Read:nshigiha</permission>
+      <permission>hudson.model.Item.Read:praghave</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:prangana</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.Build:nshigiha</permission>
+      <permission>hudson.model.Item.Build:praghave</permission>
+      <permission>hudson.scm.SCM.Tag:prangana</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:nshigiha</permission>
+      <permission>hudson.scm.SCM.Tag:praghave</permission>
+      <permission>hudson.model.Item.Discover:prangana</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Item.Discover:nshigiha</permission>
+      <permission>hudson.model.Item.Discover:praghave</permission>
+      <permission>hudson.model.Run.Update:prangana</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Run.Update:nshigiha</permission>
+      <permission>hudson.model.Run.Update:praghave</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.6">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35">
+          <name>BUILD_SELECTOR_APARAPI_W</name>
+          <description>Uses the APARAPI.jar from the specified APARAPI_W build job.</description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.7">
+          <name>BUILD_MATRIX</name>
+          <description></description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>3</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SUBMINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>MILESTONE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>GA</string>
+              <string>Beta</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.91.1">
+      <info>
+        <groovyScriptContent>// ****************************************************************************************************
+// Copyright (c) 2014 Advanced Micro Devices, Inc. All rights reserved.
+
+import java.lang.String;
+
+//Dump the environment variables
+def map = [:];
+map.put( &quot;ARCHIVE_EXTENSION&quot;, &quot;7z&quot; );
+
+def parAPPSDK_DIR_VERSION;
+try {
+	parAPPSDK_DIR_VERSION = APPSDK_DIR_VERSION;
+	println &apos;APPSDK_DIR_VERSION found: &apos; + APPSDK_DIR_VERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//APPSDK_DIR_VERSION not present
+	println &apos;APPSDK_DIR_VERSION NOT found&apos;;
+	parAPPSDK_DIR_VERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;-&quot; + SUBMINOR_NUMBER;
+	if ( &quot;GA&quot; != MILESTONE ) {
+		parAPPSDK_DIR_VERSION += &quot;-&quot; + MILESTONE;
+	}
+	map.put( &quot;APPSDK_DIR_VERSION&quot;, parAPPSDK_DIR_VERSION );
+}
+
+def parAPPSDK_METRIC_VERSION;
+try {
+	parAPPSDK_METRIC_VERSION = APPSDK_METRIC_VERSION;
+	println &apos;APPSDK_METRIC_VERSION found: &apos; + APPSDK_METRIC_VERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//APPSDK_METRIC_VERSION not present
+	println &apos;APPSDK_METRIC_VERSION NOT found&apos;;
+	parAPPSDK_METRIC_VERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;-&quot; + SUBMINOR_NUMBER;
+	if ( &quot;GA&quot; != MILESTONE ) {
+		parAPPSDK_METRIC_VERSION += &quot;-&quot; + MILESTONE;
+	}
+	map.put( &quot;APPSDK_METRIC_VERSION&quot;, parAPPSDK_METRIC_VERSION );
+}
+
+def parPRODUCTVERSION;
+try {
+	parPRODUCTVERSION = PRODUCTVERSION;
+	println &apos;PRODUCTVERSION found: &apos; + PRODUCTVERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//PRODUCTVERSION not present
+	println &apos;PRODUCTVERSION NOT found&apos;;
+	parPRODUCTVERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER 
+	if ( &quot;0&quot; != SUBMINOR_NUMBER ) {
+		parPRODUCTVERSION+=&quot;-&quot; + SUBMINOR_NUMBER;
+	}
+
+	parPRODUCTVERSION+=&quot;.&quot; + BUILD_NUMBER;
+	map.put( &quot;PRODUCTVERSION&quot;, parPRODUCTVERSION );
+}
+
+def parVERSION;
+try {
+	parVERSION = VERSION;
+	println &apos;VERSION found: &apos; + VERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//VERSION not present
+	println &apos;VERSION NOT found&apos;;
+	parVERSION=parPRODUCTVERSION + &quot;.0&quot;;
+	map.put( &quot;VERSION&quot;, parVERSION );	
+}
+
+def parARTIFACT_PRODUCTVERSION;
+try {
+	parARTIFACT_PRODUCTVERSION = ARTIFACT_PRODUCTVERSION;
+	println &apos;ARTIFACT_PRODUCTVERSION found: &apos; + ARTIFACT_PRODUCTVERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//ARTIFACT_PRODUCT not present
+	println &apos;ARTIFACT_PRODUCTVERSION NOT found&apos;;
+	parARTIFACT_PRODUCTVERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER  + &quot;-&quot; + SUBMINOR_NUMBER + &quot;.&quot; + BUILD_NUMBER + &quot;-&quot; + MILESTONE;
+	map.put( &quot;ARTIFACT_PRODUCTVERSION&quot;, parARTIFACT_PRODUCTVERSION );	
+}
+
+def PLATFORM_ARCH_SHORT=&quot;&quot;;
+if( JOB_NAME.contains( &quot;x86&quot; ) ) {
+	PLATFORM_ARCH_SHORT=&quot;x86&quot;
+	map.put( &quot;PLATFORM_ARCH_SHORT&quot;, PLATFORM_ARCH_SHORT );
+	map.put( &quot;PLATFORM_ARCH_INTEL&quot;, &quot;ia32&quot; );
+	map.put( &quot;PLATFORM_ARCH_AMD&quot;, &quot;x86&quot; );
+	map.put( &quot;PLATFORM_ARCH_ALT&quot;, &quot;x86&quot; );
+	map.put( &quot;ARCH&quot;, &quot;32&quot; );
+}
+
+if( JOB_NAME.contains( &quot;amd64&quot; ) ) {
+	PLATFORM_ARCH_SHORT=&quot;x64&quot;
+	map.put( &quot;PLATFORM_ARCH_SHORT&quot;, PLATFORM_ARCH_SHORT );
+	map.put( &quot;PLATFORM_ARCH_INTEL&quot;, &quot;intel64&quot; );
+	map.put( &quot;PLATFORM_ARCH_AMD&quot;, &quot;amd64&quot; );
+	map.put( &quot;PLATFORM_ARCH_ALT&quot;, &quot;x86_64&quot; );
+	map.put( &quot;ARCH&quot;, &quot;64&quot; );
+}
+
+if( JOB_NAME.contains( &quot;1.8&quot; ) ) {
+	map.put( &quot;J&quot;, &quot;1.8&quot; );
+}
+
+if( JOB_NAME.contains( &quot;1.7&quot; ) ) {
+	map.put( &quot;J&quot;, &quot;1.7&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v120&quot; ) ) {
+	map.put( &quot;VSKEY&quot;, &quot;12.0&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v110&quot; ) ) {
+	map.put( &quot;VSKEY&quot;, &quot;11.0&quot; );
+}
+
+println &apos;-------------------------------------&apos;
+println &apos;Evnironment Variables Added: &apos; + map;
+println &apos;JOB_NAME: &apos; + JOB_NAME;
+println &apos;-------------------------------------&apos;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.34">
+    <configVersion>2</configVersion>
+    <p4User>jenkinshas</p4User>
+    <p4Passwd>0f0kqlwarTrhwM5Z6nxTElYaqlJF/g==</p4Passwd>
+    <p4Port>hyswp4p1.amd.com:1666</p4Port>
+    <p4Client>${JOB_NAME}</p4Client>
+    <projectPath>//depot/stg/app_sdk/samples/MasterSampleVersion.csv	//workspace/MasterSampleVersion.csv
+
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Environ.bat //workspace/Environ.bat
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/P4Update.bat //workspace/P4Update.bat
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/UpdateVersionInSource.bat //workspace/UpdateVersionInSource.bat</projectPath>
+    <projectOptions>allwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <p4SysDrive></p4SysDrive>
+    <p4SysRoot></p4SysRoot>
+    <p4Tool>p4</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>true</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <p4Ticket>AA2F65EE109E0F177BE833079AAD4BC8</p4Ticket>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>WBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>JDK</name>
+      <values>
+        <string>1.8</string>
+        <string>1.7</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>v120</string>
+        <string>v110</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelExpAxis>
+      <name>L</name>
+      <values>
+        <string>WBM</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+echo P: %P%&#xd;
+echo J: %J%&#xd;
+echo T: %T%&#xd;
+&#xd;
+if EXIST Environ.bat (&#xd;
+	call Environ.bat&#xd;
+) else (&#xd;
+	echo [ERR]File Environ.bat not checked out from the P4 location: //depot/stg/cas/apps/cas/AutomationFramework/scripts/Environ.bat&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <EnvInjectBuilder plugin="envinject@1.91.1">
+      <info>
+        <propertiesFilePath>${WORKSPACE}\Environ.props</propertiesFilePath>
+        <propertiesContent>LIBAPARAPI=$WORKSPACE</propertiesContent>
+      </info>
+    </EnvInjectBuilder>
+    <org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep plugin="config-file-provider@2.7.5">
+      <managedFiles>
+        <org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+          <fileId>org.jenkinsci.plugins.configfiles.custom.CustomConfig1419318296361</fileId>
+          <targetLocation>${WORKSPACE}</targetLocation>
+          <variable>MappingFile</variable>
+        </org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+      </managedFiles>
+    </org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35">
+      <project>APARAPI_W_amd64/J=${JDK},L=WBM_amd64,P=amd64,T=${T}</project>
+      <filter>APARAPI_${T}-JDK${JDK}-${OSTYPE}-amd64_*.7z</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_APARAPI_W</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+REM Copyright ©2014 Advanced Micro Devices, Inc. All rights reserved.&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+echo PlatformToolset: %T%&#xd;
+echo PRODUCTVERSION: %PRODUCTVERSION%&#xd;
+echo VERSION: %VERSION%&#xd;
+echo ARTIFACT_PRODUCTVERSION: %ARTIFACT_PRODUCTVERSION%&#xd;
+echo ARCHIVE_EXTENSION: %ARCHIVE_EXTENSION%&#xd;
+&#xd;
+::- Add the JAVA_HOME environment variable and update the PATH variable&#xd;
+set PATH=%JAVA_HOME%\bin;%PATH%&#xd;
+echo PATH: %PATH%&#xd;
+&#xd;
+if exist P4Update.bat (&#xd;
+	call P4Update.bat %MappingFile%&#xd;
+) else (&#xd;
+	echo FAILURE: P4Update.bat not found&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+REM  Update the version information in the source files mentioned in the MasterSampleVersion.csv&#xd;
+if exist UpdateVersionInSource.bat (&#xd;
+	call UpdateVersionInSource.bat %WORKSPACE%\MasterSampleVersion.csv %PRODUCTVERSION%&#xd;
+) else (&#xd;
+	echo FAILURE: UpdateVersionInSource.bat not found&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+echo LIBAPARAPI: %LIBAPARAPI%&#xd;
+%SEVENZ% x -aoa APARAPI_%T%-JDK%JDK%-%OSTYPE%-amd64_*.7z -o%LIBAPARAPI%&#xd;
+if ERRORLEVEL 1 (&#xd;
+	echo [ERR]Failed to extract the file: APARAPI_%T%-JDK%JDK%-%OSTYPE%-amd64_*.7z&#xd;
+	exit /b ERRORLEVEL&#xd;
+)&#xd;
+&#xd;
+if exist samples\aparapi\build.bat (&#xd;
+	call &quot;samples\aparapi\build.bat&quot; &quot;%WORKSPACE%\samples\aparapi&quot;&#xd;
+) else (&#xd;
+	echo FAILURE: samples\aparapi\build.bat not found&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+if ERRORLEVEL 0 (&#xd;
+	%SEVENZ% a -t7z ComputeSDK_jar_APARAPI_%T%_JDK%JDK%_%OSTYPE%_%ARTIFACT_PRODUCTVERSION%.%ARCHIVE_EXTENSION% -r samples\aparapi\*.jar&#xd;
+	if ERRORLEVEL 0 (&#xd;
+		%SEVENZ% a -t7z ComputeSDK_sources_APARAPI_%ARTIFACT_PRODUCTVERSION%.%ARCHIVE_EXTENSION% -r samples\aparapi\ -xr!*.class -xr!*.jar&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>ComputeSDK_*_APARAPI*${ARTIFACT_PRODUCTVERSION}.${ARCHIVE_EXTENSION}</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;ARTIFACT_PRODUCTVERSION&quot;}--${BUILD_NUMBER}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>
