@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description>Builds the open source Linux OpenCV and bundles the pre-built Windows OpenCV Installers.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:nshigiha</permission>
+      <permission>hudson.model.Run.Delete:prangana</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Run.Delete:nshigiha</permission>
+      <permission>hudson.model.Run.Delete:praghave</permission>
+      <permission>hudson.model.Item.Workspace:prangana</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>hudson.model.Item.Workspace:nshigiha</permission>
+      <permission>hudson.model.Item.Workspace:praghave</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:nshigiha</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:prangana</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Cancel:nshigiha</permission>
+      <permission>hudson.model.Item.Cancel:praghave</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:prangana</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Read:nshigiha</permission>
+      <permission>hudson.model.Item.Read:praghave</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:nshigiha</permission>
+      <permission>hudson.model.Item.Build:prangana</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.Build:nshigiha</permission>
+      <permission>hudson.model.Item.Build:praghave</permission>
+      <permission>hudson.scm.SCM.Tag:prangana</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:nshigiha</permission>
+      <permission>hudson.scm.SCM.Tag:praghave</permission>
+      <permission>hudson.model.Item.Discover:prangana</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Item.Discover:nshigiha</permission>
+      <permission>hudson.model.Item.Discover:praghave</permission>
+      <permission>hudson.model.Run.Update:prangana</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Run.Update:nshigiha</permission>
+      <permission>hudson.model.Run.Update:praghave</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.6">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
+      <iconfile>3a3d72811dad6250a0f414aec7a3f84dcd6fbd64.png</iconfile>
+    </jenkins.plugins.jobicon.CustomIconProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>OPENCV_VERSION</name>
+          <description></description>
+          <__uuid>7901513c-0b23-41d4-9f1d-b04610610e40</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>Listfile.gsh.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>Folder</name>
+              <value>OpenCV</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.7">
+          <name>BUILD_MATRIX</name>
+          <description></description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.34">
+    <configVersion>2</configVersion>
+    <p4User>jenkinshas</p4User>
+    <p4Passwd>0f0kqlwarTrhwM5Z6nxTElYaqlJF/g==</p4Passwd>
+    <p4Port>hyswp4p1.amd.com:1666</p4Port>
+    <p4Client>${JOB_NAME}</p4Client>
+    <projectPath>//depot/stg/app_sdk/include/CL/... //workspace/AMDAPPSDKROOT/include/CL/...
+//depot/stg/app_sdk/lib/lnx32/... //workspace/AMDAPPSDKROOT/lib/x86/...
+//depot/stg/app_sdk/lib/lnx64/... //workspace/AMDAPPSDKROOT/lib/x86_64/...</projectPath>
+    <projectOptions>noallwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <p4SysDrive></p4SysDrive>
+    <p4SysRoot></p4SysRoot>
+    <p4Tool>p4</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>false</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>false</wipeRepoBeforeBuild>
+    <firstChange>0</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>LBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>x86</string>
+        <string>amd64</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelExpAxis>
+      <name>L</name>
+      <values>
+        <string>LBM</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+OPENCV_SRC_LINUX=OpenCV/$OPENCV_VERSION/${OSTYPE}/opencv-${OPENCV_VERSION}.*
+OPENCV_SRC_WINDOWS=$(readlink -f OpenCV/$OPENCV_VERSION/windows/opencv-${OPENCV_VERSION}.*)
+OPENCV_SRC_WINDOWS_FILENAME=$(basename $OPENCV_SRC_WINDOWS)
+
+echo OPENCV_SRC_WINDOWS: $OPENCV_SRC_WINDOWS
+echo FILES_TO_COPY: $FILES_TO_COPY
+echo PRODUCT_NAME: $PRODUCT_NAME
+echo OPENCV_SRC_LINUX: $OPENCV_SRC_LINUX
+OPENCV_SRC_LINUX=$(readlink -f &quot;${OPENCV_SRC_LINUX}&quot;)
+echo OPENCV_SRC_LINUX: $OPENCV_SRC_LINUX
+
+#Copy the windows file to the WORKSPACE directory
+
+cp ${OPENCV_SRC_WINDOWS} ./${OPENCV_SRC_WINDOWS_FILENAME}
+#Create the windows archive
+7za a -t7z $WORKSPACE/opencv-${PRODUCT_VERSION}-windows.7z -i!${OPENCV_SRC_WINDOWS_FILENAME}
+
+
+echo Extracting $OPENCV_SRC_LINUX to ${WORKSPACE}
+unzip -o -q $OPENCV_SRC_LINUX
+Retval=$?
+if [ $Retval -ne 0 ]; then
+	echo FAILURE: Could not extract $OPENCV_SRC_LINUX
+else
+	echo SUCCESS: $OPENCV_SRC_LINUX extracted.
+fi
+
+OPENCL_ROOT_DIR=${WORKSPACE}/AMDAPPSDKROOT
+ARCHIVE_EXTENSION=tar.bz2
+
+#Function Name	: buildOpenCV
+#Arguments		: [in]1. Architecture i.e., x64 or x86
+#Returns		: Success: 0 or Failure: Non-zero
+buildOpenCV()
+{
+	ArchiveName=$WORKSPACE/${PRODUCT_NAME}-$1.${ARCHIVE_EXTENSION}
+	NUMBER_OF_PROCESSORS=$(getconf _NPROCESSORS_ONLN)
+	PARALLEL_COMPILATIONS=$(($NUMBER_OF_PROCESSORS*2))
+	
+	pushd opencv-$OPENCV_VERSION
+		if [ -d builds/release ]; then
+			pushd builds/release
+				make clean
+			popd
+			
+			rm -rf builds/release
+		fi
+		
+		mkdir -pv builds/release
+		pushd builds/release
+			CMAKEOPTIONS=&quot;&quot;
+			if [ &quot;$1&quot; == &quot;x86&quot; ]; then
+				CMAKEOPTIONS=&quot;-DCMAKE_TOOLCHAIN_FILE=$WORKSPACE/cmake/linux_i686.toolchain.cmake -DWITH_OPENCL=ON -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=$WORKSPACE/builds/release/$1/opencv-${PRODUCT_VERSION}-${OSTYPE}-$1 ./../..&quot;
+			else
+				CMAKEOPTIONS=&quot;-DWITH_OPENCL=ON -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=$WORKSPACE/builds/release/$1/opencv-${PRODUCT_VERSION}-${OSTYPE}-$1 ./../..&quot;
+			fi
+			
+			echo CMAKEOPTIONS: $CMAKEOPTIONS
+
+			cmake $CMAKEOPTIONS 
+			Retval=$?
+			if [ $Retval -eq 0 ]; then
+				make -j ${PARALLEL_COMPILATIONS}
+				Retval=$?
+				if [ $Retval -eq 0 ]; then
+					make install
+					Retval=$?
+					if [ $Retval -eq 0 ]; then
+						#Create the package
+						echo Creating archive \&quot;$ArchiveName\&quot; with the contents of \&quot;$WORKSPACE/builds/release/$1\&quot;
+						pushd &quot;$WORKSPACE/builds/release/$1&quot;
+							tar -jcf $ArchiveName *
+							Retval=$?
+							if [ $Retval -eq 0 ]; then
+								echo Archive \&quot;$ArchiveName\&quot; created.
+							else
+								echo FAILURE: Could not create the archive \&quot;$ArchiveName\&quot;
+							fi
+						popd
+					else
+						echo FAILURE: make install failed for $1 opencv-${OPENCV_VERSION} 
+					fi
+				else
+					echo FAILURE: make failed for $1 opencv-${OPENCV_VERSION}
+				fi
+			else
+				echo FAILURE: The command \&quot;$CMAKEOPTIONS\&quot; failed
+			fi
+		popd
+	popd
+	
+	return $Retval
+}
+
+buildOpenCV $P
+
+exit $Retval
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>opencv-${PRODUCT_VERSION}-*.*</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Fingerprinter>
+      <targets>opencv-${PRODUCT_VERSION}-*.*</targets>
+    </hudson.tasks.Fingerprinter>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.4">
+      <includes>OpenCV/${OPENCV_VERSION}/linux/opencv-${OPENCV_VERSION}.*,OpenCV/${OPENCV_VERSION}/windows/opencv-${OPENCV_VERSION}.*,cmake/linux_i686.toolchain.cmake</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.91.1">
+      <info>
+        <propertiesContent>PRODUCT_VERSION=${OPENCV_VERSION}.${BUILD_NUMBER}
+PRODUCT_NAME=opencv-${PRODUCT_VERSION}-${OSTYPE}</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;OPENCV_VERSION&quot;}.${BUILD_NUMBER}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>

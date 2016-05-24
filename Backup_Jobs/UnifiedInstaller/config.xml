@@ -1,0 +1,1049 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.6">
+  <actions/>
+  <description>Creates SDK Installer Packages for all combinations.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>15</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:kishorkl</permission>
+      <permission>hudson.model.Run.Delete:prangana</permission>
+      <permission>hudson.model.Run.Delete:amagarwa</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Run.Delete:nshigiha</permission>
+      <permission>hudson.model.Run.Delete:pramayan</permission>
+      <permission>hudson.model.Item.Workspace:kishorkl</permission>
+      <permission>hudson.model.Item.Workspace:prangana</permission>
+      <permission>hudson.model.Item.Workspace:amagarwa</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>hudson.model.Item.Workspace:nshigiha</permission>
+      <permission>hudson.model.Item.Workspace:pramayan</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:kishorkl</permission>
+      <permission>hudson.model.Item.Cancel:prangana</permission>
+      <permission>hudson.model.Item.Cancel:amagarwa</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Cancel:nshigiha</permission>
+      <permission>hudson.model.Item.Cancel:pramayan</permission>
+      <permission>hudson.model.Item.Read:kishorkl</permission>
+      <permission>hudson.model.Item.Read:prangana</permission>
+      <permission>hudson.model.Item.Read:amagarwa</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Read:nshigiha</permission>
+      <permission>hudson.model.Item.Read:pramayan</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:kishorkl</permission>
+      <permission>hudson.model.Item.Build:prangana</permission>
+      <permission>hudson.model.Item.Build:amagarwa</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.Build:nshigiha</permission>
+      <permission>hudson.model.Item.Build:pramayan</permission>
+      <permission>hudson.scm.SCM.Tag:kishorkl</permission>
+      <permission>hudson.scm.SCM.Tag:prangana</permission>
+      <permission>hudson.scm.SCM.Tag:amagarwa</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:nshigiha</permission>
+      <permission>hudson.scm.SCM.Tag:pramayan</permission>
+      <permission>hudson.model.Item.Discover:kishorkl</permission>
+      <permission>hudson.model.Item.Discover:prangana</permission>
+      <permission>hudson.model.Item.Discover:amagarwa</permission>
+      <permission>hudson.model.Item.Discover:anonymous</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Item.Discover:nshigiha</permission>
+      <permission>hudson.model.Item.Discover:pramayan</permission>
+      <permission>hudson.model.Run.Update:kishorkl</permission>
+      <permission>hudson.model.Run.Update:prangana</permission>
+      <permission>hudson.model.Run.Update:amagarwa</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Run.Update:nshigiha</permission>
+      <permission>hudson.model.Run.Update:pramayan</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.1">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SUBMINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
+          <name>BUILD_SELECTOR_MEDIASDK_PKG</name>
+          <description>Bundle Media SDK 1.1. GA Installer by default.</description>
+          <defaultSelector class="hudson.plugins.copyartifact.SpecificBuildSelector">
+            <buildNumber>71</buildNumber>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
+          <name>BUILD_SELECTOR_APPSDK_PKG_MM_SRC_W</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
+          <name>BUILD_SELECTOR_APPSDK_PKG_MM_PB_W</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
+          <name>BUILD_SELECTOR_APPSDK_PKG_MM_PB_APARAPI_W</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
+          <name>BUILD_SELECTOR_INSTALLMANAGER_EXTN_BUILD</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.model.BooleanParameterDefinition>
+          <name>PRODUCTION_WEB</name>
+          <description>If Checked then creates online installer components, which need to be uploaded to the appropriate sftp server.</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>MILESTONE</name>
+          <description>Specify the Milestone.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>GA</string>
+              <string>PR</string>
+              <string>RC</string>
+              <string>Beta</string>
+              <string>Alpha</string>
+              <string>Dev</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.9">
+          <name>BUILD_MATRIX</name>
+          <description></description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>APARAPI_JDK</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>1.8</string>
+              <string>1.7</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.91.3">
+      <info>
+        <groovyScriptContent>// Copyright (c) 2015 Advanced Micro Devices, Inc. All rights reserved.
+
+import java.lang.String;
+
+def map = [:] ;
+
+def PRODUCT_VERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;.&quot; + BUILD_NUMBER + &quot;.0&quot;;
+map.put( &quot;PRODUCT_VERSION&quot;, PRODUCT_VERSION );
+
+def ARTIFACT_PRODUCTVERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER ;
+if ( &quot;0&quot; != SUBMINOR_NUMBER ) {
+    ARTIFACT_PRODUCTVERSION+=&quot;-&quot; + SUBMINOR_NUMBER;
+}
+
+def PRODUCT_NAME=&quot;AMD Compute SDK Installer &quot; + ARTIFACT_PRODUCTVERSION;
+map.put( &quot;ProductName&quot;, PRODUCT_NAME );
+
+def PRODUCTION_URL_VERSION = ARTIFACT_PRODUCTVERSION + &quot;-&quot; + MILESTONE;
+map.put( &quot;PRODUCTION_URL_VERSION&quot;, PRODUCTION_URL_VERSION );
+
+ARTIFACT_PRODUCTVERSION+=&quot;.&quot; + BUILD_NUMBER + &quot;-&quot; + MILESTONE;
+map.put( &quot;ARTIFACT_PRODUCTVERSION&quot;, ARTIFACT_PRODUCTVERSION );
+
+if( JOB_NAME.contains( &quot;x86&quot; ) ) {
+	map.put( &quot;PLATFORM_ARCH_VS&quot;, &quot;Win32&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL&quot;, &quot;ia32&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL_ALT&quot;, &quot;x86&quot; );
+	map.put( &quot;PLATFORM_ARCH_AMD&quot;, &quot;x86&quot; );
+	map.put( &quot;ARCH&quot;, &quot;32&quot; );
+}
+
+if( JOB_NAME.contains( &quot;x64&quot; ) ) {
+	map.put( &quot;PLATFORM_ARCH_VS&quot;, &quot;x64&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL&quot;, &quot;intel64&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL_ALT&quot;, &quot;x86_64&quot; );
+	map.put( &quot;PLATFORM_ARCH_AMD&quot;, &quot;amd64&quot; );
+	map.put( &quot;ARCH&quot;, &quot;64&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v120&quot; ) ) {
+	map.put( &quot;VSNAME&quot;, &quot;VS2013&quot; );
+	map.put( &quot;VCNAME_FULL&quot;, &quot;Visual C++ 2013&quot; );
+	map.put( &quot;VCTOOLKIT_SHORT&quot;, &quot;vc12&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v110&quot; ) ) {
+	map.put( &quot;VSNAME&quot;, &quot;VS2012&quot; );
+	map.put( &quot;VCNAME_FULL&quot;, &quot;Visual C++ 2012&quot; );
+	map.put( &quot;VCTOOLKIT_SHORT&quot;, &quot;vc11&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v100&quot; ) ) {
+	map.put( &quot;VSNAME&quot;, &quot;VS2010&quot; );
+	map.put( &quot;VCNAME_FULL&quot;, &quot;Visual C++ 2010&quot; );
+	map.put( &quot;VCTOOLKIT_SHORT&quot;, &quot;vc10&quot; );
+}
+
+println &apos;---------------------------------&apos;;
+println map;
+println &apos;---------------------------------&apos;;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.35">
+    <configVersion>2</configVersion>
+    <p4User>jenkinshas</p4User>
+    <p4Passwd>0f0kqlwarTrhwM5Z6nxTElYaqlJF/g==</p4Passwd>
+    <p4Port>hyswp4p1.amd.com:1666</p4Port>
+    <p4Client>${JOB_NAME}</p4Client>
+    <projectPath>//depot/stg/cas/apps/cas/installers/UnifiedInstaller/UnifiedInstaller.ism //workspace/UnifiedInstaller.ism
+//depot/stg/cas/apps/cas/installers/UnifiedInstaller/docs/EULA.rtf //workspace/docs/EULA.rtf
+//depot/stg/app_sdk/samples/opencv/GestureRecognition/wave.oni //workspace/samples/opencv/GestureRecognition/wave.oni
+//depot/stg/cas/apps/cas/installers/InstallManagerExtn/UnifiedInstaller/resources/AMD.ico  //workspace/resources/AMD.ico
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Environ.bat //workspace/Environ.bat</projectPath>
+    <projectOptions>allwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <clientOwner></clientOwner>
+    <p4SysDrive></p4SysDrive>
+    <p4SysRoot></p4SysRoot>
+    <p4Tool>p4</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>true</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>IS2012</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>M</name>
+      <values>
+        <string>F</string>
+        <string>W</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>v120</string>
+        <string>v110</string>
+        <string>v100</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>C</name>
+      <values>
+        <string>Release</string>
+        <string>Debug</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>x86</string>
+        <string>x64</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelAxis>
+      <name>L</name>
+      <values>
+        <string>IS2012</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+  </axes>
+  <combinationFilter>!(T==&apos;v100&apos;) &amp;&amp; !( T==&apos;v120&apos;) &amp;&amp; !(T==&apos;v110&apos; &amp;&amp; C==&apos;Debug&apos;)</combinationFilter>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>MEDIASDK_PKG/L=IS2012,P=x86</project>
+      <filter></filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_MEDIASDK_PKG</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>MEDIASDK_PKG/L=IS2012,P=amd64</project>
+      <filter></filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_MEDIASDK_PKG</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>MEDIASDK_PKG/L=IS2012,P=neutral</project>
+      <filter></filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_MEDIASDK_PKG</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>APPSDK_PKG_MM_SRC_W</project>
+      <filter></filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_APPSDK_PKG_MM_SRC_W</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>APPSDK_PKG_MM</project>
+      <filter>ComputeSDK_PB_MM_*_${C}_${PLATFORM_ARCH_VS}_${T}_*.7z</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_APPSDK_PKG_MM_PB_W</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>SDKInstallManager_BUILD/C=Release,L=WBM,P=Win32,T=v110/</project>
+      <filter>SDKInstallManager_Release_Win32_*_bin.7z</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_INSTALLMANAGER_EXTN_BUILD</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>APPSDK_PKG_MM_PB_APARAPI_W</project>
+      <filter>ComputeSDK_PB_MM_APARAPI_${T}_JDK${APARAPI_JDK}_*.7z</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_APPSDK_PKG_MM_PB_APARAPI_W</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+set J=%APARAPI_JDK%&#xd;
+&#xd;
+echo P: %P%&#xd;
+echo J: %J%&#xd;
+echo T: %T%&#xd;
+&#xd;
+if EXIST Environ.bat (&#xd;
+	call Environ.bat&#xd;
+) else (&#xd;
+	echo [ERR]File Environ.bat not found in %WORKSPACE%&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <EnvInjectBuilder plugin="envinject@1.91.3">
+      <info>
+        <propertiesFilePath>${WORKSPACE}\Environ.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+echo APPSDK_PKG_MM_PB_W: %COPYARTIFACT_BUILD_NUMBER_APPSDK_PKG_MM_PB_W%&#xd;
+echo APPSDK_PKG_MM_SRC_W: %COPYARTIFACT_BUILD_NUMBER_APPSDK_PKG_MM_SRC_W%&#xd;
+echo APPSDK_PKG_MM_PB_APARAPI_W: %COPYARTIFACT_BUILD_NUMBER_APPSDK_PKG_MM_PB_APARAPI_W%&#xd;
+echo SDKInstallManager_BUILD: %COPYARTIFACT_BUILD_NUMBER_SDKInstallManager_BUILD%&#xd;
+echo MEDIASDK_PKG: %COPYARTIFACT_BUILD_NUMBER_MEDIASDK_PKG%&#xd;
+&#xd;
+echo APPSDK_DIR_VERSION: %APPSDK_DIR_VERSION%&#xd;
+echo APPSDK_METRIC_VERSION: %APPSDK_METRIC_VERSION%&#xd;
+&#xd;
+%SEVENZ% x -aoa SDKInstallManager_Release_Win32_*_bin.7z -i!MSICA.dll -o&quot;%WORKSPACE%\InstallManagerExtn\Release\Win32&quot;&#xd;
+&#xd;
+if ERRORLEVEL 1 (&#xd;
+	exit /b ERRORLEVEL&#xd;
+)&#xd;
+&#xd;
+if Not exist MM (&#xd;
+	mkdir MM&#xd;
+)&#xd;
+&#xd;
+REM Copy the Sources msm&#xd;
+for /r %%i in (*Sources.msm) do (&#xd;
+	if Not exist MM\%%~nxi (&#xd;
+		echo Copying %%~ni to MM&#xd;
+		copy /Y /V &quot;%%i&quot; MM&#xd;
+	) else (&#xd;
+		echo Skipping %%~nxi already copied.&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+&#xd;
+REM Extract the Prebuilt Merge modules from the archives (ComputeSDK_PB_MM_C++Amp_Release_x64_v110_3.0.175.25-ALPHA.7z)&#xd;
+for /r %%i in (ComputeSDK_PB_MM_*_%C%_%PLATFORM_ARCH_VS%_%T%_*.7z) do (&#xd;
+	%SEVENZ% x -aoa &quot;%%i&quot; -o&quot;%WORKSPACE%\MM&quot;&#xd;
+	if ERRORLEVEL 1 (&#xd;
+		exit /b ERRORLEVEL&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+REM Extract the MediaSDK Package Merge modules from the archives (MediaSDK-v1.1.334.21-Beta-windows-neutral-MM.7z)&#xd;
+for /r %%i in (MediaSDK-*-%OSTYPE%-*-MM.7z) do (&#xd;
+	%SEVENZ% x -aoa &quot;%%i&quot; -o&quot;%WORKSPACE%\MM&quot;&#xd;
+	if ERRORLEVEL 1 (&#xd;
+		exit /b ERRORLEVEL&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+REM Extract the ComputeSDK_PB_MM_APARAPI_%T%_JDK%APARAPI_JDK%_*.7z&#xd;
+for /r %%i in (ComputeSDK_PB_MM_APARAPI_%T%_JDK%APARAPI_JDK%_*.7z) do (&#xd;
+	%SEVENZ% x -aoa &quot;%%i&quot; -o&quot;%WORKSPACE%\MM&quot;&#xd;
+	if ERRORLEVEL 1 (&#xd;
+		exit /b ERRORLEVEL&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>$M</arg1>
+        <arg2>W</arg2>
+        <ignoreCase>false</ignoreCase>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.BatchFile>
+          <command>@echo off&#xd;
+setlocal&#xd;
+&#xd;
+echo PRODUCTION_URL_VERSION: %PRODUCTION_URL_VERSION%&#xd;
+&#xd;
+set ISM=%WORKSPACE%\UnifiedInstaller.ism&#xd;
+&#xd;
+:: This script updates the %ISM% with the appropriate URL for the packages to be downloaded.&#xd;
+:: The URL is driven by a build parameter and the default is http://cas.amd.com:8089/APPSDK/%PRODUCT_VERSION%/x86&#xd;
+&#xd;
+if defined PRODUCTION_WEB (&#xd;
+	if &quot;%PRODUCTION_WEB%&quot;==&quot;true&quot; (&#xd;
+		echo PRODUCTION_WEB is true. Updating for developer.amd.com.&#xd;
+		%PERL% -pi.bak -e &quot;s!http://cas.amd.com:8089/UnifiedSDKInstaller/x86!http://amd-dev.wpengine.netdna-cdn.com/app-sdk/installers/UnifiedSDKInstaller/%PRODUCTION_URL_VERSION%/web/x86!g;&quot; &quot;%ISM%&quot;&#xd;
+		%PERL% -pi.bak -e &quot;s!http://cas.amd.com:8089/UnifiedSDKInstaller/amd64!http://amd-dev.wpengine.netdna-cdn.com/app-sdk/installers/UnifiedSDKInstaller/%PRODUCTION_URL_VERSION%/web/x64!g;&quot; &quot;%ISM%&quot;&#xd;
+	) else (&#xd;
+		echo PRODUCTION_WEB is not true. Updating for cas.amd.com.&#xd;
+		%PERL% -pi.bak -e &quot;s!http://cas.amd.com:8089/UnifiedSDKInstaller/x86!http://cas.amd.com:8089/UnifiedSDKInstaller/%PRODUCT_VERSION%/x86!g;&quot; &quot;%ISM%&quot;&#xd;
+		%PERL% -pi.bak -e &quot;s!http://cas.amd.com:8089/UnifiedSDKInstaller/amd64!http://cas.amd.com:8089/UnifiedSDKInstaller/%PRODUCT_VERSION%/amd64!g;&quot; &quot;%ISM%&quot;&#xd;
+	)&#xd;
+) else (&#xd;
+	echo PRODUCTION_WEB is not defined. Updating for cas.amd.com.&#xd;
+	%PERL% -pi.bak -e &quot;s!http://cas.amd.com:8089/UnifiedSDKInstaller/x86!http://cas.amd.com:8089/UnifiedSDKInstaller/%PRODUCT_VERSION%/x86!g;&quot; &quot;%ISM%&quot;&#xd;
+	%PERL% -pi.bak -e &quot;s!http://cas.amd.com:8089/UnifiedSDKInstaller/amd64!http://cas.amd.com:8089/UnifiedSDKInstaller/%PRODUCT_VERSION%/amd64!g;&quot; &quot;%ISM%&quot;&#xd;
+)&#xd;
+&#xd;
+%PERL% -pi.bak -e &quot;s?Copying new files?Downloading and Installing new files?g;&quot; &quot;%ISM%&quot;&#xd;
+%PERL% -pi.bak -e &quot;s?Setup is preparing the InstallShield Wizard which will guide you through the program setup process.  Please wait.?Setup is preparing the InstallShield Wizard which will guide you through the program setup process. Please wait while we contact the web for additional information.?g;&quot; &quot;%ISM%&quot;&#xd;
+%PERL% -pi.bak -e &quot;s?Computing space requirements?Please wait while we contact the web for space requirements?g;&quot; &quot;%ISM%&quot;&#xd;
+%PERL% -pi.bak -e &quot;s?Resolving source. Please wait...?Resolving source download location. Please wait.?g;&quot; &quot;%ISM%&quot;&#xd;
+&#xd;
+endlocal</command>
+        </hudson.tasks.BatchFile>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+setlocal enabledelayedexpansion&#xd;
+&#xd;
+echo ComputeSDK_PKG_MM_PB_W: %COPYARTIFACT_BUILD_NUMBER_APPSDK_PKG_MM_PB_W%&#xd;
+echo ComputeSDK_PKG_MM_SRC_W: %COPYARTIFACT_BUILD_NUMBER_APPSDK_PKG_MM_SRC_W%&#xd;
+echo ComputeSDK_PKG_MM_PB_APARAPI_W: %COPYARTIFACT_BUILD_NUMBER_APPSDK_PKG_MM_PB_APARAPI_W%&#xd;
+echo SDKInstallManager_BUILD: %COPYARTIFACT_BUILD_NUMBER_SDKInstallManager_BUILD%&#xd;
+echo MEDIASDK_PKG: %COPYARTIFACT_BUILD_NUMBER_MEDIASDK_PKG%&#xd;
+echo ComputeSDK_DIR_VERSION: %DIR_VERSION%&#xd;
+echo ComputeSDK_METRIC_VERSION: %ComputeSDK_METRIC_VERSION%&#xd;
+&#xd;
+echo MEDIASDK_DIR_VERSION: %MEDIASDK_DIR_VERSION%&#xd;
+echo MEDIASDK_METRIC_VERSION: %MEDIASDK_METRIC_VERSION%&#xd;
+&#xd;
+::-Get the MEDIASDK_BUILD_NUMBER&#xd;
+::-MediaSDK PKG: for /r %%i in MediaSDK-v1.1.334.21-Beta-windows-neutral-MM.7z&#xd;
+::-------------------------------------------&#xd;
+for /r %%i in (MediaSDK-*-%OSTYPE%-*-MM.7z) do (&#xd;
+	set MSDK_MM_FILENAME=%%~ni&#xd;
+)&#xd;
+&#xd;
+echo Media SDK MergeModule filename: !MSDK_MM_FILENAME!&#xd;
+&#xd;
+for /f &quot;tokens=1,2,3,4 delims=.&quot; %%a in (&apos;echo !MSDK_MM_FILENAME!&apos;) do (&#xd;
+	set MEDIASDK_MAJOR_NUMBER_FULL=%%a&#xd;
+	set MEDIASDK_MINOR_NUMBER=%%b&#xd;
+	set MEDIASDK_BUILD_NUMBER=%%c&#xd;
+	set MEDIASDK_PKG_NUMBER_FULL=%%d&#xd;
+)&#xd;
+&#xd;
+echo MEDIASDK_MAJOR_NUMBER_FULL: !MEDIASDK_MAJOR_NUMBER_FULL!&#xd;
+echo MEDIASDK_MINOR_NUMBER: !MEDIASDK_MINOR_NUMBER!&#xd;
+echo MEDIASDK_BUILD_NUMBER: !MEDIASDK_BUILD_NUMBER!&#xd;
+echo MEDIASDK_PKG_NUMBER_FULL: !MEDIASDK_PKG_NUMBER_FULL!&#xd;
+&#xd;
+::- Now parse the MEDIASDK_MAJOR_NUMBER from MEDIASDK_MAJOR_NUMBER_FULL, it will be of the form MediaSDK-v1&#xd;
+::-Split on the v letter&#xd;
+for /f &quot;tokens=2 delims=v&quot; %%a in ( &apos;echo !MEDIASDK_MAJOR_NUMBER_FULL!&apos; ) do (&#xd;
+	set MEDIASDK_MAJOR_NUMBER=%%a&#xd;
+)&#xd;
+&#xd;
+::- Now parse the MediaSDK Package number i.e., MEDIASDK_PKG_NUMBER from MEDIASDK_PKG_NUMBER_FULL, it will be of the form 21-Beta-windows-x86-MM&#xd;
+::- Split on the - keyword&#xd;
+for /f &quot;tokens=1,2 delims=-&quot; %%a in ( &apos;echo !MEDIASDK_PKG_NUMBER_FULL!&apos; ) do (&#xd;
+	set MEDIASDK_PKG_NUMBER=%%a&#xd;
+	set MEDIASDK_MILESTONE=%%b&#xd;
+)&#xd;
+&#xd;
+echo MEDIASDK_PKG_NUMBER: !MEDIASDK_PKG_NUMBER!&#xd;
+echo MEDIASDK_MILESTONE: !MEDIASDK_MILESTONE!&#xd;
+&#xd;
+if Not &quot;!MEDIASDK_PKG_NUMBER!&quot;==&quot;%COPYARTIFACT_BUILD_NUMBER_MEDIASDK_PKG%&quot; (&#xd;
+	echo [ERROR]The Media SDK Package number parsed from the filename differs from the one whose artifacts have been copied.&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+set MediaSDKProductVersion=%MEDIASDK_MAJOR_NUMBER%.%MEDIASDK_MINOR_NUMBER%.%MEDIASDK_BUILD_NUMBER%.%MEDIASDK_PKG_NUMBER%&#xd;
+echo MEDIASDK Being Used MediaSDKProductVersion: %MediaSDKProductVersion%&#xd;
+&#xd;
+set MediaSDKProductName=Media SDK %MEDIASDK_MAJOR_NUMBER%.%MEDIASDK_MINOR_NUMBER%&#xd;
+set MEDIASDK_DIR_VERSION=!MEDIASDK_MAJOR_NUMBER!.!MEDIASDK_MINOR_NUMBER!&#xd;
+&#xd;
+if Not &quot;%MEDIASDK_MILESTONE%&quot;==&quot;GA&quot; (&#xd;
+	set MediaSDKProductName=%MediaSDKProductName% %MEDIASDK_MILESTONE%&#xd;
+	set MEDIASDK_DIR_VERSION=!MEDIASDK_DIR_VERSION!-!MEDIASDK_MILESTONE!&#xd;
+)&#xd;
+&#xd;
+echo MediaSDKProductName: %MediaSDKProductName%&#xd;
+echo MEDIASDK_DIR_VERSION: !MEDIASDK_DIR_VERSION!&#xd;
+&#xd;
+::-------------------------------------------&#xd;
+::-Get the ComputeSDK_BUILD_NUMBER ComputeSDK_PB_MM_OpenCV_Release_x64_v110_3.0-0.20.37-ALPHA&#xd;
+&#xd;
+for /r %%i in (ComputeSDK_PB_MM_*_%C%_%PLATFORM_ARCH_VS%_%T%_*.7z) do (&#xd;
+	set ComputeSDK_MM_FILENAME=%%~ni&#xd;
+)&#xd;
+&#xd;
+echo Compute SDK MergeModule filename: %ComputeSDK_MM_FILENAME%&#xd;
+REM set ComputeSDK_PKG_NUMBER=%COPYARTIFACT_BUILD_NUMBER_ComputeSDK_PKG%&#xd;
+&#xd;
+for /f &quot;tokens=8 delims=_&quot; %%a in (&apos;echo !ComputeSDK_MM_FILENAME!&apos;) do (&#xd;
+	set ComputeSDKProductVersionFULL=%%a&#xd;
+)&#xd;
+&#xd;
+::- This will be something like: 3.0-0.20.37-ALPHA&#xd;
+echo ComputeSDKProductVersionFULL: %ComputeSDKProductVersionFULL%&#xd;
+&#xd;
+::- Now split the ComputeSDKProductVersionFULL using the . character.&#xd;
+for /f &quot;tokens=1,2,3,4 delims=.&quot; %%a in (&apos;echo !ComputeSDKProductVersionFULL!&apos;) do (&#xd;
+	set ComputeSDK_MAJOR_NUMBER=%%a&#xd;
+	set ComputeSDK_MINOR_NUMBER_FULL=%%b&#xd;
+	set ComputeSDK_BUILD_NUMBER=%%c&#xd;
+	set ComputeSDK_PKG_NUMBER_FULL=%%d&#xd;
+)&#xd;
+&#xd;
+::- Now split the ComputeSDK_MINOR_NUMBER_FULL using the - character.&#xd;
+for /f &quot;tokens=1,2 delims=-&quot; %%a in (&apos;echo !ComputeSDK_MINOR_NUMBER_FULL!&apos;) do (&#xd;
+	set ComputeSDK_MINOR_NUMBER=%%a&#xd;
+	set ComputeSDK_SUBMINOR_NUMBER=%%b&#xd;
+)&#xd;
+&#xd;
+::- Now split the ComputeSDK_PKG_NUMBER_FULL using the - character.&#xd;
+for /f &quot;tokens=1,2 delims=-&quot; %%a in (&apos;echo !ComputeSDK_PKG_NUMBER_FULL!&apos;) do (&#xd;
+	set ComputeSDK_PKG_NUMBER=%%a&#xd;
+	set ComputeSDK_MILESTONE=%%b&#xd;
+)&#xd;
+echo ComputeSDK Being Used: %ComputeSDKProductVersion%&#xd;
+echo ComputeSDK Milestone: !ComputeSDK_MILESTONE!&#xd;
+&#xd;
+echo ComputeSDK_MAJOR_NUMBER: !ComputeSDK_MAJOR_NUMBER!&#xd;
+echo ComputeSDK_MINOR_NUMBER: !ComputeSDK_MINOR_NUMBER!&#xd;
+echo ComputeSDK_SUBMINOR_NUMBER: !ComputeSDK_SUBMINOR_NUMBER!&#xd;
+echo ComputeSDK_PKG_NUMBER: !ComputeSDK_PKG_NUMBER!&#xd;
+&#xd;
+set ComputeSDKProductName=%ComputeSDK_MAJOR_NUMBER%.%ComputeSDK_MINOR_NUMBER%-%ComputeSDK_SUBMINOR_NUMBER%&#xd;
+if Not &quot;%ComputeSDK_MILESTONE%&quot;==&quot;GA&quot; (&#xd;
+	set ComputeSDKProductName=%ComputeSDKProductName% %ComputeSDK_MILESTONE%&#xd;
+)&#xd;
+&#xd;
+set ComputeSDK_DIR_VERSION=!ComputeSDK_MAJOR_NUMBER!.!ComputeSDK_MINOR_NUMBER!-%ComputeSDK_SUBMINOR_NUMBER%&#xd;
+if Not &quot;%ComputeSDK_MILESTONE%&quot;==&quot;GA&quot; (&#xd;
+	set ComputeSDK_DIR_VERSION=%ComputeSDK_DIR_VERSION%-%ComputeSDK_MILESTONE%&#xd;
+)&#xd;
+&#xd;
+echo ComputeSDKProductName: %ComputeSDKProductName%&#xd;
+echo ComputeSDK_DIR_VERSION: %ComputeSDK_DIR_VERSION%&#xd;
+&#xd;
+::---------------------------------------------------------------------&#xd;
+set NEW_SETUP_NAME=AMD-ComputeSDKInstaller-v%ARTIFACT_PRODUCTVERSION%-%OSTYPE%-%M%-%P%&#xd;
+set ISM=%WORKSPACE%\UnifiedInstaller.ism&#xd;
+set MM_DIR=%WORKSPACE%\MM&#xd;
+set COMMMON_MM_DIR=%ProgramFiles(x86)%\Common Files\Merge Modules&#xd;
+&#xd;
+echo [INFO]Calling &quot;%PERL%&quot; -pi.bak -e &quot;s?setup_%P%?%NEW_SETUP_NAME%?g;&quot; &quot;%ISM%&quot;&#xd;
+%PERL% -pi.bak -e &quot;s?setup_%P%?%NEW_SETUP_NAME%?g;&quot; &quot;%ISM%&quot;&#xd;
+&#xd;
+echo [INFO]Calling %PERL% -pi.bak -e &quot;s?MediaSDKProductName_PLACEHOLDER?%MediaSDKProductName%?g;&quot; &quot;%ISM%&quot;&#xd;
+%PERL% -pi.bak -e &quot;s?MediaSDKProductName_PLACEHOLDER?%MediaSDKProductName%?g;&quot; &quot;%ISM%&quot;&#xd;
+&#xd;
+echo [INFO]Calling %PERL% -pi.bak -e &quot;s?APPSDKProductVersion_PLACEHOLDER?%ComputeSDKProductName%?g;&quot; &quot;%ISM%&quot;&#xd;
+%PERL% -pi.bak -e &quot;s?APPSDKProductVersion_PLACEHOLDER?%ComputeSDKProductName%?g;&quot; &quot;%ISM%&quot;&#xd;
+		&#xd;
+echo Executing: &quot;%ISCMDBLD%&quot; -a %P% -r %M% -v -x -p &quot;%ISM%&quot; -o &quot;%MM_DIR%,%COMMMON_MM_DIR%&quot; -y %PRODUCT_VERSION% -z ProductName=&quot;%ProductName%&quot; -z ProductVersion=%PRODUCT_VERSION% -z MAJORNUMBER=%MAJOR_NUMBER% -z MINORNUMBER=%MINOR_NUMBER% -z BUILDNUMBER=%BUILD_NUMBER% -z PACKAGENUMBER=0 -z MEDIASDK_PRODUCTNAME=&quot;%MediaSDKProductName%&quot; -z MEDIASDK_PRODUCT_VERSION=%MediaSDKProductVersion% -z APPSDK_PRODUCTNAME=&quot;Compute SDK %ComputeSDKProductName%&quot; -z APPSDK_PRODUCT_VERSION=&quot;%ComputeSDKProductVersionFULL%&quot; -z COMPUTESDK_DIR_VERSION=&quot;%ComputeSDK_DIR_VERSION%&quot; -z COMPUTESDK_METRIC_VERSION=&quot;%ComputeSDK_DIR_VERSION%&quot; -z MEDIASDK_METRIC_VERSION=&quot;!MEDIASDK_DIR_VERSION!&quot; -l CertPath=%SystemDrive%\cert&#xd;
+&quot;%ISCMDBLD%&quot; -a %P% -r %M% -v -x -p &quot;%ISM%&quot; -o &quot;%MM_DIR%,%COMMMON_MM_DIR%&quot; -y %PRODUCT_VERSION% -z ProductName=&quot;%ProductName%&quot; -z ProductVersion=%PRODUCT_VERSION% -z MAJORNUMBER=%MAJOR_NUMBER% -z MINORNUMBER=%MINOR_NUMBER% -z BUILDNUMBER=%BUILD_NUMBER% -z PACKAGENUMBER=0 -z MEDIASDK_PRODUCTNAME=&quot;%MediaSDKProductName%&quot; -z MEDIASDK_PRODUCT_VERSION=%MediaSDKProductVersion% -z APPSDK_PRODUCTNAME=&quot;Compute SDK %ComputeSDKProductName%&quot; -z APPSDK_PRODUCT_VERSION=&quot;%ComputeSDKProductVersionFULL%&quot; -z COMPUTESDK_DIR_VERSION=&quot;%ComputeSDK_DIR_VERSION%&quot; -z COMPUTESDK_METRIC_VERSION=&quot;%ComputeSDK_DIR_VERSION%&quot; -z MEDIASDK_METRIC_VERSION=&quot;!MEDIASDK_DIR_VERSION!&quot; -l CertPath=%SystemDrive%\cert&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>$M</arg1>
+        <arg2>W</arg2>
+        <ignoreCase>true</ignoreCase>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.BatchFile>
+          <command>@echo off&#xd;
+setlocal&#xd;
+&#xd;
+set CABDIR=%WORKSPACE%\%P%\W\DiskImages\DISK1&#xd;
+&#xd;
+if defined PRODUCTION_WEB (&#xd;
+	if &quot;%PRODUCTION_WEB%&quot;==&quot;true&quot; (&#xd;
+		::Create an archive of the web components&#xd;
+		%SEVENZ% a AMD-ComputeSDKInstaller-v%ARTIFACT_PRODUCTVERSION%-%OSTYPE%-%M%-components-%P%.7z .\%P%\W\DiskImages\DISK1\*.cab .\%P%\W\DiskImages\DISK1\*.CAB .\%P%\W\DiskImages\DISK1\*.msi&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+endlocal&#xd;
+</command>
+        </hudson.tasks.BatchFile>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>$P/$M/DiskImages/DISK1/AMD-ComputeSDKInstaller-v${ARTIFACT_PRODUCTVERSION}-${OSTYPE}-*-${P}.*,AMD-ComputeSDKInstaller-v${ARTIFACT_PRODUCTVERSION}-${OSTYPE}-${M}-components-${P}.7z</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
+      <recipientList>dl.amdindia.sdk.pp@amd.com,dl.amdindia.sdk.cerium@amd.com,dl.amdindia.cas.sdk@amd.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>CAS Build System: $PROJECT_NAME $BUILD_STATUS!</defaultSubject>
+      <defaultContent>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional //EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=320, target-densitydpi=device-dpi&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			/* Mobile-specific Styles */
+			@media only screen and (max-width: 660px) { 
+			table[class=w0], td[class=w0] { width: 0 !important; }
+			table[class=w10], td[class=w10], img[class=w10] { width:10px !important; }
+			table[class=w15], td[class=w15], img[class=w15] { width:5px !important; }
+			table[class=w30], td[class=w30], img[class=w30] { width:10px !important; }
+			table[class=w60], td[class=w60], img[class=w60] { width:10px !important; }
+			table[class=w125], td[class=w125], img[class=w125] { width:80px !important; }
+			table[class=w130], td[class=w130], img[class=w130] { width:55px !important; }
+			table[class=w140], td[class=w140], img[class=w140] { width:90px !important; }
+			table[class=w160], td[class=w160], img[class=w160] { width:180px !important; }
+			table[class=w170], td[class=w170], img[class=w170] { width:100px !important; }
+			table[class=w180], td[class=w180], img[class=w180] { width:80px !important; }
+			table[class=w195], td[class=w195], img[class=w195] { width:80px !important; }
+			table[class=w220], td[class=w220], img[class=w220] { width:80px !important; }
+			table[class=w240], td[class=w240], img[class=w240] { width:180px !important; }
+			table[class=w255], td[class=w255], img[class=w255] { width:185px !important; }
+			table[class=w275], td[class=w275], img[class=w275] { width:135px !important; }
+			table[class=w280], td[class=w280], img[class=w280] { width:135px !important; }
+			table[class=w300], td[class=w300], img[class=w300] { width:140px !important; }
+			table[class=w325], td[class=w325], img[class=w325] { width:95px !important; }
+			table[class=w360], td[class=w360], img[class=w360] { width:140px !important; }
+			table[class=w410], td[class=w410], img[class=w410] { width:180px !important; }
+			table[class=w470], td[class=w470], img[class=w470] { width:200px !important; }
+			table[class=w580], td[class=w580], img[class=w580] { width:280px !important; }
+			table[class=w640], td[class=w640], img[class=w640] { width:300px !important; }
+			table[class*=hide], td[class*=hide], img[class*=hide], p[class*=hide], span[class*=hide] { display:none !important; }
+			table[class=h0], td[class=h0] { height: 0 !important; }
+			p[class=footer-content-left] { text-align: center !important; }
+			#headline p { font-size: 30px !important; }
+			.article-content, #left-sidebar{ -webkit-text-size-adjust: 90% !important; -ms-text-size-adjust: 90% !important; }
+			.header-content, .footer-content-left {-webkit-text-size-adjust: 80% !important; -ms-text-size-adjust: 80% !important;}
+			img { height: auto; line-height: 100%;}
+			 } 
+			/* Client-specific Styles */
+			#outlook a { padding: 0; }	/* Force Outlook to provide a &quot;view in browser&quot; button. */
+			body { width: 100% !important; }
+			.ReadMsgBody { width: 100%; }
+			.ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+			/* Reset Styles */
+			/* Add 100px so mobile switch bar doesn&apos;t cover street address. */
+			body { background-color: #ececec; margin: 0; padding: 0; }
+			img { outline: none; text-decoration: none; display: block;}
+			br, strong br, b br, em br, i br { line-height:100%; }
+			h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; }
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {	color: red !important; }
+			/* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
+			/* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */  
+			table td, table tr { border-collapse: collapse; }
+			.yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+			color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
+			}	/* Body text color for the New Yahoo.  This example sets the font of Yahoo&apos;s Shortcuts to black. */
+			/* This most probably won&apos;t work in all email clients. Don&apos;t include code blocks in email. */
+			code {
+			  white-space: normal;
+			  word-break: break-all;
+			}
+			#background-table { background-color: #ececec; }
+			/* Webkit Elements */
+			#top-bar { border-radius:6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius:6px 6px 0px 0px; -webkit-font-smoothing: antialiased; background-color: #043948; color: #e7cba3; }
+			#top-bar a { font-weight: bold; color: #e7cba3; text-decoration: none;}
+			#footer { border-radius:0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius:0px 0px 6px 6px; -webkit-font-smoothing: antialiased; }
+			/* Fonts and Content */
+			body, td { font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.header-content, .footer-content-left, .footer-content-right { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+			/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
+			.header-content { font-size: 12px; color: #e7cba3; }
+			.header-content a { font-weight: bold; color: #e7cba3; text-decoration: none; }
+			#headline p { color: #e7cba3; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
+			#headline p a { color: #e7cba3; text-decoration: none; }
+			.article-title { font-size: 18px; line-height:24px; color: #9a9661; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-title a { color: #9a9661; text-decoration: none; }
+			.article-title.with-meta {margin-bottom: 0;}
+			.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
+			.article-content { font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-content a { color: #00707b; font-weight:bold; text-decoration:none; }
+			.article-content img { max-width: 100% }
+			.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
+			.article-content li { font-size: 13px; line-height: 18px; color: #444444; }
+			.article-content li a { color: #00707b; text-decoration:underline; }
+			.article-content p {margin-bottom: 15px;}
+			.footer-content-left { font-size: 12px; line-height: 15px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-left a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			.footer-content-right { font-size: 11px; line-height: 16px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-right a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			#footer { background-color: #043948; color: #e2e2e2; }
+			#footer a { color: #e7cba3; text-decoration: none; font-weight: bold; }
+			#permission-reminder { white-space: normal; }
+			#street-address { color: #e7cba3; white-space: normal; }
+		&lt;/style&gt;
+		&lt;!--[if gte mso 9]&gt;
+		&lt;style _tmplitem=&quot;810&quot; &gt;
+		.article-content ol, .article-content ul {
+		   margin: 0 0 0 24px;
+		   padding: 0;
+		   list-style-position: inside;
+		}
+		&lt;/style&gt;
+		&lt;![endif]--&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;table id=&quot;background-table&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td align=&quot;center&quot; bgcolor=&quot;#ececec&quot;&gt;
+						&lt;table class=&quot;w640&quot; style=&quot;margin:0 10px;&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;20&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;top-bar&quot; class=&quot;w640&quot; bgcolor=&quot;#040707&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w325&quot; align=&quot;left&quot; valign=&quot;middle&quot; width=&quot;350&quot;&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;div class=&quot;header-content&quot;&gt;&lt;webversion&gt;&lt;a href=&quot;http://cas.amd.com:8080&quot;&gt;CAS Build System&lt;/a&gt;&lt;/webversion&gt;&lt;span class=&quot;hide&quot;&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;preferences lang=&quot;en&quot;&gt;Update preferences&lt;/preferences&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;unsubscribe&gt;Unsubscribe&lt;/unsubscribe&gt;&lt;/span&gt;&lt;/div&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w255&quot; align=&quot;right&quot; valign=&quot;middle&quot; width=&quot;255&quot;&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+															&lt;tbody&gt;&lt;tr/&gt;&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td id=&quot;header&quot; class=&quot;w640&quot; align=&quot;center&quot; bgcolor=&quot;#040707&quot; width=&quot;640&quot;&gt;
+										&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+													&lt;td class=&quot;w580&quot; height=&quot;30&quot; width=&quot;580&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+														&lt;div id=&quot;headline&quot; align=&quot;center&quot;&gt;
+															&lt;p&gt;
+																&lt;strong&gt;&lt;a href=&quot;$JOB_URL&quot;&gt;&lt;singleline label=&quot;Title&quot;&gt;SDK Installer Notification&lt;/singleline&gt;&lt;/a&gt;&lt;/strong&gt;
+															&lt;/p&gt;
+														&lt;/div&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;30&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr id=&quot;simple-content-row&quot;&gt;&lt;td class=&quot;w640&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;
+									&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+													&lt;repeater&gt;
+														&lt;layout label=&quot;Text only&quot;&gt;
+															&lt;table class=&quot;w580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;580&quot;&gt;
+																&lt;tbody&gt;
+																	&lt;tr&gt;
+																		&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+																			&lt;p class=&quot;article-title&quot; align=&quot;left&quot;&gt;STATUS&lt;/p&gt;
+																			&lt;div class=&quot;article-content&quot; align=&quot;left&quot;&gt;
+																				The CAS Build System finished building the &lt;strong&gt;$PROJECT_NAME&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+																				Status: &lt;strong&gt;$BUILD_STATUS&lt;/strong&gt;&lt;br/&gt;
+																				BuildNumber: &lt;strong&gt;$MAJOR_NUMBER.$MINOR_NUMBER.$BUILD_NUMBER&lt;/strong&gt;&lt;br /&gt;
+																				Originator: &lt;strong&gt;$CAUSE&lt;/strong&gt;&lt;br /&gt;
+																				Changes: &lt;strong&gt;$CHANGES&lt;/strong&gt;&lt;br /&gt;
+																				Download URL: &lt;strong&gt;$JOB_URL&lt;/strong&gt;&lt;br /&gt;
+																				Build Console: &lt;strong&gt;$BUILD_URL/console&lt;/strong&gt;
+																			&lt;/div&gt;
+																		&lt;/td&gt;
+																	&lt;/tr&gt;
+																&lt;/tbody&gt;
+															&lt;/table&gt;
+														&lt;/layout&gt;
+														&lt;layout label=&quot;Image gallery&quot;/&gt;
+													&lt;/repeater&gt;
+												&lt;/td&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;&lt;td class=&quot;w640&quot; height=&quot;15&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;footer&quot; class=&quot;w640&quot; bgcolor=&quot;#043948&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; valign=&quot;top&quot; width=&quot;360&quot;&gt;
+														&lt;span class=&quot;hide&quot;&gt;&lt;p id=&quot;permission-reminder&quot; class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;/p&gt;&lt;/span&gt;
+														&lt;p class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;preferences lang=&quot;en&quot;&gt;&lt;a href=&quot;http://www.amd.com&quot;&gt;AMD&lt;/a&gt;&lt;/preferences&gt; | &lt;a href=&quot;http://amdcentral.amd.com&quot;&gt;AMD Central&lt;/a&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; width=&quot;60&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; valign=&quot;top&quot; width=&quot;160&quot;&gt;
+														&lt;p id=&quot;street-address&quot; class=&quot;footer-content-right&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580 h0&quot; height=&quot;15&quot; width=&quot;360&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;60&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;160&quot;/&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;60&quot; width=&quot;640&quot;/&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>Manish1.Singh@amd.com</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+      <matrixTriggerMode>ONLY_PARENT</matrixTriggerMode>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.26">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.7.1"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.4">
+      <includes>wget.exe</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;PRODUCT_VERSION&quot;}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>

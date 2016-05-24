@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:tjayakum</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:tjayakum</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:tjayakum</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:tjayakum</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Delete:tjayakum</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:tjayakum</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:tjayakum</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:tjayakum</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Discover:tjayakum</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Update:tjayakum</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.1">
+      <useBuildBlocker>false</useBuildBlocker>
+      <blockLevel>GLOBAL</blockLevel>
+      <scanQueueFor>DISABLED</scanQueueFor>
+      <blockingJobs></blockingJobs>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
+      <iconfile>b946f7f52d23d7bf9da5d75c1f765840409e3b32.png</iconfile>
+    </jenkins.plugins.jobicon.CustomIconProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>9</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>MILESTONE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>PR</string>
+              <string>RC</string>
+              <string>Beta</string>
+              <string>Alpha</string>
+              <string>Dev</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CodeXL_BUILD_NUMBER</name>
+          <description>Build number of CodeXL from http://bdcline64-gdt-jenkins.amd.com:8080/view/CodeXL/job/CodeXL/$CodeXL_BUILD_NUMBER</description>
+          <defaultValue>9675</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.copyartifact.CopyArtifactPermissionProperty plugin="copyartifact@1.35.2">
+      <projectNameList>
+        <string>iCafe_VDK_BUILD</string>
+        <string>iCafe_VDK_PKG</string>
+      </projectNameList>
+    </hudson.plugins.copyartifact.CopyArtifactPermissionProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.92.1">
+      <info>
+        <groovyScriptContent>// ****************************************************************************************************
+// Copyright (c) 2015 Advanced Micro Devices, Inc. All rights reserved.
+
+import java.lang.String;
+
+println &apos;JOB_NAME: &apos; + JOB_NAME;
+
+//Dump the environment variables
+def map = [:];
+
+def ARCHIVE_EXTENSION = &quot;7z&quot;
+map.put( &quot;ARCHIVE_EXTENSION&quot;, ARCHIVE_EXTENSION );
+
+def parPRODUCTVERSION;
+try {
+	parPRODUCTVERSION = PRODUCTVERSION;
+	println &apos;PRODUCTVERSION found: &apos; + PRODUCTVERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//PRODUCTVERSION not present
+	println &apos;PRODUCTVERSION NOT found&apos;;
+	parPRODUCTVERSION = MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;.&quot; + CodeXL_BUILD_NUMBER + &quot;-&quot; + BUILD_NUMBER;
+	
+	map.put( &quot;PRODUCTVERSION&quot;, parPRODUCTVERSION );
+}
+
+def parARTIFACT_PRODUCTVERSION;
+try {
+	parARTIFACT_PRODUCTVERSION = ARTIFACT_PRODUCTVERSION;
+	println &apos;ARTIFACT_PRODUCTVERSION found: &apos; + ARTIFACT_PRODUCTVERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//ARTIFACT_PRODUCT not present
+	println &apos;ARTIFACT_PRODUCTVERSION NOT found&apos;;
+	parARTIFACT_PRODUCTVERSION = MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER  + &quot;.&quot; + CodeXL_BUILD_NUMBER + &quot;-&quot; + BUILD_NUMBER + &quot;-&quot; + MILESTONE;
+	map.put( &quot;ARTIFACT_PRODUCTVERSION&quot;, parARTIFACT_PRODUCTVERSION );	
+}
+
+map.put( &quot;J&quot;, &quot;1.8&quot; );
+
+println &apos;--------------------------------------------------------------&apos;;
+println &apos;Environment variables inserted: &apos; + map;
+println &apos;--------------------------------------------------------------&apos;;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>WBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.10">
+      <commandLine>Environ.bat</commandLine>
+      <executeFromWorkingDir>true</executeFromWorkingDir>
+      <regexToKill></regexToKill>
+      <timeAllocated></timeAllocated>
+    </hudson.plugins.xshell.XShellBuilder>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>${WORKSPACE}/Environ.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+setlocal &#xd;
+&#xd;
+set CodeXLVersion=%MAJOR_NUMBER%.%MINOR_NUMBER%.%CodeXL_BUILD_NUMBER%&#xd;
+set URL=http://bdclin64-gdt-jenkins.amd.com:8080/view/CodeXL/job/CodeXL/%CodeXL_BUILD_NUMBER%/artifact/main/CodeXL/Installer/CodeXL/Setup Files/AMD_CodeXL_Win_%CodeXLVersion%.exe&#xd;
+echo [INFO][%~n0%~x0]Calling wget.exe &quot;%URL%&quot;&#xd;
+&#xd;
+wget.exe &quot;%URL%&quot;&#xd;
+if ERRORLEVEL 1 (&#xd;
+	echo [ERR][%~n0%~x0]Failed to download the file from %URL%&#xd;
+	exit /b ERRORLEVEL&#xd;
+)&#xd;
+&#xd;
+set CodeXLEXE=AMD_CodeXL_Win_%CodeXLVersion%.exe&#xd;
+&#xd;
+set EXTRACT_DIR=%WORKSPACE%\temp&#xd;
+if NOT EXIST &quot;%EXTRACT_DIR%&quot; (&#xd;
+	mkdir &quot;%EXTRACT_DIR%&quot;&#xd;
+)&#xd;
+&#xd;
+echo [INFO][%~n0%~x0]File downloaded, calling %CodeXLEXE% /extract:&quot;%EXTRACT_DIR%&quot;&#xd;
+&#xd;
+%CodeXLEXE% /extract:&quot;%EXTRACT_DIR%&quot;&#xd;
+if ERRORLEVEL 1 (&#xd;
+	echo [ERR][%~n0%~x0]Failed to extract the contents of %CodeXLEXE% to %EXTRACT_DIR%&#xd;
+	exit /b ERRORLEVEL&#xd;
+)&#xd;
+&#xd;
+pushd %EXTRACT_DIR%&#xd;
+	for /D %%G in (&quot;*&quot;) do set CODEXLTEMPDIR=%%G&#xd;
+popd&#xd;
+&#xd;
+set EXTRACT_DIR=%EXTRACT_DIR%\%CODEXLTEMPDIR%&#xd;
+&#xd;
+echo [INFO][%~n0%~x0]Done extracting the contents of %CodeXLEXE% to %EXTRACT_DIR%. Archiving the CPU Temperature related files&#xd;
+&#xd;
+mkdir CodeXL\%CodeXLVersion%\AMDTPowerProfile&#xd;
+pushd CodeXL\%CodeXLVersion%\AMDTPowerProfile&#xd;
+&#xd;
+	if NOT EXIST bin\x86 mkdir bin\x86&#xd;
+	if NOT EXIST bin\x64 mkdir bin\x64&#xd;
+	if NOT EXIST doc mkdir doc&#xd;
+	if NOT EXIST Drivers\x86 mkdir Drivers\x86&#xd;
+	if NOT EXIST Drivers\x64 mkdir Drivers\x64&#xd;
+	if NOT EXIST inc mkdir inc&#xd;
+	if NOT EXIST lib\x86 mkdir lib\x86&#xd;
+	if NOT EXIST lib\x64 mkdir lib\x64&#xd;
+	&#xd;
+	copy /V /B /Y &quot;%EXTRACT_DIR%\bin_public\AMDTBaseTools.dll&quot; bin\x86&#xd;
+	if ERRORLEVEL 0 (&#xd;
+		copy /V /B /Y &quot;%EXTRACT_DIR%\bin_public\AMDTBaseTools-x64.dll&quot; bin\x64&#xd;
+		if ERRORLEVEL 0 (&#xd;
+			copy /V /B /Y &quot;%EXTRACT_DIR%\bin_public\AMDTOSWrappers.dll&quot; bin\x86&#xd;
+			if ERRORLEVEL 0 (&#xd;
+				copy /V /B /Y &quot;%EXTRACT_DIR%\bin_public\AMDTOSWrappers-x64.dll&quot; bin\x64&#xd;
+				if ERRORLEVEL 0 (								 &#xd;
+					copy /V /B /Y &quot;%EXTRACT_DIR%\SDK\AMDTPowerProfile\bin\bin_public\x86\AMDTPowerProfileAPI.dll&quot; bin\x86&#xd;
+					if ERRORLEVEL 0 (&#xd;
+						copy /V /B /Y &quot;%EXTRACT_DIR%\SDK\AMDTPowerProfile\bin\bin_public\x64\AMDTPowerProfileAPI-x64.dll&quot; bin\x64&#xd;
+						if ERRORLEVEL 0 (&#xd;
+							copy /V /B /Y &quot;%EXTRACT_DIR%\SDK\AMDTPowerProfile\doc\*.*&quot; doc&#xd;
+							if ERRORLEVEL 0 (&#xd;
+								copy /V /B /Y &quot;%EXTRACT_DIR%\SystemFolder\Drivers\AMDTPwrProf.sys&quot; Drivers\x86&#xd;
+								if ERRORLEVEL 0 (&#xd;
+									copy /V /B /Y &quot;%EXTRACT_DIR%\SystemFolder\Drivers\pcore.sys&quot; Drivers\x86&#xd;
+									if ERRORLEVEL 0 (&#xd;
+										copy /V /B /Y &quot;%EXTRACT_DIR%\System64Folder\Drivers\AMDTPwrProf.sys&quot; Drivers\x64&#xd;
+										if ERRORLEVEL 0 (&#xd;
+											copy /V /B /Y &quot;%EXTRACT_DIR%\System64Folder\Drivers\pcore.sys&quot; Drivers\x64&#xd;
+											if ERRORLEVEL 0 (&#xd;
+												copy /V /B /Y &quot;%EXTRACT_DIR%\SDK\AMDTPowerProfile\inc\*.*&quot; inc&#xd;
+												if ERRORLEVEL 0 (&#xd;
+													copy /V /B /Y &quot;%EXTRACT_DIR%\SDK\AMDTPowerProfile\lib\lib_public\x86\*.*&quot; lib\x86&#xd;
+													if ERRORLEVEL 0 (&#xd;
+														copy /V /B /Y &quot;%EXTRACT_DIR%\SDK\AMDTPowerProfile\lib\lib_public\x64\*.*&quot; lib\x64&#xd;
+													)&#xd;
+												)&#xd;
+											)&#xd;
+										)&#xd;
+									)&#xd;
+								)&#xd;
+							)&#xd;
+						)&#xd;
+					)&#xd;
+				)&#xd;
+			)&#xd;
+		)&#xd;
+	)&#xd;
+popd&#xd;
+&#xd;
+&#xd;
+echo [INFO][%~n0%~x0]Calling %SEVENZ% a -t7z AMD_CodeXL_Win_%PRODUCTVERSION%_PowerProfiler_SDK.7z -ir!CodeXL&#xd;
+%SEVENZ% a -t7z AMD_CodeXL_Win_%PRODUCTVERSION%_PowerProfiler_SDK.7z -ir!CodeXL&#xd;
+&#xd;
+endlocal&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>AMD_CodeXL_Win_${PRODUCTVERSION}_PowerProfiler_SDK.${ARCHIVE_EXTENSION}</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.28">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>CODEXL_VERSION=${MAJOR_NUMBER}.${MINOR_NUMBER}.${CodeXL_BUILD_NUMBER}</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>iCafe_VDK_BUILD</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.28">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.7.2"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.4">
+      <includes>wget.exe, Environ.bat</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;ARTIFACT_PRODUCTVERSION&quot;}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

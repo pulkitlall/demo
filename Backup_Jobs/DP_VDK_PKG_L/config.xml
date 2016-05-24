@@ -1,0 +1,791 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description>This job creates the Linux installers for the Document Processing VDK.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>15</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:kumarrav</permission>
+      <permission>hudson.model.Run.Delete:prangana</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Run.Delete:nshigiha</permission>
+      <permission>hudson.model.Item.Workspace:kumarrav</permission>
+      <permission>hudson.model.Item.Workspace:prangana</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>hudson.model.Item.Workspace:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:kumarrav</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:kumarrav</permission>
+      <permission>hudson.model.Item.Cancel:prangana</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Cancel:nshigiha</permission>
+      <permission>hudson.model.Item.Read:kumarrav</permission>
+      <permission>hudson.model.Item.Read:prangana</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Read:nshigiha</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:kumarrav</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:kumarrav</permission>
+      <permission>hudson.model.Item.Build:prangana</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.Build:nshigiha</permission>
+      <permission>hudson.scm.SCM.Tag:kumarrav</permission>
+      <permission>hudson.scm.SCM.Tag:prangana</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:nshigiha</permission>
+      <permission>hudson.model.Item.Discover:kumarrav</permission>
+      <permission>hudson.model.Item.Discover:prangana</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Item.Discover:nshigiha</permission>
+      <permission>hudson.model.Run.Update:kumarrav</permission>
+      <permission>hudson.model.Run.Update:prangana</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Run.Update:nshigiha</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.6">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SUBMINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>MILESTONE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>PreAlpha</string>
+              <string>Alpha</string>
+              <string>Beta</string>
+              <string>RC</string>
+              <string>PR</string>
+              <string>GA</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.8">
+          <name>BUILD_MATRIX</name>
+          <description></description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35">
+          <name>BUILD_SELECTOR_DP_VDK_BUILD_L</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>DP_VDK_BUILD_NUMBER</name>
+          <description></description>
+          <__uuid>70f5cd56-9da3-4316-bbdb-ee6ed3c8e074</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>ListBuildNumbers.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>BUILD_JOB_NAME</name>
+              <value>DP_VDK_BUILD_L</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35">
+          <name>BUILD_SELECTOR_CLFFT_L</name>
+          <description>clFFT Linux library bundled along with the Document Processing VDK</description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.model.StringParameterDefinition>
+          <name>VDK_NAME</name>
+          <description>Short name of the VDK</description>
+          <defaultValue>DP</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>VDK_NAME_FULL</name>
+          <description>Long name of the VDK</description>
+          <defaultValue>Document Processing</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>MetricsCollectionTag</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>amdvdev</string>
+              <string>amdvtest</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.91.2">
+      <info>
+        <propertiesContent>SHFLAGS=/opt/shflags-1.0.3/src/shflags
+MAKESELF=/opt/makeself-2.1.5/makeself.sh</propertiesContent>
+        <groovyScriptContent>// Copyright (c) 2015 Advanced Micro Devices, Inc. All rights reserved.
+
+import java.lang.String;
+
+//Dump the environment variables
+def map = [:];
+map.put( &quot;ARCHIVE_EXTENSION&quot;, &quot;tar.bz2&quot; );
+
+def parPRODUCTVERSION;
+try {
+	parPRODUCTVERSION = PRODUCTVERSION;
+	println &apos;PRODUCTVERSION found: &apos; + PRODUCTVERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//PRODUCTVERSION not present
+	println &apos;PRODUCTVERSION NOT found&apos;;
+	parPRODUCTVERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;.&quot; + DP_VDK_BUILD_NUMBER + &quot;.&quot; + BUILD_NUMBER;
+	map.put( &quot;PRODUCTVERSION&quot;, parPRODUCTVERSION );
+}
+
+def parARTIFACT_PRODUCTVERSION = MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;-&quot; + SUBMINOR_NUMBER + &quot;.&quot; + DP_VDK_BUILD_NUMBER + &quot;.&quot; + BUILD_NUMBER + &quot;-&quot; + MILESTONE;
+map.put( &quot;ARTIFACT_PRODUCTVERSION&quot;, parARTIFACT_PRODUCTVERSION );	
+
+def parDP_VDK_DIR_VERSION;
+try {
+	parDP_VDK_DIR_VERSION = DP_VDK_DIR_VERSION;
+	println &apos;DP_VDK_DIR_VERSION found: &apos; + DP_VDK_DIR_VERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//ARTIFACT_PRODUCT not present
+	println &apos;DP_VDK_DIR_VERSION NOT found&apos;;
+	parDP_VDK_DIR_VERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;-&quot; + SUBMINOR_NUMBER;
+	if ( &quot;GA&quot; != MILESTONE ) {
+		parDP_VDK_DIR_VERSION += &quot;-&quot; + MILESTONE;
+	}
+
+	map.put( &quot;DP_VDK_DIR_VERSION&quot;, parDP_VDK_DIR_VERSION );	
+}
+
+def parDP_VDK_METRIC_VERSION;
+try {
+	parDP_VDK_METRIC_VERSION = DP_VDK_METRIC_VERSION;
+	println &apos;DP_VDK_METRIC_VERSION found: &apos; + DP_VDK_METRIC_VERSION;
+}
+catch( groovy.lang.MissingPropertyException e ) {
+	//ARTIFACT_PRODUCT not present
+	println &apos;DP_VDK_METRIC_VERSION NOT found&apos;;
+	parDP_VDK_METRIC_VERSION=MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER + &quot;-&quot; + SUBMINOR_NUMBER;
+	if ( &quot;GA&quot; != MILESTONE ) {
+		parDP_VDK_METRIC_VERSION += &quot;-&quot; + MILESTONE;
+	}
+	
+	parDP_VDK_METRIC_VERSION += &quot;L&quot;;
+
+	map.put( &quot;DP_VDK_METRIC_VERSION&quot;, parDP_VDK_METRIC_VERSION );	
+}
+
+if( JOB_NAME.contains( &quot;x86&quot; ) ) {
+	map.put( &quot;PLATFORM_ARCH_SHORT&quot;, &quot;x86&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL&quot;, &quot;ia32&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL_ALT&quot;, &quot;x86&quot; );
+	map.put( &quot;PLATFORM_ARCH_AMD&quot;, &quot;x86&quot; );
+	map.put( &quot;PLATFORM_ARCH_JDK&quot;, &quot;i586&quot; );
+	map.put( &quot;ARCH&quot;, &quot;32&quot; );
+}
+
+if( JOB_NAME.contains( &quot;amd64&quot; ) ) {
+	map.put( &quot;PLATFORM_ARCH_SHORT&quot;, &quot;x64&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL&quot;, &quot;intel64&quot; );
+	map.put( &quot;PLATFORM_ARCH_INTEL_ALT&quot;, &quot;x86_64&quot; );
+	map.put( &quot;PLATFORM_ARCH_AMD&quot;, &quot;amd64&quot; );
+	map.put( &quot;PLATFORM_ARCH_JDK&quot;, &quot;x64&quot; );
+	map.put( &quot;ARCH&quot;, &quot;64&quot; );
+}
+
+println &apos;---------------------------------&apos;;
+println &apos;BUILD_SELECTOR_DP_VDK_BUILD_L: &apos; + BUILD_SELECTOR_DP_VDK_BUILD_L;
+
+println map;
+println &apos;---------------------------------&apos;;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.34">
+    <configVersion>2</configVersion>
+    <p4User>jenkinshas</p4User>
+    <p4Passwd>0f0kqlwarTrhwM5Z6nxTElYaqlJF/g==</p4Passwd>
+    <p4Port>hyswp4p1.amd.com:1666</p4Port>
+    <p4Client>${JOB_NAME}</p4Client>
+    <clientSpec>//depot/stg/cas/apps/cas/AutomationFramework/P4Mappings/DP_VDK_PKG_L.txt</clientSpec>
+    <projectOptions>allwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <p4SysDrive></p4SysDrive>
+    <p4SysRoot></p4SysRoot>
+    <p4Tool>p4</p4Tool>
+    <useClientSpec>true</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>true</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>LBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>M</name>
+      <values>
+        <string>F</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>x86</string>
+        <string>amd64</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelExpAxis>
+      <name>L</name>
+      <values>
+        <string>LBM</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+#Book-keeping script, which creates required directories and sets them up.
+
+echo DP_VDK_BUILD_L Version being used COPYARTIFACT_BUILD_NUMBER_DP_VDK_BUILD_L: $COPYARTIFACT_BUILD_NUMBER_DP_VDK_BUILD_L
+echo PRODUCTVERSION: $PRODUCTVERSION
+echo PRODUCTION_URL_VERSION: $PRODUCTION_URL_VERSION
+echo ARTIFACT_PRODUCTVERSION: $ARTIFACT_PRODUCTVERSION
+echo ARCHIVE_EXTENSION: $ARCHIVE_EXTENSION
+echo OSTYPE:$OSTYPE
+echo DP_VDK_METRIC_VERSION: $DP_VDK_METRIC_VERSION
+echo DP_VDK_DIR_VERSION: $DP_VDK_DIR_VERSION
+
+INSTALL_SCRIPT=$PRODUCTVERSION/install.sh
+sed -i.bak &quot;s?\[version\]?$DP_VDK_DIR_VERSION?g&quot; $INSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[version\] with $DP_VDK_DIR_VERSION in the file $INSTALL_SCRIPT.
+	exit $Retval
+fi
+
+sed -i.bak &quot;s?\[metricsversion\]?$DP_VDK_METRIC_VERSION?g&quot; $INSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[metricsversion\] with $DP_VDK_METRIC_VERSION in the file $INSTALL_SCRIPT.
+	exit $Retval
+fi
+
+sed -i.bak &quot;s?\[MetricsCollectionTag\]?$MetricsCollectionTag?g&quot; $INSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[MetricsCollectionTag\] with $MetricsCollectionTag in the file $INSTALL_SCRIPT.
+	exit $Retval
+fi
+
+# Replace the [SETUP_ARCHITECTURE] with the actual architecture i.e., x86 or amd64 in install.sh
+sed -i.bak &quot;s?\[SETUP_ARCHITECTURE\]?$P?g&quot; $INSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[SETUP_ARCHITECTURE\] with $P in the file $INSTALL_SCRIPT.
+	exit $Retval
+fi
+
+#Replace the [VDK_NAME] with the actual value i.e. DP_VDK
+sed -i.bak &quot;s?\[VDK_NAME\]?${VDK_NAME}_VDK?g&quot; $INSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[VDK_NAME\] with ${VDK_NAME}_VDK in the file $INSTALL_SCRIPT.
+	exit $Retval
+fi
+
+#Replace the [VDK_FULL_NAME] with the actual value i.e. DP_VDK
+sed -i.bak &quot;s?\[VDK_FULL_NAME\]?${VDK_NAME_FULL}?g&quot; $INSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[VDK_FULL_NAME\] with ${VDK_NAME_FULL} in the file $INSTALL_SCRIPT.
+	exit $Retval
+fi
+
+UNINSTALL_SCRIPT=$PRODUCTVERSION/uninstall.sh
+sed -i.bak &quot;s?\[version\]?$DP_VDK_DIR_VERSION?g&quot; $UNINSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[version\] with $PI_VDK_DIR_VERSION in the file $UNINSTALL_SCRIPT
+	exit $Retval
+fi
+
+#Replace the [VDK_NAME] with the actual value i.e. DP_VDK
+sed -i.bak &quot;s?\[VDK_NAME\]?${VDK_NAME}_VDK?g&quot; $UNINSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[VDK_NAME\] with ${VDK_NAME}_VDK in the file $UNINSTALL_SCRIPT.
+	exit $Retval
+fi
+
+#Replace the [VDK_FULL_NAME] with the actual value i.e. DP_VDK
+sed -i.bak &quot;s?\[VDK_FULL_NAME\]?${VDK_NAME_FULL}?g&quot; $UNINSTALL_SCRIPT
+Retval=$?
+if [[ $Retval -ne 0 ]]; then
+	echo FAILURE: Could not replace \[VDK_FULL_NAME\] with ${VDK_NAME_FULL} in the file $UNINSTALL_SCRIPT.
+	exit $Retval
+fi
+
+cp -vf &quot;${SHFLAGS}&quot; $PRODUCTVERSION
+if [ $? -ne 0 ]; then
+	echo FAILURE: Could not copy $SHFLAGS to $PRODUCTVERSION
+	exit $Retval
+fi
+
+chmod +x $PRODUCTVERSION/install.sh
+chmod +x $PRODUCTVERSION/uninstall.sh
+
+rm -vf $PRODUCTVERSION/*.bak
+
+dos2unix -k $PRODUCTVERSION/ComputeSDK-EULA-linux.txt
+chmod -v 444 $PRODUCTVERSION/ComputeSDK-EULA-linux.txt
+
+exit $Retval
+</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35">
+      <project>clFFT_L</project>
+      <filter>*.*</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_CLFFT_L</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35">
+      <project>DP_VDK_BUILD_L/L=LBM,P=${P},S=OpenCL,T=gcc473/</project>
+      <filter>${VDK_NAME}_VDK-${OSTYPE}-build-OpenCL-*-${P}.tar.bz2,${VDK_NAME}_VDK-${OSTYPE}-AMDCOMPUTESDKROOT-*-noarch.${ARCHIVE_EXTENSION}</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_DP_VDK_BUILD_L</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+#This script creates the architecture specific PI_VDK Linux Packages
+echo [INFO]PRODUCTVERSION: $PRODUCTVERSION
+echo [INFO]Extracting headers/libs/sources and $ARCH-bit pre-built binaries and sample sources
+
+for f in *.${ARCHIVE_EXTENSION}
+do
+	echo [INFO]Calling tar -jxvf &quot;$f&quot; -C $PRODUCTVERSION
+	tar -jxvf &quot;$f&quot; -C $PRODUCTVERSION
+done
+
+&quot;$MAKESELF&quot; --bzip2 $PRODUCTVERSION AMD-${VDK_NAME}-VDK-v$ARTIFACT_PRODUCTVERSION-${OSTYPE}${ARCH}.sh &quot;AMD ${VDK_NAME_FULL} VDK v${ARTIFACT_PRODUCTVERSION} Self Installing script&quot; ./install.sh
+
+if [ $? -eq 0 ]; then
+	cp -vf &quot;$PRODUCTVERSION/docs/DocumentProcessing_VDK_GettingStartedGuide.pdf&quot; .
+    echo [INFO]Calling tar -cvjf AMD-${VDK_NAME}-VDK-v$ARTIFACT_PRODUCTVERSION-${OSTYPE}${ARCH}.${ARCHIVE_EXTENSION} AMD-${VDK_NAME}-VDK-v$ARTIFACT_PRODUCTVERSION-${OSTYPE}${ARCH}.sh DocumentProcessing_VDK_GettingStartedGuide.pdf
+	tar -cvjf AMD-${VDK_NAME}-VDK-v$ARTIFACT_PRODUCTVERSION-${OSTYPE}${ARCH}.${ARCHIVE_EXTENSION} AMD-${VDK_NAME}-VDK-v$ARTIFACT_PRODUCTVERSION-${OSTYPE}${ARCH}.sh DocumentProcessing_VDK_GettingStartedGuide.pdf
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>AMD-${VDK_NAME}-VDK-v$ARTIFACT_PRODUCTVERSION-${OSTYPE}${ARCH}.${ARCHIVE_EXTENSION}</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40">
+      <recipientList>Ravi1.Kumar@amd.com,Pradeep.Rao@amd.com,cc:Neelakanth.Shigihalli@amd.com,cc:Manish1.Singh@amd.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.DevelopersRecipientProvider/>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>CAS Build System: ${VDK_NAME_FULL} VDK Linux Package: $BUILD_STATUS!</defaultSubject>
+      <defaultContent>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional //EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=320, target-densitydpi=device-dpi&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			/* Mobile-specific Styles */
+			@media only screen and (max-width: 660px) { 
+			table[class=w0], td[class=w0] { width: 0 !important; }
+			table[class=w10], td[class=w10], img[class=w10] { width:10px !important; }
+			table[class=w15], td[class=w15], img[class=w15] { width:5px !important; }
+			table[class=w30], td[class=w30], img[class=w30] { width:10px !important; }
+			table[class=w60], td[class=w60], img[class=w60] { width:10px !important; }
+			table[class=w125], td[class=w125], img[class=w125] { width:80px !important; }
+			table[class=w130], td[class=w130], img[class=w130] { width:55px !important; }
+			table[class=w140], td[class=w140], img[class=w140] { width:90px !important; }
+			table[class=w160], td[class=w160], img[class=w160] { width:180px !important; }
+			table[class=w170], td[class=w170], img[class=w170] { width:100px !important; }
+			table[class=w180], td[class=w180], img[class=w180] { width:80px !important; }
+			table[class=w195], td[class=w195], img[class=w195] { width:80px !important; }
+			table[class=w220], td[class=w220], img[class=w220] { width:80px !important; }
+			table[class=w240], td[class=w240], img[class=w240] { width:180px !important; }
+			table[class=w255], td[class=w255], img[class=w255] { width:185px !important; }
+			table[class=w275], td[class=w275], img[class=w275] { width:135px !important; }
+			table[class=w280], td[class=w280], img[class=w280] { width:135px !important; }
+			table[class=w300], td[class=w300], img[class=w300] { width:140px !important; }
+			table[class=w325], td[class=w325], img[class=w325] { width:95px !important; }
+			table[class=w360], td[class=w360], img[class=w360] { width:140px !important; }
+			table[class=w410], td[class=w410], img[class=w410] { width:180px !important; }
+			table[class=w470], td[class=w470], img[class=w470] { width:200px !important; }
+			table[class=w580], td[class=w580], img[class=w580] { width:280px !important; }
+			table[class=w640], td[class=w640], img[class=w640] { width:300px !important; }
+			table[class*=hide], td[class*=hide], img[class*=hide], p[class*=hide], span[class*=hide] { display:none !important; }
+			table[class=h0], td[class=h0] { height: 0 !important; }
+			p[class=footer-content-left] { text-align: center !important; }
+			#headline p { font-size: 30px !important; }
+			.article-content, #left-sidebar{ -webkit-text-size-adjust: 90% !important; -ms-text-size-adjust: 90% !important; }
+			.header-content, .footer-content-left {-webkit-text-size-adjust: 80% !important; -ms-text-size-adjust: 80% !important;}
+			img { height: auto; line-height: 100%;}
+			 } 
+			/* Client-specific Styles */
+			#outlook a { padding: 0; }	/* Force Outlook to provide a &quot;view in browser&quot; button. */
+			body { width: 100% !important; }
+			.ReadMsgBody { width: 100%; }
+			.ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+			/* Reset Styles */
+			/* Add 100px so mobile switch bar doesn&apos;t cover street address. */
+			body { background-color: #ececec; margin: 0; padding: 0; }
+			img { outline: none; text-decoration: none; display: block;}
+			br, strong br, b br, em br, i br { line-height:100%; }
+			h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; }
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {	color: red !important; }
+			/* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
+			/* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */  
+			table td, table tr { border-collapse: collapse; }
+			.yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+			color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
+			}	/* Body text color for the New Yahoo.  This example sets the font of Yahoo&apos;s Shortcuts to black. */
+			/* This most probably won&apos;t work in all email clients. Don&apos;t include code blocks in email. */
+			code {
+			  white-space: normal;
+			  word-break: break-all;
+			}
+			#background-table { background-color: #ececec; }
+			/* Webkit Elements */
+			#top-bar { border-radius:6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius:6px 6px 0px 0px; -webkit-font-smoothing: antialiased; background-color: #043948; color: #e7cba3; }
+			#top-bar a { font-weight: bold; color: #e7cba3; text-decoration: none;}
+			#footer { border-radius:0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius:0px 0px 6px 6px; -webkit-font-smoothing: antialiased; }
+			/* Fonts and Content */
+			body, td { font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.header-content, .footer-content-left, .footer-content-right { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+			/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
+			.header-content { font-size: 12px; color: #e7cba3; }
+			.header-content a { font-weight: bold; color: #e7cba3; text-decoration: none; }
+			#headline p { color: #e7cba3; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
+			#headline p a { color: #e7cba3; text-decoration: none; }
+			.article-title { font-size: 18px; line-height:24px; color: #9a9661; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-title a { color: #9a9661; text-decoration: none; }
+			.article-title.with-meta {margin-bottom: 0;}
+			.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
+			.article-content { font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-content a { color: #00707b; font-weight:bold; text-decoration:none; }
+			.article-content img { max-width: 100% }
+			.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
+			.article-content li { font-size: 13px; line-height: 18px; color: #444444; }
+			.article-content li a { color: #00707b; text-decoration:underline; }
+			.article-content p {margin-bottom: 15px;}
+			.footer-content-left { font-size: 12px; line-height: 15px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-left a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			.footer-content-right { font-size: 11px; line-height: 16px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-right a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			#footer { background-color: #043948; color: #e2e2e2; }
+			#footer a { color: #e7cba3; text-decoration: none; font-weight: bold; }
+			#permission-reminder { white-space: normal; }
+			#street-address { color: #e7cba3; white-space: normal; }
+		&lt;/style&gt;
+		&lt;!--[if gte mso 9]&gt;
+		&lt;style _tmplitem=&quot;810&quot; &gt;
+		.article-content ol, .article-content ul {
+		   margin: 0 0 0 24px;
+		   padding: 0;
+		   list-style-position: inside;
+		}
+		&lt;/style&gt;
+		&lt;![endif]--&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;table id=&quot;background-table&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td align=&quot;center&quot; bgcolor=&quot;#ececec&quot;&gt;
+						&lt;table class=&quot;w640&quot; style=&quot;margin:0 10px;&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;20&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;top-bar&quot; class=&quot;w640&quot; bgcolor=&quot;#040707&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w325&quot; align=&quot;left&quot; valign=&quot;middle&quot; width=&quot;350&quot;&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;div class=&quot;header-content&quot;&gt;&lt;webversion&gt;&lt;a href=&quot;http://cas.amd.com:8080&quot;&gt;CAS Build System&lt;/a&gt;&lt;/webversion&gt;&lt;span class=&quot;hide&quot;&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;preferences lang=&quot;en&quot;&gt;Update preferences&lt;/preferences&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;unsubscribe&gt;Unsubscribe&lt;/unsubscribe&gt;&lt;/span&gt;&lt;/div&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w255&quot; align=&quot;right&quot; valign=&quot;middle&quot; width=&quot;255&quot;&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+															&lt;tbody&gt;&lt;tr/&gt;&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td id=&quot;header&quot; class=&quot;w640&quot; align=&quot;center&quot; bgcolor=&quot;#040707&quot; width=&quot;640&quot;&gt;
+										&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+													&lt;td class=&quot;w580&quot; height=&quot;30&quot; width=&quot;580&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+														&lt;div id=&quot;headline&quot; align=&quot;center&quot;&gt;
+															&lt;p&gt;
+																&lt;strong&gt;&lt;a href=&quot;$JOB_URL&quot;&gt;&lt;singleline label=&quot;Title&quot;&gt;${VDK_NAME_FULL} VDK Package Notification (Installers)&lt;/singleline&gt;&lt;/a&gt;&lt;/strong&gt;
+															&lt;/p&gt;
+														&lt;/div&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;30&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr id=&quot;simple-content-row&quot;&gt;&lt;td class=&quot;w640&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;
+									&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+													&lt;repeater&gt;
+														&lt;layout label=&quot;Text only&quot;&gt;
+															&lt;table class=&quot;w580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;580&quot;&gt;
+																&lt;tbody&gt;
+																	&lt;tr&gt;
+																		&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+																			&lt;p class=&quot;article-title&quot; align=&quot;left&quot;&gt;STATUS&lt;/p&gt;
+																			&lt;div class=&quot;article-content&quot; align=&quot;left&quot;&gt;
+																				The CAS Build System finished building the &lt;strong&gt;$PROJECT_NAME&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+																				Status: &lt;strong&gt;$BUILD_STATUS&lt;/strong&gt;&lt;br/&gt;
+																				BuildNumber: &lt;strong&gt;$ARTIFACT_PRODUCTVERSION&lt;/strong&gt;&lt;br /&gt;
+																				Originator: &lt;strong&gt;$CAUSE&lt;/strong&gt;&lt;br /&gt;
+																				Changes: &lt;strong&gt;$CHANGES&lt;/strong&gt;&lt;br /&gt;
+																				Download URL: &lt;strong&gt;${JOB_URL}${BUILD_NUMBER}&lt;/strong&gt;&lt;br /&gt;
+																				Build Console: &lt;strong&gt;${BUILD_URL}console&lt;/strong&gt;
+																			&lt;/div&gt;
+																		&lt;/td&gt;
+																	&lt;/tr&gt;
+																&lt;/tbody&gt;
+															&lt;/table&gt;
+														&lt;/layout&gt;
+														&lt;layout label=&quot;Image gallery&quot;/&gt;
+													&lt;/repeater&gt;
+												&lt;/td&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;&lt;td class=&quot;w640&quot; height=&quot;15&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;footer&quot; class=&quot;w640&quot; bgcolor=&quot;#043948&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; valign=&quot;top&quot; width=&quot;360&quot;&gt;
+														&lt;span class=&quot;hide&quot;&gt;&lt;p id=&quot;permission-reminder&quot; class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;/p&gt;&lt;/span&gt;
+														&lt;p class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;preferences lang=&quot;en&quot;&gt;&lt;a href=&quot;http://www.amd.com&quot;&gt;AMD&lt;/a&gt;&lt;/preferences&gt; | &lt;a href=&quot;http://amdcentral.amd.com&quot;&gt;AMD Central&lt;/a&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; width=&quot;60&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; valign=&quot;top&quot; width=&quot;160&quot;&gt;
+														&lt;p id=&quot;street-address&quot; class=&quot;footer-content-right&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580 h0&quot; height=&quot;15&quot; width=&quot;360&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;60&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;160&quot;/&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;60&quot; width=&quot;640&quot;/&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>Ravi1.Kumar@amd.com</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+      <matrixTriggerMode>ONLY_PARENT</matrixTriggerMode>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;ARTIFACT_PRODUCTVERSION&quot;}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>
