@@ -1,0 +1,362 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description>Builds the OpenSSL libraries for Windows using all the supported Visual Studio and supported Platforms and Configurations.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>5</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.6">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
+      <iconfile>0e47033e52daca171ecb58af2fb521ba298fa564.png</iconfile>
+    </jenkins.plugins.jobicon.CustomIconProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>OPENSSL_VERSION</name>
+          <description></description>
+          <__uuid>8bb28b3c-339d-43de-bb29-8f07b395914e</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>Listfile.gsh.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>Folder</name>
+              <value>OpenSSL</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.7">
+          <name>BUILD_MATRIX</name>
+          <description>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;style&gt;
+			hr { 
+				display: block;
+				margin-top: 0.5em;
+				margin-bottom: 0.5em;
+				margin-left: auto;
+				margin-right: auto;
+				border-style: inset;
+				border-width: 1px;
+			} 
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;
+			&lt;b&gt;Win32, x64&lt;/b&gt;: Visual Studio platforms
+		&lt;/p&gt;
+		&lt;hr&gt;
+		&lt;p&gt;
+			&lt;b&gt;v120, v110, v100&lt;/b&gt;: The Platform toolset to be used for building the xerces sources. Corresponds to VS 2013, 2012 and 2010 respectively, matches to the $(PlatformToolset) macro in Visual Studio.
+		&lt;/p&gt;
+		&lt;hr&gt;
+		&lt;p&gt;
+			&lt;b&gt;Release, Debug&lt;/b&gt;: Configurations that are built. Corresponds to the macro $(Configuration) in Visual Studio. The Static ones use the /MT compiler switch and the non static ones use the /MD switches for linking to the MSVCRT.
+		&lt;/p&gt;
+		&lt;p&gt;
+			&lt;b&gt;static, shared&lt;/b&gt;: Library type to generate. static: uses the /MT switch and shared uses the /MD switche for linking to the MSVCRT.
+		&lt;/p&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.91.1">
+      <info>
+        <groovyScriptContent>// Copyright (c) 2014 Advanced Micro Devices, Inc. All rights reserved.
+
+def map = [:] ;
+
+if ( JOB_NAME.contains( &quot;v120&quot; ) ) {
+	map.put( &quot;VSKEY&quot;, &quot;12.0&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v110&quot; ) ) {
+	map.put( &quot;VSKEY&quot;, &quot;11.0&quot; );
+}
+
+if ( JOB_NAME.contains( &quot;v100&quot; ) ) {
+	map.put( &quot;VSKEY&quot;, &quot;10.0&quot; );
+}
+
+def CONFIGURATION=&quot;VC-&quot;;
+if( JOB_NAME.contains( &quot;Debug&quot; ) ) {
+	CONFIGURATION=&quot;debug-VC-&quot;;
+}
+
+if( JOB_NAME.contains( &quot;Win32&quot; ) ) {
+	CONFIGURATION += &quot;WIN32&quot;;
+}
+
+def MS_COMMAND=&quot;do_ms&quot;;
+if( JOB_NAME.contains( &quot;x64&quot; ) ) {
+	CONFIGURATION += &quot;WIN64A&quot;;
+	MS_COMMAND=&quot;do_win64a&quot;
+}
+
+def NTMAK=&quot;ntdll.mak&quot;;
+if (JOB_NAME.contains( &quot;static&quot; ) ) {
+	NTMAK=&quot;nt.mak&quot;;
+}
+
+map.put( &quot;NTMAK&quot;, NTMAK );
+map.put( &quot;MS_COMMAND&quot;, MS_COMMAND );
+map.put( &quot;CONFIGURATION&quot;, CONFIGURATION );
+map.put( &quot;J&quot;, &quot;1.8&quot; );
+
+println &apos;---------------------------------&apos;;
+println map;
+println &apos;---------------------------------&apos;;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>WBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>v120</string>
+        <string>v110</string>
+        <string>v100</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>M</name>
+      <values>
+        <string>static</string>
+        <string>shared</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>C</name>
+      <values>
+        <string>Release</string>
+        <string>Debug</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>Win32</string>
+        <string>x64</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelAxis>
+      <name>L</name>
+      <values>
+        <string>WBM</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+echo P: %P%&#xd;
+echo J: %J%&#xd;
+echo T: %T%&#xd;
+&#xd;
+if EXIST Environ.bat (&#xd;
+	call Environ.bat&#xd;
+) else (&#xd;
+	echo [ERR]File Environ.bat not copied from Jenkins&apos; userContent directory.&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <EnvInjectBuilder plugin="envinject@1.91.1">
+      <info>
+        <propertiesFilePath>${WORKSPACE}\Environ.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+::- This batch script extracts the openssl archive&#xd;
+&#xd;
+echo SEVENZ: %SEVENZ%&#xd;
+echo OPENSSL_VERSION: %OPENSSL_VERSION%&#xd;
+&#xd;
+set OPENSSL_ARCHIVE=OpenSSL\%OPENSSL_VERSION%\openssl-%OPENSSL_VERSION%.tar.gz&#xd;
+echo [INFO]Executing %SEVENZ% x -so %OPENSSL_ARCHIVE% ^| %SEVENZ% x -aoa -si -ttar -xr!doc -xr!demos -xr!MacOS -xr!Netware -xr!os2 -xr!VMS &#xd;
+%SEVENZ% x -so %OPENSSL_ARCHIVE% | %SEVENZ% x -aoa -si -ttar -xr!doc -xr!demos -xr!MacOS -xr!Netware -xr!os2 -xr!VMS &#xd;
+&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+set VCVARSALL=%MSVC.DIR%VC\vcvarsall.bat&#xd;
+echo [INFO]VCVARSALL: %VCVARSALL%&#xd;
+&#xd;
+::- Now based on the target machine, we need to call the appropriate vcvarsall.bat&#xd;
+set ARCH=&#xd;
+if &quot;%P%&quot;==&quot;Win32&quot; (&#xd;
+	echo [INFO] Building 32-bit Curl&#xd;
+	set ARCH=x86&#xd;
+) else (&#xd;
+	echo [INFO] Building 64-bit Curl&#xd;
+	::-It is amd64&#xd;
+	::-Now check the PROCESSOR_ARCHITECTURE&#xd;
+	if &quot;%PROCESSOR_ARCHITECTURE%&quot;==&quot;x86&quot; (&#xd;
+		::32-bit OS&#xd;
+		set ARCH=x86_amd64&#xd;
+	) else (&#xd;
+		::64-bit OS&#xd;
+		set ARCH=amd64&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+set VCVARSALL=%MSVC.DIR%VC\vcvarsall.bat&#xd;
+echo [INFO]VCVARSALL: %VCVARSALL%&#xd;
+&#xd;
+::- Now based on the target machine, we need to call the appropriate vcvarsall.bat&#xd;
+set ARCH=&#xd;
+if &quot;%P%&quot;==&quot;Win32&quot; (&#xd;
+	echo [INFO] Building 32-bit Curl&#xd;
+	set ARCH=x86&#xd;
+) else (&#xd;
+	echo [INFO] Building 64-bit Curl&#xd;
+	::-It is amd64&#xd;
+	::-Now check the PROCESSOR_ARCHITECTURE&#xd;
+	if &quot;%PROCESSOR_ARCHITECTURE%&quot;==&quot;x86&quot; (&#xd;
+		::32-bit OS&#xd;
+		set ARCH=x86_amd64&#xd;
+	) else (&#xd;
+		::64-bit OS&#xd;
+		set ARCH=amd64&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+echo [INFO] ARCH: %ARCH%&#xd;
+&#xd;
+echo [INFO]Calling &quot;%VCVARSALL%&quot; %ARCH%&#xd;
+call &quot;%VCVARSALL%&quot; %ARCH%&#xd;
+&#xd;
+pushd openssl-%OPENSSL_VERSION%&#xd;
+	%PERL% Configure %CONFIGURATION% --prefix=%WORKSPACE%\build&#xd;
+	call ms\%MS_COMMAND%.bat&#xd;
+	nmake -f ms\%NTMAK%&#xd;
+	nmake -f ms\%NTMAK% install&#xd;
+popd&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+setlocal&#xd;
+&#xd;
+pushd build&#xd;
+	%SEVENZ% a -t7z &quot;%WORKSPACE%\openssl-%P%-%C%-%T%-%OPENSSL_VERSION%.%BUILD_NUMBER%.7z&quot; .&#xd;
+popd&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>openssl-${P}-${C}-${T}-${OPENSSL_VERSION}.${BUILD_NUMBER}.7z</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.26">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs class="empty-list"/>
+          <projects>cURL</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>true</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.4">
+      <includes>OpenSSL/${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz,Environ.bat</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.91.1">
+      <info>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;OPENSSL_VERSION&quot;}.${BUILD_NUMBER}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>
