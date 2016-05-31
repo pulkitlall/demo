@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>10</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description>Major number of the product</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description>Minor number of the product</description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <EnvInjectJobProperty plugin="envinject@1.90">
+      <info>
+        <groovyScriptContent>// ****************************************************************************************************
+// Copyright (c) 2014 Advanced Micro Devices, Inc. All rights reserved.
+
+//Dump the environment variables
+def map = [:];
+
+map.put( &quot;J&quot;, &quot;1.8&quot; );
+
+println &apos;-------------------------------------&apos;
+println &apos;Evnironment Variables Added: &apos; + map;
+println &apos;-------------------------------------&apos;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.29">
+    <configVersion>2</configVersion>
+    <p4User>jenkinshas</p4User>
+    <p4Passwd>0f0kqlwarTrhwM5Z6nxTElYaqlJF/g==</p4Passwd>
+    <p4Port>hyswp4p1.amd.com:1666</p4Port>
+    <p4Client>${JOB_NAME}</p4Client>
+    <projectPath>//depot/stg/cas/apps/cas/installers/InstallManagerExtn/... //workspace/InstallManagerExtn/...</projectPath>
+    <projectOptions>allwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <p4SysDrive></p4SysDrive>
+    <p4SysRoot></p4SysRoot>
+    <p4Tool>p4</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>true</wipeRepoBeforeBuild>
+    <firstChange>0</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>WBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.msbuild.MsBuildBuilder plugin="msbuild@1.24">
+      <msBuildName>MSBUILD_LATEST</msBuildName>
+      <msBuildFile>InstallManagerExtn\InstallManagerExtn.sln</msBuildFile>
+      <cmdLineArgs>/m /t:build /p:Configuration=Release /p:Platform=Win32</cmdLineArgs>
+      <buildVariablesAsProperties>false</buildVariablesAsProperties>
+      <continueOnBuildFailure>false</continueOnBuildFailure>
+      <unstableIfWarnings>false</unstableIfWarnings>
+    </hudson.plugins.msbuild.MsBuildBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+REM /****************************************************************************************************&#xd;
+REM Copyright ©2014 Advanced Micro Devices, Inc. All rights reserved.&#xd;
+&#xd;
+REM Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:&#xd;
+&#xd;
+REM •   Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.&#xd;
+REM •   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or&#xd;
+ REM other materials provided with the distribution.&#xd;
+&#xd;
+REM THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED&#xd;
+ REM WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY&#xd;
+ REM DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS&#xd;
+ REM OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING&#xd;
+ REM NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.&#xd;
+REM **************************************************************************************************/&#xd;
+&#xd;
+setlocal EnableDelayedExpansion&#xd;
+&#xd;
+call &quot;%ProgramFiles(x86)%\Microsoft Visual Studio 11.0\Common7\Tools\VsDevCmd.bat&quot;&#xd;
+set VERPATCH=%WORKSPACE%\verpatch\verpatch.exe&#xd;
+set SAMPLEDIR=%WORKSPACE%\InstallManagerExtn\Release\Win32&#xd;
+set COPYRIGHT=&quot;Copyright (c), %DATE:~-4%. Advanced Micro Devices, Inc.&quot;&#xd;
+&#xd;
+echo Adding version information and signing binaries in: %SAMPLEDIR%&#xd;
+&#xd;
+::We set and sign all files with the default version&#xd;
+::The variable PRODUCTVERSION, FILEVERSION  is supposed to be set by the Jenkins job with appropriate value.&#xd;
+set BASEFILEVERSION=%PRODUCTVERSION%&#xd;
+set FILEVERSION=%BASEFILEVERSION%.0&#xd;
+&#xd;
+for /r &quot;%SAMPLEDIR%&quot; %%G in (*.exe) do (&#xd;
+	&quot;%VERPATCH%&quot; &quot;%%~G&quot; &quot;%FILEVERSION%&quot; /va /s FileDescription &quot;%%~nxG&quot; /s LegalCopyright %COPYRIGHT% /s ProductName &quot;%PRODUCTNAME%&quot;&#xd;
+	if Not ERRORLEVEL 0 (&#xd;
+		echo FAILURE: Could not add version resource information to %%~G&#xd;
+	)&#xd;
+&#xd;
+	&quot;signtool&quot; sign /sm /a &quot;%%~G&quot; &gt; nul&#xd;
+	if Not ERRORLEVEL 0 (&#xd;
+		echo FAILURE: Could not sign %%~G&#xd;
+	)&#xd;
+	&quot;signtool&quot; timestamp /t http://timestamp.verisign.com/scripts/timestamp.dll &quot;%%~G&quot; &gt; nul&#xd;
+	if Not ERRORLEVEL 0 (&#xd;
+		echo FAILURE: Could not timestamp %%~G&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+for /r &quot;%SAMPLEDIR%&quot; %%G in (*.dll) do (&#xd;
+	&quot;%VERPATCH%&quot; &quot;%%~G&quot; &quot;%FILEVERSION%&quot; /va /s FileDescription &quot;%%~nxG&quot; /s LegalCopyright %COPYRIGHT% /s ProductName &quot;%PRODUCTNAME%&quot;&#xd;
+	if Not ERRORLEVEL 0 (&#xd;
+		echo FAILURE: Could not add version resource information to %%~G&#xd;
+	)&#xd;
+	&quot;signtool&quot; sign /sm /a &quot;%%~G&quot; &gt; nul&#xd;
+	if Not ERRORLEVEL 0 (&#xd;
+		echo FAILURE: Could not sign %%~G&#xd;
+	)&#xd;
+	&quot;signtool&quot; timestamp /t http://timestamp.verisign.com/scripts/timestamp.dll &quot;%%~G&quot; &gt; nul&#xd;
+	if Not ERRORLEVEL 0 (&#xd;
+		echo FAILURE: Could not timestamp %%~G&#xd;
+	)&#xd;
+)&#xd;
+&#xd;
+endlocal&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+      <exeName>7z.exe</exeName>
+      <cmdLineArgs>a
+SDKInstallManager_${MAJOR_NUMBER}.${MINOR_NUMBER}.${BUILD_NUMBER}-bin.7z
+InstallManagerExtn\Release\*\*.exe
+InstallManagerExtn\Release\*\*.dll
+InstallManagerExtn\Release\*\*.;lib
+-xr!lib*.lib</cmdLineArgs>
+      <failBuild>true</failBuild>
+    </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+    <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+      <exeName>7z.exe</exeName>
+      <cmdLineArgs>a
+SDKInstallManager_${MAJOR_NUMBER}.${MINOR_NUMBER}.${BUILD_NUMBER}-static-libs.7z
+InstallManagerExtn\Release\*\lib*.lib
+</cmdLineArgs>
+      <failBuild>true</failBuild>
+    </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>SDKInstallManager_${MAJOR_NUMBER}.${MINOR_NUMBER}.${BUILD_NUMBER}-static-libs.7z,SDKInstallManager_${MAJOR_NUMBER}.${MINOR_NUMBER}.${BUILD_NUMBER}-bin.7z</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+      <recipientList>$DEFAULT_RECIPIENTS</recipientList>
+      <contentType>text/html</contentType>
+      <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+      <defaultContent>$DEFAULT_CONTENT</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>$DEFAULT_REPLYTO</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.15"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.3">
+      <includes>verpatch/verpatch.exe</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.90">
+      <info>
+        <propertiesContent>PRODUCTVERSION=${MAJOR_NUMBER}.${MINOR_NUMBER}.${BUILD_NUMBER}</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;MAJOR_NUMBER&quot;}.${ENV,var=&quot;MINOR_NUMBER&quot;}.${BUILD_NUMBER}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

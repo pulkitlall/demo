@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Builds boost libraries</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>2</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>2</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
+      <iconfile>6bad8a5ac861e63e3017941680c1aa7d952f4b57.png</iconfile>
+    </jenkins.plugins.jobicon.CustomIconProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>54</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>VS2012</name>
+          <description>Compile boost using VS 2012</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>VS2010</name>
+          <description>Compile boost using VS 2010</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>VS2012</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+      <exeName>7z.exe</exeName>
+      <cmdLineArgs>x boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0.7z -aoa</cmdLineArgs>
+      <failBuild>true</failBuild>
+    </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.BooleanCondition" plugin="run-condition@1.0">
+        <token>${ENV, var=&quot;VS2012&quot;}</token>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.BatchFile>
+          <command>@echo off&#xd;
+::- Build the 32-bit and the 64-bit boost libraries and dlls using VS 2012&#xd;
+setlocal&#xd;
+&#xd;
+pushd boost_%MAJOR_NUMBER%_%MINOR_NUMBER%_0&#xd;
+	call bootstrap.bat&#xd;
+	.\b2 toolset=msvc-11.0 variant=release threading=multi link=shared,static runtime-link=shared address-model=32 --stagedir=lib\Win32\Release -j 6&#xd;
+	.\b2 toolset=msvc-11.0 variant=release threading=multi link=shared,static runtime-link=shared address-model=64 --stagedir=lib\x64\Release -j 6&#xd;
+	&#xd;
+	.\b2 toolset=msvc-11.0 variant=debug threading=multi link=shared,static runtime-link=shared address-model=32 --stagedir=lib\Win32\Debug -j 6&#xd;
+	.\b2 toolset=msvc-11.0 variant=debug threading=multi link=shared,static runtime-link=shared address-model=64 --stagedir=lib\x64\Debug -j 6&#xd;
+&#xd;
+	::- Move the boost headers inside the inc folder, so that the archive created is user friendly&#xd;
+	xcopy boost	inc\boost /S /E /i&#xd;
+	&#xd;
+	::-Move the static libraries to lib\Win32\Release|Debug and lib\x64\Release|Debug folders&#xd;
+	move /Y lib\Win32\Release\lib\libboost_*.lib lib\Win32\Release&#xd;
+	move /Y lib\Win32\Debug\lib\libboost_*.lib lib\Win32\Debug&#xd;
+	move /Y lib\x64\Release\lib\libboost_*.lib lib\x64\Release&#xd;
+	move /Y lib\x64\Debug\lib\libboost_*.lib lib\x64\Debug&#xd;
+	&#xd;
+	::-Move the dlls and the lib to bin\Win32\Relase|Debug and bin\x64\Release|Debug folders&#xd;
+	md bin\Win32\Release&#xd;
+	move /Y lib\Win32\Release\lib\* bin\Win32\Release&#xd;
+	md bin\Win32\Debug&#xd;
+	move /Y lib\Win32\Debug\lib\* bin\Win32\Debug&#xd;
+	&#xd;
+	md bin\x64\Release&#xd;
+	move /Y lib\x64\Release\lib\* bin\x64\Release&#xd;
+	md bin\x64\Debug&#xd;
+	move /Y lib\x64\Debug\lib\* bin\x64\Debug&#xd;
+	&#xd;
+	rmdir /S /Q  lib\Win32\Release\lib&#xd;
+	rmdir /S /Q  lib\Win32\Debug\lib&#xd;
+	rmdir /S /Q  lib\x64\Release\lib&#xd;
+	rmdir /S /Q  lib\x64\Debug\lib&#xd;
+	rmdir /S /Q  boost&#xd;
+popd&#xd;
+endlocal</command>
+        </hudson.tasks.BatchFile>
+        <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+          <exeName>7z.exe</exeName>
+          <cmdLineArgs>a
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-msvc-11.0-static-lib.7z
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\lib
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\bin
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\stage
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\tools
+-r
+-mx9</cmdLineArgs>
+          <failBuild>true</failBuild>
+        </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+        <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+          <exeName>7z.exe</exeName>
+          <cmdLineArgs>a
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-msvc-11.0-bin.7z
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\lib
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\bin
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\stage
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\tools
+-r
+-mx9</cmdLineArgs>
+          <failBuild>true</failBuild>
+        </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.BooleanCondition" plugin="run-condition@1.0">
+        <token>${ENV, var=&quot;VS2010&quot;}</token>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.BatchFile>
+          <command>@echo off&#xd;
+::- Build the 32-bit and the 64-bit boost libraries and dlls using VS 2010&#xd;
+setlocal&#xd;
+rmdir /S /Q boost_%MAJOR_NUMBER%_%MINOR_NUMBER%_0&#xd;
+&#xd;
+&quot;%SEVENZ%&quot; x boost_%MAJOR_NUMBER%_%MINOR_NUMBER%_0.7z -aoa&#xd;
+&#xd;
+pushd boost_%MAJOR_NUMBER%_%MINOR_NUMBER%_0&#xd;
+	call bootstrap.bat&#xd;
+	.\b2 toolset=msvc-10.0 variant=release threading=multi link=shared,static runtime-link=shared address-model=32 --stagedir=lib\Win32\Release -j 6&#xd;
+	.\b2 toolset=msvc-10.0 variant=release threading=multi link=shared,static runtime-link=shared address-model=64 --stagedir=lib\x64\Release -j 6&#xd;
+	&#xd;
+	.\b2 toolset=msvc-10.0 variant=debug threading=multi link=shared,static runtime-link=shared address-model=32 --stagedir=lib\Win32\Debug -j 6&#xd;
+	.\b2 toolset=msvc-10.0 variant=debug threading=multi link=shared,static runtime-link=shared address-model=64 --stagedir=lib\x64\Debug -j 6&#xd;
+&#xd;
+	::- Move the boost headers inside the inc folder, so that the archive created is user friendly&#xd;
+	xcopy boost	inc\boost /S /E /i&#xd;
+	&#xd;
+	::-Move the static libraries to lib\Win32\Release|Debug and lib\x64\Release|Debug folders&#xd;
+	move /Y lib\Win32\Release\lib\libboost_*.lib lib\Win32\Release&#xd;
+	move /Y lib\Win32\Debug\lib\libboost_*.lib lib\Win32\Debug&#xd;
+	move /Y lib\x64\Release\lib\libboost_*.lib lib\x64\Release&#xd;
+	move /Y lib\x64\Debug\lib\libboost_*.lib lib\x64\Debug&#xd;
+	&#xd;
+	::-Move the dlls and the lib to bin\Win32\Relase|Debug and bin\x64\Release|Debug folders&#xd;
+	md bin\Win32\Release&#xd;
+	move /Y lib\Win32\Release\lib\* bin\Win32\Release&#xd;
+	md bin\Win32\Debug&#xd;
+	move /Y lib\Win32\Debug\lib\* bin\Win32\Debug&#xd;
+	&#xd;
+	md bin\x64\Release&#xd;
+	move /Y lib\x64\Release\lib\* bin\x64\Release&#xd;
+	md bin\x64\Debug&#xd;
+	move /Y lib\x64\Debug\lib\* bin\x64\Debug&#xd;
+	&#xd;
+	rmdir /S /Q  lib\Win32\Release\lib&#xd;
+	rmdir /S /Q  lib\Win32\Debug\lib&#xd;
+	rmdir /S /Q  lib\x64\Release\lib&#xd;
+	rmdir /S /Q  lib\x64\Debug\lib&#xd;
+	rmdir /S /Q  boost&#xd;
+popd&#xd;
+endlocal</command>
+        </hudson.tasks.BatchFile>
+        <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+          <exeName>7z.exe</exeName>
+          <cmdLineArgs>a
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-msvc-10.0-static-lib.7z
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\lib
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\bin
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\stage
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\tools
+-r
+-mx9</cmdLineArgs>
+          <failBuild>true</failBuild>
+        </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+        <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+          <exeName>7z.exe</exeName>
+          <cmdLineArgs>a
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-msvc-10.0-bin.7z
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\lib
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\bin
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\stage
+-xr!boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\tools
+-r
+-mx9</cmdLineArgs>
+          <failBuild>true</failBuild>
+        </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+    <org.jenkinsci.plugins.windows__exe__runner.ExeBuilder plugin="windows-exe-runner@1.2">
+      <exeName>7z.exe</exeName>
+      <cmdLineArgs>a
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-include.7z
+boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0\inc
+-mx9</cmdLineArgs>
+      <failBuild>true</failBuild>
+    </org.jenkinsci.plugins.windows__exe__runner.ExeBuilder>
+    <hudson.tasks.BatchFile>
+      <command>del /F /Q boost_%MAJOR_NUMBER%_%MINOR_NUMBER%_0.7z</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-msvc-*.7z,boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_${BUILD_NUMBER}-include.7z</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Fingerprinter>
+      <targets></targets>
+    </hudson.tasks.Fingerprinter>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.24">
+      <deleteDirs>true</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.14"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.3">
+      <includes>boost_${MAJOR_NUMBER}_${MINOR_NUMBER}_0.7z</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${ENV,var=&quot;MAJOR_NUMBER&quot;}.${ENV,var=&quot;MINOR_NUMBER&quot;}.${BUILD_NUMBER}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

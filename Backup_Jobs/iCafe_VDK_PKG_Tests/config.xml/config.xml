@@ -1,0 +1,829 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description>Runs iCafe VDK Installation Tests&#xd;
+&#xd;
+&lt;!DOCTYPE html&gt;&#xd;
+&lt;html&gt;&#xd;
+	&lt;head&gt;&#xd;
+		&lt;style&gt;&#xd;
+			hr { &#xd;
+				display: block;&#xd;
+				margin-top: 0.5em;&#xd;
+				margin-bottom: 0.5em;&#xd;
+				margin-left: auto;&#xd;
+				margin-right: auto;&#xd;
+				border-style: inset;&#xd;
+				border-width: 1px;&#xd;
+			} &#xd;
+		&lt;/style&gt;&#xd;
+	&lt;/head&gt;&#xd;
+	&lt;body&gt;&#xd;
+		&lt;p&gt;&#xd;
+			&lt;b&gt;Configurations supported:&lt;/b&gt;&amp;nbsp;HD4600 with i5-4670&lt;br&gt;&#xd;
+			&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;HD6530D with A6-3500&lt;br&gt;&#xd;
+			&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;HD7450 with A4-3400&lt;br&gt;&#xd;
+			&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;R7-360 with FX-8320 and i3-4150&#xd;
+		&lt;/p&gt;&#xd;
+        &lt;p&gt;&#xd;
+            This test runs the installation, compiles the solution and uninstalls the VDK for supported configurations&lt;br&gt;&lt;br&gt;&#xd;
+            Following testcases are performed for each configurations:&lt;br&gt;&#xd;
+            a. Installation in Custom mode&lt;br&gt;&#xd;
+            b. Solution compilation&lt;br&gt;&#xd;
+            c. Uninstallation in Custom mode&lt;br&gt;&#xd;
+            d. Installation in Default mode&lt;br&gt;&#xd;
+            e. Solution compilation&lt;br&gt;&#xd;
+            f. Uninstallation in Default mode&lt;br&gt;&#xd;
+            Once, the following tests are finished, log for each testcase is created and can be viewed from &quot;Last Successful Artifacts&quot;&lt;br&gt;&lt;br&gt;&#xd;
+            Color indicates the different purpose of the tests:&lt;br&gt;&#xd;
+            1. &lt;font color=&quot;grey&quot;&gt;&lt;b&gt;GREY&lt;/b&gt;&lt;/font&gt; color indicates that this configuration of CPU and GPU is not supported and tests will not run&lt;br&gt;&#xd;
+            2. &lt;font color=&quot;green&quot;&gt;&lt;b&gt;GREEN&lt;/b&gt;&lt;/font&gt; color indicates that all the tests have been performed successfully&lt;br&gt;&#xd;
+            3. &lt;font color=&quot;#FFCC33&quot;&gt;&lt;b&gt;YELLOW&lt;/b&gt;&lt;/font&gt; color indicates that all tests have been performed but some / all tests were not successful&lt;br&gt;&#xd;
+            4. &lt;font color=&quot;red&quot;&gt;&lt;b&gt;RED&lt;/b&gt;&lt;/font&gt; color indicates that there is an error and needs to be addressed&#xd;
+       &lt;/p&gt;&#xd;
+	&lt;/body&gt;&#xd;
+&lt;/html&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:ppremkum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:nshigiha</permission>
+      <permission>hudson.model.Run.Delete:plall</permission>
+      <permission>hudson.model.Run.Delete:tjayakum</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Run.Delete:nshigiha</permission>
+      <permission>hudson.model.Item.Workspace:ppremkum</permission>
+      <permission>hudson.model.Item.Workspace:plall</permission>
+      <permission>hudson.model.Item.Workspace:tjayakum</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>hudson.model.Item.Workspace:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:ppremkum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:ppremkum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:nshigiha</permission>
+      <permission>hudson.model.Item.Configure:plall</permission>
+      <permission>hudson.model.Item.Configure:tjayakum</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Configure:nshigiha</permission>
+      <permission>hudson.model.Item.Cancel:ppremkum</permission>
+      <permission>hudson.model.Item.Cancel:plall</permission>
+      <permission>hudson.model.Item.Cancel:tjayakum</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Cancel:nshigiha</permission>
+      <permission>hudson.model.Item.Delete:plall</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:ppremkum</permission>
+      <permission>hudson.model.Item.Read:plall</permission>
+      <permission>hudson.model.Item.Read:tjayakum</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>hudson.model.Item.Read:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:ppremkum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:nshigiha</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:ppremkum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:tjayakum</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:nshigiha</permission>
+      <permission>hudson.model.Item.Build:ppremkum</permission>
+      <permission>hudson.model.Item.Build:plall</permission>
+      <permission>hudson.model.Item.Build:tjayakum</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.Build:nshigiha</permission>
+      <permission>hudson.scm.SCM.Tag:ppremkum</permission>
+      <permission>hudson.scm.SCM.Tag:plall</permission>
+      <permission>hudson.scm.SCM.Tag:tjayakum</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:nshigiha</permission>
+      <permission>hudson.model.Item.Discover:ppremkum</permission>
+      <permission>hudson.model.Item.Discover:plall</permission>
+      <permission>hudson.model.Item.Discover:tjayakum</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Item.Discover:nshigiha</permission>
+      <permission>hudson.model.Run.Update:ppremkum</permission>
+      <permission>hudson.model.Run.Update:plall</permission>
+      <permission>hudson.model.Run.Update:tjayakum</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+      <permission>hudson.model.Run.Update:nshigiha</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.3">
+      <useBuildBlocker>false</useBuildBlocker>
+      <blockLevel>UNDEFINED</blockLevel>
+      <scanQueueFor>DISABLED</scanQueueFor>
+      <blockingJobs></blockingJobs>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
+      <iconfile>b946f7f52d23d7bf9da5d75c1f765840409e3b32.png</iconfile>
+    </jenkins.plugins.jobicon.CustomIconProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty plugin="customize-build-now@1.1">
+      <alternateBuildNow></alternateBuildNow>
+    </org.jenkinsci.plugins.customizebuildnow.BuildNowTextProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.9">
+          <name>BUILD_MATRIX</name>
+          <description>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;style&gt;
+			hr { 
+				display: block;
+				margin-top: 0.5em;
+				margin-bottom: 0.5em;
+				margin-left: auto;
+				margin-right: auto;
+				border-style: inset;
+				border-width: 1px;
+			} 
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;
+			&lt;b&gt;Note: VS2010 is currently not supported&lt;/b&gt;
+		&lt;/p&gt;
+		&lt;hr&gt;
+		&lt;p&gt;
+			&lt;b&gt;HD4600, HD6530D, HD7450, R7-360&lt;/b&gt;: Configurations that are built. Corresponds to the GPU.
+		&lt;/p&gt;
+		&lt;hr&gt;
+		&lt;p&gt;
+			&lt;b&gt;A4-3400, A6-3500, FX-8320, i3-4150, i5-4670&lt;/b&gt;: Configurations that are built. Corresponds to the CPU.
+		&lt;/p&gt;
+		&lt;hr&gt;
+		&lt;p&gt;
+			&lt;b&gt;Configurations supported:&lt;/b&gt;&amp;nbsp;HD4600 with i5-4670&lt;br&gt;
+			&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;HD6530D with A6-3500&lt;br&gt;
+			&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;HD7450 with A4-3400&lt;br&gt;
+			&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;R7-360 with FX-8320 and i3-4150
+		&lt;/p&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.37">
+          <name>BUILD_SELECTOR_iCafe_VDK_PKG</name>
+          <description>The iCafe_VDK_PKG whose artifacts need to be copied.</description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+            <allowUpstreamDependencies>false</allowUpstreamDependencies>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>iCafe_VDK_BUILD_NUMBER</name>
+          <description></description>
+          <__uuid>6f41e6a0-ed11-4a78-a9f1-e307fb8eb4aa</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>ListBuildNumbers.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>BUILD_JOB_NAME</name>
+              <value>iCafe_VDK_BUILD</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>iCafe_VDK_PKG_NUMBER</name>
+          <description></description>
+          <__uuid>be62150f-e4a3-49d8-9b93-3ad1d6b0ab28</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>ListBuildNumbers.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>BUILD_JOB_NAME</name>
+              <value>iCafe_VDK_PKG</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MAJOR_NUMBER</name>
+          <description></description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>MINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SUBMINOR_NUMBER</name>
+          <description></description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>MILESTONE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>PR</string>
+              <string>Alpha</string>
+              <string>Dev</string>
+              <string>Beta</string>
+              <string>RC</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CUSTOM_INSTALL_PATH</name>
+          <description>The specified custom path will be used for installation during Custom mode after Default installation. You can change the above path if want to install at different location for custom mode.</description>
+          <defaultValue>${SystemDrive}\AMD\VDK\iCafe</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DEFAULT_SOLUTION_PATH</name>
+          <description>Provide full solution path with name for Default compilation
+
+If there is space in path, include path in double quotes.</description>
+          <defaultValue>&quot;${SystemDrive}\Users\Public\AMD\VDK\iCafe\${MAJOR_NUMBER}.${MINOR_NUMBER}-${SUBMINOR_NUMBER} ${MILESTONE}\samples\iCafeVS13.sln&quot;</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CUSTOM_SOLUTION_PATH</name>
+          <description>Provide full solution path with name for Custom compilation
+
+If there is space in path, include path in double quotes.</description>
+          <defaultValue>&quot;${CUSTOM_INSTALL_PATH}\${MAJOR_NUMBER}.${MINOR_NUMBER}-${SUBMINOR_NUMBER} ${MILESTONE}\samples\iCafeVS13.sln&quot;</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>INSTALLER_TYPE</name>
+          <description>MSI installer is installer created by InstallShield and EXE installers are InstallShield executables.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>msi</string>
+              <string>exe</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.92.1">
+      <info>
+        <groovyScriptContent>// Copyright (c) 2015 Advanced Micro Devices, Inc. All rights reserved.
+
+import java.lang.String;
+
+//Dump the environment variables
+def map = [:];
+
+map.put( &quot;ARCHIVE_EXTENSION&quot;, &quot;7z&quot; );
+map.put( &quot;VDK_FULL_NAME&quot;, &quot;iCafe&quot; );
+map.put( &quot;VDK_FULL_DISPLAY_NAME&quot;, &quot;iCafe&quot; );
+map.put( &quot;J&quot;, &quot;1.8&quot; );
+map.put( &quot;V&quot;, &quot;iCafe&quot; );
+map.put( &quot;P&quot;, &quot;x64&quot; );
+
+def INSTALLER_EXTENSION = INSTALLER_TYPE
+map.put( &quot;INSTALLER_EXTENSION&quot;, INSTALLER_TYPE );
+
+def VDK_PRODUCT_VERSION_DISPLAY = MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER  + &quot;-&quot; + SUBMINOR_NUMBER + &quot; &quot; + MILESTONE;
+map.put( &quot;VDK_PRODUCT_VERSION_DISPLAY&quot;, VDK_PRODUCT_VERSION_DISPLAY );
+
+def VDK_ARTIFACTDISPLAY_NUMBER = MAJOR_NUMBER + &quot;.&quot; + MINOR_NUMBER  + &quot;-&quot; + SUBMINOR_NUMBER + &quot;.&quot; + iCafe_VDK_BUILD_NUMBER + &quot;.&quot; + iCafe_VDK_PKG_NUMBER + &quot;-&quot; + MILESTONE + &quot;.&quot; + BUILD_NUMBER;
+map.put( &quot;VDK_ARTIFACTDISPLAY_NUMBER&quot;, VDK_ARTIFACTDISPLAY_NUMBER );
+
+println &apos;--------------------------------------------------------------&apos;;
+println &apos;JOB_NAME: &apos; + JOB_NAME;
+println &apos;BUILD_NUMBER: &apos; + BUILD_NUMBER;
+println &apos;Environment variables inserted: &apos; + map;
+println &apos;--------------------------------------------------------------&apos;;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.35">
+    <configVersion>2</configVersion>
+    <p4User>jenkinshas</p4User>
+    <p4Passwd>0f0kqlwarTrhwM5Z6nxTElYaqlJF/g==</p4Passwd>
+    <p4Port>hyswp4p1.amd.com:1666</p4Port>
+    <p4Client>${JOB_NAME}</p4Client>
+    <projectPath>//depot/stg/cas/apps/cas/AutomationFramework/scripts/Environ.bat //workspace/Environ.bat
+
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Maven/scripts/GetProductCode.vbs //workspace/GetProductCode.vbs
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Maven/scripts/SetExecuteCommands.bat //workspace/SetExecuteCommands.bat
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Maven/pom.xml //workspace/pom.xml
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Maven/src/test/java/com/amd/vdk/VDKPackageTest/VDKPackageTestCase.java //workspace/src/test/java/com/amd/vdk/VDKPackageTest/VDKPackageTestCase.java
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Maven/src/main/java/com/amd/vdk/VDKPackageTest/VDKPackageTest.java //workspace/src/main/java/com/amd/vdk/VDKPackageTest/VDKPackageTest.java
+//depot/stg/cas/apps/cas/AutomationFramework/scripts/Maven/src/main/java/com/amd/vdk/VDKPackageTest/WinRegistry.java //workspace/src/main/java/com/amd/vdk/VDKPackageTest/WinRegistry.java</projectPath>
+    <projectOptions>allwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <p4SysDrive></p4SysDrive>
+    <p4SysRoot></p4SysRoot>
+    <p4Tool>p4</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>true</wipeRepoBeforeBuild>
+    <firstChange>0</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>v120</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>OS</name>
+      <values>
+        <string>Win7</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelAxis>
+      <name>CPU</name>
+      <values>
+        <string>A4-3400</string>
+        <string>A6-3500</string>
+        <string>FX-8320</string>
+        <string>i3-4150</string>
+        <string>i5-4670K</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+    <hudson.matrix.LabelAxis>
+      <name>GPU</name>
+      <values>
+        <string>HD4600</string>
+        <string>HD6530D</string>
+        <string>HD7450</string>
+        <string>R7-360</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+  </axes>
+  <combinationFilter>!(GPU==&apos;HD4600&apos; &amp;&amp; CPU == &apos;i3-4150&apos;) &amp;&amp; !(GPU==&apos;HD4600&apos; &amp;&amp; CPU == &apos;FX-8320&apos;) &amp;&amp; !(GPU==&apos;HD4600&apos; &amp;&amp; CPU == &apos;A6-3500&apos;) &amp;&amp; !(GPU==&apos;HD4600&apos; &amp;&amp; CPU == &apos;A4-3400&apos;) &amp;&amp; !(GPU==&apos;HD6530D&apos; &amp;&amp; CPU == &apos;i3-4150&apos;) &amp;&amp; !(GPU==&apos;HD6530D&apos; &amp;&amp; CPU == &apos;FX-8320&apos;) &amp;&amp; !(GPU==&apos;HD6530D&apos; &amp;&amp; CPU == &apos;i5-4670K&apos;) &amp;&amp; !(GPU==&apos;HD6530D&apos; &amp;&amp; CPU == &apos;A4-3400&apos;) &amp;&amp; !(GPU==&apos;HD7450&apos; &amp;&amp; CPU == &apos;i3-4150&apos;) &amp;&amp; !(GPU==&apos;HD7450&apos; &amp;&amp; CPU == &apos;FX-8320&apos;) &amp;&amp; !(GPU==&apos;HD7450&apos; &amp;&amp; CPU == &apos;i5-4670K&apos;) &amp;&amp; !(GPU==&apos;HD7450&apos; &amp;&amp; CPU == &apos;A6-3500&apos;) &amp;&amp; !(GPU==&apos;R7-360&apos; &amp;&amp; CPU == &apos;A4-3400&apos;) &amp;&amp; !(GPU==&apos;R7-360&apos; &amp;&amp; CPU == &apos;A6-3500&apos;) &amp;&amp; !(GPU==&apos;R7-360&apos; &amp;&amp; CPU == &apos;i5-4670K&apos;)</combinationFilter>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.37">
+      <project>iCafe_VDK_PKG/L=IS2012,T=${T}/</project>
+      <filter>Installers/windows/VDK/${V}/F/DiskImages/DISK1/AMD_${V}_VDK_Setup-*-*.${INSTALLER_EXTENSION}</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_iCafe_VDK_PKG</parameterName>
+      </selector>
+      <flatten>true</flatten>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+REM Copyright ©2015 Advanced Micro Devices, Inc. All rights reserved.&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+if EXIST Environ.bat (&#xd;
+	call Environ.bat&#xd;
+) else (&#xd;
+	echo [ERR]File Environ.bat not found.&#xd;
+	exit /b 1&#xd;
+)&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>${WORKSPACE}\Environ.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal EnableDelayedExpansion&#xd;
+&#xd;
+:: replace &apos;\&apos; from Custom path to &apos;\\&apos;&#xd;
+set CustomPath=%CUSTOM_INSTALL_PATH:\=\\%&#xd;
+&#xd;
+:: replace &apos;\&apos; from Default Solution path to &apos;\\&apos;&#xd;
+set DefaultSolutionPath=%DEFAULT_SOLUTION_PATH:\=\\%&#xd;
+&#xd;
+:: replace &apos;\&apos; from Custom Solution path to &apos;\\&apos;&#xd;
+set CustomSolutionPath=%CUSTOM_SOLUTION_PATH:\=\\%&#xd;
+&#xd;
+:: replace blank with &quot;_&quot; from VDK_ARTIFACTDISPLAY_NUMBER&#xd;
+set Version=%VDK_ARTIFACTDISPLAY_NUMBER: =_%&#xd;
+&#xd;
+call SetExecuteCommands.bat %CustomPath% %INSTALLER_EXTENSION% %DefaultSolutionPath% %CustomSolutionPath% %Version% %CPU% %GPU% %OS%&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.Maven>
+      <targets>install -fn</targets>
+      <mavenName>Maven-3.3.3</mavenName>
+      <pom>pom.xml</pom>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+for /r %%P in (*.log) do (&#xd;
+    echo [INFO]Calling %SEVENZ% a -t7z &quot;%%~nP.%ARCHIVE_EXTENSION%&quot; -i!&quot;%%~nP%%~xP&quot;&#xd;
+    %SEVENZ% a -t7z &quot;%%~nP.%ARCHIVE_EXTENSION%&quot; -i!&quot;%%~nP%%~xP&quot;&#xd;
+    if ERRORLEVEL 1 (&#xd;
+        echo [ERR]Failed to create the archive &quot;%%~nP.%ARCHIVE_EXTENSION%&quot;&#xd;
+        exit /b ERRORLEVEL&#xd;
+    )&#xd;
+)</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>**/**/**/**/**/**/**/**/**/*.${ARCHIVE_EXTENSION}</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1.10">
+      <testResults>**/**/**/**/**/**/**/**/**/**/**/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <healthScaleFactor>0.1</healthScaleFactor>
+      <allowEmptyResults>false</allowEmptyResults>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
+      <recipientList>Manish1.Singh@amd.com,Tamil-Velan.Jayakumar@amd.com,cc:Premkumar.j@amd.com,cc:Neelakanth.Shigihalli@amd.com,cc:Pulkit.Lall@amd.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.DevelopersRecipientProvider/>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+              <hudson.plugins.emailext.plugins.recipients.CulpritsRecipientProvider/>
+            </recipientProviders>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>DSE Build System: $PROJECT_NAME $BUILD_STATUS!</defaultSubject>
+      <defaultContent>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional //EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=320, target-densitydpi=device-dpi&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			/* Mobile-specific Styles */
+			@media only screen and (max-width: 660px) { 
+			table[class=w0], td[class=w0] { width: 0 !important; }
+			table[class=w10], td[class=w10], img[class=w10] { width:10px !important; }
+			table[class=w15], td[class=w15], img[class=w15] { width:5px !important; }
+			table[class=w30], td[class=w30], img[class=w30] { width:10px !important; }
+			table[class=w60], td[class=w60], img[class=w60] { width:10px !important; }
+			table[class=w125], td[class=w125], img[class=w125] { width:80px !important; }
+			table[class=w130], td[class=w130], img[class=w130] { width:55px !important; }
+			table[class=w140], td[class=w140], img[class=w140] { width:90px !important; }
+			table[class=w160], td[class=w160], img[class=w160] { width:180px !important; }
+			table[class=w170], td[class=w170], img[class=w170] { width:100px !important; }
+			table[class=w180], td[class=w180], img[class=w180] { width:80px !important; }
+			table[class=w195], td[class=w195], img[class=w195] { width:80px !important; }
+			table[class=w220], td[class=w220], img[class=w220] { width:80px !important; }
+			table[class=w240], td[class=w240], img[class=w240] { width:180px !important; }
+			table[class=w255], td[class=w255], img[class=w255] { width:185px !important; }
+			table[class=w275], td[class=w275], img[class=w275] { width:135px !important; }
+			table[class=w280], td[class=w280], img[class=w280] { width:135px !important; }
+			table[class=w300], td[class=w300], img[class=w300] { width:140px !important; }
+			table[class=w325], td[class=w325], img[class=w325] { width:95px !important; }
+			table[class=w360], td[class=w360], img[class=w360] { width:140px !important; }
+			table[class=w410], td[class=w410], img[class=w410] { width:180px !important; }
+			table[class=w470], td[class=w470], img[class=w470] { width:200px !important; }
+			table[class=w580], td[class=w580], img[class=w580] { width:280px !important; }
+			table[class=w640], td[class=w640], img[class=w640] { width:300px !important; }
+			table[class*=hide], td[class*=hide], img[class*=hide], p[class*=hide], span[class*=hide] { display:none !important; }
+			table[class=h0], td[class=h0] { height: 0 !important; }
+			p[class=footer-content-left] { text-align: center !important; }
+			#headline p { font-size: 30px !important; }
+			.article-content, #left-sidebar{ -webkit-text-size-adjust: 90% !important; -ms-text-size-adjust: 90% !important; }
+			.header-content, .footer-content-left {-webkit-text-size-adjust: 80% !important; -ms-text-size-adjust: 80% !important;}
+			img { height: auto; line-height: 100%;}
+			 } 
+			/* Client-specific Styles */
+			#outlook a { padding: 0; }	/* Force Outlook to provide a &quot;view in browser&quot; button. */
+			body { width: 100% !important; }
+			.ReadMsgBody { width: 100%; }
+			.ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+			/* Reset Styles */
+			/* Add 100px so mobile switch bar doesn&apos;t cover street address. */
+			body { background-color: #ececec; margin: 0; padding: 0; }
+			img { outline: none; text-decoration: none; display: block;}
+			br, strong br, b br, em br, i br { line-height:100%; }
+			h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; }
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {	color: red !important; }
+			/* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
+			/* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */  
+			table td, table tr { border-collapse: collapse; }
+			.yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+			color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
+			}	/* Body text color for the New Yahoo.  This example sets the font of Yahoo&apos;s Shortcuts to black. */
+			/* This most probably won&apos;t work in all email clients. Don&apos;t include code blocks in email. */
+			code {
+			  white-space: normal;
+			  word-break: break-all;
+			}
+			#background-table { background-color: #ececec; }
+			/* Webkit Elements */
+			#top-bar { border-radius:6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius:6px 6px 0px 0px; -webkit-font-smoothing: antialiased; background-color: #043948; color: #e7cba3; }
+			#top-bar a { font-weight: bold; color: #e7cba3; text-decoration: none;}
+			#footer { border-radius:0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius:0px 0px 6px 6px; -webkit-font-smoothing: antialiased; }
+			/* Fonts and Content */
+			body, td { font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.header-content, .footer-content-left, .footer-content-right { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+			/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
+			.header-content { font-size: 12px; color: #e7cba3; }
+			.header-content a { font-weight: bold; color: #e7cba3; text-decoration: none; }
+			#headline p { color: #e7cba3; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
+			#headline p a { color: #e7cba3; text-decoration: none; }
+			.article-title { font-size: 18px; line-height:24px; color: #9a9661; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-title a { color: #9a9661; text-decoration: none; }
+			.article-title.with-meta {margin-bottom: 0;}
+			.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
+			.article-content { font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: &apos;Helvetica Neue&apos;, Arial, Helvetica, Geneva, sans-serif; }
+			.article-content a { color: #00707b; font-weight:bold; text-decoration:none; }
+			.article-content img { max-width: 100% }
+			.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
+			.article-content li { font-size: 13px; line-height: 18px; color: #444444; }
+			.article-content li a { color: #00707b; text-decoration:underline; }
+			.article-content p {margin-bottom: 15px;}
+			.footer-content-left { font-size: 12px; line-height: 15px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-left a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			.footer-content-right { font-size: 11px; line-height: 16px; color: #e2e2e2; margin-top: 0px; margin-bottom: 15px; }
+			.footer-content-right a { color: #e7cba3; font-weight: bold; text-decoration: none; }
+			#footer { background-color: #043948; color: #e2e2e2; }
+			#footer a { color: #e7cba3; text-decoration: none; font-weight: bold; }
+			#permission-reminder { white-space: normal; }
+			#street-address { color: #e7cba3; white-space: normal; }
+		&lt;/style&gt;
+		&lt;!--[if gte mso 9]&gt;
+		&lt;style _tmplitem=&quot;810&quot; &gt;
+		.article-content ol, .article-content ul {
+		   margin: 0 0 0 24px;
+		   padding: 0;
+		   list-style-position: inside;
+		}
+		&lt;/style&gt;
+		&lt;![endif]--&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;table id=&quot;background-table&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td align=&quot;center&quot; bgcolor=&quot;#ececec&quot;&gt;
+						&lt;table class=&quot;w640&quot; style=&quot;margin:0 10px;&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;20&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;top-bar&quot; class=&quot;w640&quot; bgcolor=&quot;#040707&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w325&quot; align=&quot;left&quot; valign=&quot;middle&quot; width=&quot;350&quot;&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;div class=&quot;header-content&quot;&gt;&lt;webversion&gt;&lt;a href=&quot;http://cas.amd.com:8080&quot;&gt;DSE Build System&lt;/a&gt;&lt;/webversion&gt;&lt;span class=&quot;hide&quot;&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;preferences lang=&quot;en&quot;&gt;Update preferences&lt;/preferences&gt;&amp;nbsp;&amp;nbsp;|&amp;nbsp; &lt;unsubscribe&gt;Unsubscribe&lt;/unsubscribe&gt;&lt;/span&gt;&lt;/div&gt;
+														&lt;table class=&quot;w325&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;350&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w325&quot; height=&quot;8&quot; width=&quot;350&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w255&quot; align=&quot;right&quot; valign=&quot;middle&quot; width=&quot;255&quot;&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+															&lt;tbody&gt;&lt;tr/&gt;&lt;/tbody&gt;
+														&lt;/table&gt;
+														&lt;table class=&quot;w255&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;255&quot;&gt;
+															&lt;tbody&gt;
+																&lt;tr&gt;&lt;td class=&quot;w255&quot; height=&quot;8&quot; width=&quot;255&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+															&lt;/tbody&gt;
+														&lt;/table&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w15&quot; width=&quot;15&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td id=&quot;header&quot; class=&quot;w640&quot; align=&quot;center&quot; bgcolor=&quot;#040707&quot; width=&quot;640&quot;&gt;
+										&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+													&lt;td class=&quot;w580&quot; height=&quot;30&quot; width=&quot;580&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+														&lt;div id=&quot;headline&quot; align=&quot;center&quot;&gt;
+															&lt;p&gt;
+																&lt;strong&gt;&lt;a href=&quot;$JOB_URL&quot;&gt;&lt;singleline label=&quot;Title&quot;&gt;$VDK_FULL_NAME VDK Package Test Notification&lt;/singleline&gt;&lt;/a&gt;&lt;/strong&gt;
+															&lt;/p&gt;
+														&lt;/div&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;30&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr id=&quot;simple-content-row&quot;&gt;&lt;td class=&quot;w640&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;
+									&lt;table class=&quot;w640&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+													&lt;repeater&gt;
+														&lt;layout label=&quot;Text only&quot;&gt;
+															&lt;table class=&quot;w580&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;580&quot;&gt;
+																&lt;tbody&gt;
+																	&lt;tr&gt;
+																		&lt;td class=&quot;w580&quot; width=&quot;580&quot;&gt;
+																			&lt;p class=&quot;article-title&quot; align=&quot;left&quot;&gt;STATUS&lt;/p&gt;
+																			&lt;div class=&quot;article-content&quot; align=&quot;left&quot;&gt;
+																				The DSE Build System finished building the &lt;strong&gt;$PROJECT_NAME&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+																				Status: &lt;strong&gt;$BUILD_STATUS&lt;/strong&gt;&lt;br/&gt;
+																				BuildNumber: &lt;strong&gt;$VDK_ARTIFACTDISPLAY_NUMBER&lt;/strong&gt;&lt;br /&gt;
+																				Originator: &lt;strong&gt;$CAUSE&lt;/strong&gt;&lt;br /&gt;
+																				Changes: &lt;strong&gt;$CHANGES&lt;/strong&gt;&lt;br /&gt;
+																				View Test Report URL: &lt;strong&gt;$JOB_URL/lastCompletedBuild/testReport/&lt;/strong&gt;&lt;br /&gt;
+																				Build Console: &lt;strong&gt;$BUILD_URL/console&lt;/strong&gt;
+																			&lt;/div&gt;
+																		&lt;/td&gt;
+																	&lt;/tr&gt;
+																&lt;/tbody&gt;
+															&lt;/table&gt;
+														&lt;/layout&gt;
+														&lt;layout label=&quot;Image gallery&quot;/&gt;
+													&lt;/repeater&gt;
+												&lt;/td&gt;
+												&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;&lt;td class=&quot;w640&quot; height=&quot;15&quot; bgcolor=&quot;#ffffff&quot; width=&quot;640&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; width=&quot;640&quot;&gt;
+										&lt;table id=&quot;footer&quot; class=&quot;w640&quot; bgcolor=&quot;#043948&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;640&quot;&gt;
+											&lt;tbody&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580&quot; valign=&quot;top&quot; width=&quot;360&quot;&gt;
+														&lt;span class=&quot;hide&quot;&gt;&lt;p id=&quot;permission-reminder&quot; class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;/p&gt;&lt;/span&gt;
+														&lt;p class=&quot;footer-content-left&quot; align=&quot;left&quot;&gt;&lt;preferences lang=&quot;en&quot;&gt;&lt;a href=&quot;http://www.amd.com&quot;&gt;AMD&lt;/a&gt;&lt;/preferences&gt; | &lt;a href=&quot;http://amdcentral.amd.com&quot;&gt;AMD Central&lt;/a&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; width=&quot;60&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;hide w0&quot; valign=&quot;top&quot; width=&quot;160&quot;&gt;
+														&lt;p id=&quot;street-address&quot; class=&quot;footer-content-right&quot; align=&quot;right&quot;&gt;&lt;/p&gt;
+													&lt;/td&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+												&lt;/tr&gt;
+												&lt;tr&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;&gt;&lt;/td&gt;
+													&lt;td class=&quot;w580 h0&quot; height=&quot;15&quot; width=&quot;360&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;60&quot;/&gt;
+													&lt;td class=&quot;w0&quot; width=&quot;160&quot;/&gt;
+													&lt;td class=&quot;w30&quot; width=&quot;30&quot;/&gt;
+												&lt;/tr&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+								&lt;tr&gt;
+									&lt;td class=&quot;w640&quot; height=&quot;60&quot; width=&quot;640&quot;/&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>Manish1.Singh@amd.com</replyTo>
+      <saveOutput>false</saveOutput>
+      <disabled>false</disabled>
+      <matrixTriggerMode>ONLY_PARENT</matrixTriggerMode>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.28">
+      <patterns>
+        <hudson.plugins.ws__cleanup.Pattern>
+          <pattern></pattern>
+          <type>INCLUDE</type>
+        </hudson.plugins.ws__cleanup.Pattern>
+      </patterns>
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.7.2"/>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.5.1">
+      <template>${ENV,var=&quot;VDK_ARTIFACTDISPLAY_NUMBER&quot;}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>

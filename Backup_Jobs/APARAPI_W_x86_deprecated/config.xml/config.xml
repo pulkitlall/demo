@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4">
+  <actions/>
+  <description>A PARallel API. This job builds the Windows version of the APARAPI Libraries using VS2012 and VS2013.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh1</permission>
+      <permission>hudson.model.Run.Delete:msingh1</permission>
+      <permission>hudson.model.Item.Workspace:msingh1</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh1</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh1</permission>
+      <permission>hudson.model.Item.Configure:msingh1</permission>
+      <permission>hudson.model.Item.Delete:msingh1</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh1</permission>
+      <permission>hudson.model.Item.Cancel:msingh1</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh1</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh1</permission>
+      <permission>hudson.model.Item.Build:msingh1</permission>
+      <permission>hudson.scm.SCM.Tag:msingh1</permission>
+      <permission>hudson.model.Item.Discover:msingh1</permission>
+      <permission>hudson.model.Run.Update:msingh1</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>AMDAPPSDKROOT_VERSION</name>
+          <description>Version of AMDAPPSDKROOT to be used</description>
+          <__uuid>22f007e7-7543-43c8-9b40-e92b15401ba4</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>Listfile.gsh.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>Folder</name>
+              <value>AMDAPPSDKROOT</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.7">
+          <name>BUILD_MATRIX</name>
+          <description>Choose the Visual Studio for building the APARAPI libraries
+</description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+      <autoRebuild>false</autoRebuild>
+    </com.sonyericsson.rebuild.RebuildSettings>
+  </properties>
+  <scm class="hudson.scm.SubversionSCM" plugin="subversion@2.5">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>http://aparapi.googlecode.com/svn/trunk</remote>
+        <credentialsId></credentialsId>
+        <local>.</local>
+        <depthOption>infinity</depthOption>
+        <ignoreExternalsOption>true</ignoreExternalsOption>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
+    <ignoreDirPropChanges>false</ignoreDirPropChanges>
+    <filterChangelog>false</filterChangelog>
+  </scm>
+  <assignedNode>BUILDMACHINE</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>v120</string>
+        <string>v110</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>J</name>
+      <values>
+        <string>1.8</string>
+        <string>1.7</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>x86</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelExpAxis>
+      <name>L</name>
+      <values>
+        <string>WBM_x86</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+&quot;%SEVENZ%&quot; x -aoa AMDAPPSDKROOT\%AMDAPPSDKROOT_VERSION%\AMDAPPSDKROOT.7z -o%WORKSPACE%\AMDAPPSDKROOT -xr!docs -xr!bin&#xd;
+if NOT ERRORLEVEL 0 (&#xd;
+	exit /b ERRORLEVEL&#xd;
+)&#xd;
+&#xd;
+echo [SUCCESS]Done extracting the AMDAPPSDKROOT, proceeding to copy APARAPI\updated\build.* to com.amd.aparapi.jni&#xd;
+copy /V /Y APARAPI\updated\build.* com.amd.aparapi.jni&#xd;
+if NOT ERRORLEVEL 0 (&#xd;
+	exit /b ERRORLEVEL&#xd;
+)&#xd;
+&#xd;
+echo [SUCCESS]Done copying APARAPI\updated\build.* to com.amd.aparapi.jni&#xd;
+&#xd;
+:: Successfully copied the build.* files to the com.and.aparapi.jni folder&#xd;
+:: Now based on the version of Visual Studio being used&#xd;
+:: Retrieve the Visual Studio Install Directory&#xd;
+set VSKEY=&#xd;
+if &quot;%T%&quot;==&quot;v120&quot; (&#xd;
+	set VSKEY=12.0&#xd;
+)&#xd;
+if &quot;%T%&quot;==&quot;v110&quot; (&#xd;
+	set VSKEY=11.0&#xd;
+)&#xd;
+if &quot;%T%&quot;==&quot;v100&quot; (&#xd;
+	set VSKEY=10.0&#xd;
+)&#xd;
+&#xd;
+set KEY=&quot;HKLM\SOFTWARE\Microsoft\VisualStudio\%VSKEY%&quot;&#xd;
+if &quot;%P%&quot;==&quot;amd64&quot; (&#xd;
+	set KEY=&quot;HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\%VSKEY%&quot;&#xd;
+)&#xd;
+&#xd;
+echo KEY: %KEY%&#xd;
+set VALUE=ShellFolder&#xd;
+&#xd;
+reg query %KEY% /v %VALUE% 2&gt;nul || (&#xd;
+	echo %T tools not installed&#xd;
+	exit /b 1&#xd;
+)&#xd;
+for /f &quot;tokens=2,*&quot; %%a in (&apos;reg query %KEY% /v %VALUE% ^| findstr %VALUE%&apos;) do (&#xd;
+	set MSVC.DIR=%%b&#xd;
+)&#xd;
+&#xd;
+echo MSVC.DIR: %MSVC.DIR%&#xd;
+echo MSVC.DIR=%MSVC.DIR% &gt; Environ.props&#xd;
+echo AMDAPPSDKROOT=%WORKSPACE%\AMDAPPSDKROOT &gt;&gt; Environ.props&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <EnvInjectBuilder plugin="envinject@1.90">
+      <info>
+        <propertiesFilePath>${WORKSPACE}\Environ.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+echo MSVC.DIR: %MSVC.DIR%&#xd;
+echo AMDAPPSDKROOT: %AMDAPPSDKROOT%&#xd;
+&#xd;
+set KEY=&quot;HKLM\SOFTWARE\JavaSoft\Java Development Kit\%J%&quot;&#xd;
+echo KEY: %KEY%&#xd;
+&#xd;
+set VALUE=JavaHome&#xd;
+reg query %KEY% /v %VALUE% 2&gt;nul || (echo JavaHome not installed @ exit /b 1)&#xd;
+&#xd;
+set JAVA_HOME=&#xd;
+for /f &quot;tokens=2,*&quot; %%a in (&apos;reg query %KEY% /v %VALUE% ^| findstr %VALUE%&apos;) do (&#xd;
+	set JAVA_HOME=%%b&#xd;
+)&#xd;
+&#xd;
+echo JavaHome: %JAVA_HOME%&#xd;
+&#xd;
+::- Add the JAVA_HOME environment variable and update the PATH variable&#xd;
+set PATH=%JAVA_HOME%\bin;%PATH%&#xd;
+echo PATH: %PATH%&#xd;
+echo ANT_HOME: %ANT_HOME%&#xd;
+set PATH=%ANT_HOME%\bin;%PATH%&#xd;
+echo PATH: %PATH%&#xd;
+&#xd;
+echo [INFO]Pushing to directory com.amd.aparapi.jni&#xd;
+pushd com.amd.aparapi.jni&#xd;
+	ant clean build&#xd;
+popd&#xd;
+echo [INFO]Popping from directory com.amd.aparapi.jni&#xd;
+&#xd;
+endlocal&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+setlocal&#xd;
+&#xd;
+del /F /Q APARAPI*.7z&#xd;
+&#xd;
+pushd com.amd.aparapi\dist&#xd;
+	&quot;%SEVENZ%&quot; a -t7z %WORKSPACE%\APARAPI_%T%-JDK%J%-%OSTYPE%-%P%_%BUILD_NUMBER%.7z -i!aparapi.jar&#xd;
+popd&#xd;
+&#xd;
+pushd com.amd.aparapi.jni\dist&#xd;
+	&quot;%SEVENZ%&quot; u %WORKSPACE%\APARAPI_%T%-JDK%J%-%OSTYPE%-%P%_%BUILD_NUMBER%.7z -i!*.dll&#xd;
+popd&#xd;
+&#xd;
+endlocal</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+&#xd;
+setlocal&#xd;
+&#xd;
+echo MSVC.DIR: %MSVC.DIR%&#xd;
+echo AMDAPPSDKROOT: %AMDAPPSDKROOT%&#xd;
+&#xd;
+set KEY=&quot;HKLM\SOFTWARE\JavaSoft\Java Development Kit\%J%&quot;&#xd;
+echo KEY: %KEY%&#xd;
+&#xd;
+set VALUE=JavaHome&#xd;
+reg query %KEY% /v %VALUE% 2&gt;nul || (echo JavaHome not installed @ exit /b 1)&#xd;
+&#xd;
+set JAVA_HOME=&#xd;
+for /f &quot;tokens=2,*&quot; %%a in (&apos;reg query %KEY% /v %VALUE% ^| findstr %VALUE%&apos;) do (&#xd;
+	set JAVA_HOME=%%b&#xd;
+)&#xd;
+&#xd;
+echo JavaHome: %JAVA_HOME%&#xd;
+&#xd;
+::- Add the JAVA_HOME environment variable and update the PATH variable&#xd;
+set PATH=%JAVA_HOME%\bin;%PATH%&#xd;
+echo PATH: %PATH%&#xd;
+echo ANT_HOME: %ANT_HOME%&#xd;
+set PATH=%ANT_HOME%\bin;%PATH%&#xd;
+echo PATH: %PATH%&#xd;
+&#xd;
+echo [INFO]Pushing to directory com.amd.aparapi&#xd;
+pushd com.amd.aparapi&#xd;
+	ant clean build&#xd;
+popd&#xd;
+echo [INFO]Popping from directory com.amd.aparapi&#xd;
+&#xd;
+endlocal&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>APARAPI_${T}-JDK${J}-${OSTYPE}-${P}_${BUILD_NUMBER}.7z</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.15"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.3">
+      <includes>APARAPI/updated/build.*, AMDAPPSDKROOT/${AMDAPPSDKROOT_VERSION}/AMDAPPSDKROOT.7z</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.90">
+      <info>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>
