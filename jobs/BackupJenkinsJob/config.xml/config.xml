@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>This Job will upload the configuration files in git repository for all the jobs in Jenkins server of http://ese.amd.com.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:plall</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:plall</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Run.Replay:plall</permission>
+      <permission>hudson.model.Run.Replay:msingh</permission>
+      <permission>hudson.model.Item.Configure:plall</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:plall</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Delete:plall</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:plall</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:plall</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.ExtendedRead:plall</permission>
+      <permission>hudson.model.Item.ExtendedRead:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:plall</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Move:plall</permission>
+      <permission>hudson.model.Item.Move:msingh</permission>
+      <permission>hudson.model.Item.Discover:plall</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Update:plall</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>5</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.9.0">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories class="java.util.concurrent.CopyOnWriteArrayList"/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
+      <paramsToUseForLimit></paramsToUseForLimit>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.92.1">
+      <info>
+        <groovyScriptContent>// Copyright (c) 2016 Advanced Micro Devices, Inc. All rights reserved.
+
+import java.lang.String;
+
+//Dump the environment variables
+def map = [:] ;
+map.put( &quot;JOB_INPUT_FILE&quot;, &quot;job_list.txt&quot; );
+map.put( &quot;DIFF_CONFIG_LIST&quot;, &quot;DiffConfig.txt&quot; );
+map.put( &quot;DIFF_JOB_NAME&quot;, &quot;DiffJobName.txt&quot; );
+map.put( &quot;NEW_CONFIG_LIST&quot;, &quot;NewConfig.txt&quot; );
+map.put( &quot;NEW_JOB_NAME&quot;, &quot;NewJobName.txt&quot; );
+map.put( &quot;DIR_GIT&quot;, &quot;BackupJenkinsJob&quot; );
+map.put( &quot;PLUGIN_LIST&quot;, &quot;plugins.list&quot; );
+map.put( &quot;COMMIT_DATE&quot;, &quot;&quot; );
+
+println &apos;--------------------------------------------------------------&apos;;
+println &apos;Environment variables inserted: &apos; + map;
+println &apos;--------------------------------------------------------------&apos;;
+
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>RepoName</name>
+        <url>ssh://jenkinshas@git.amd.com:29418/eesc/ec/ese/eseinfra_backup</url>
+        <credentialsId>2dc6f5d7-e8b5-47c6-be66-c44f048b7316</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>${DIR_GIT}</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+      <hudson.plugins.git.extensions.impl.UserIdentity>
+        <name>jenkinshas</name>
+        <email>Jenkins.Has@amd.com</email>
+      </hudson.plugins.git.extensions.impl.UserIdentity>
+    </extensions>
+  </scm>
+  <assignedNode>MASTER</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>H 23 * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+# This script will:
+# 	1. Populate the Job list
+#	2. Compare config files and if found difference create Difference List.
+#	3. If no Job present in Git, create New Job List.
+#	4. Populate plugins list
+
+SH_NAME=$(basename &quot;${BASH_SOURCE}&quot;)
+
+# Populate Job List
+ls $JENKINS_HOME/jobs &gt; ${JOB_INPUT_FILE}
+
+# Populate plugins list
+ls $JENKINS_HOME/plugins/*.jpi | sed &apos;s:.*/::&apos; &gt; ${PLUGIN_LIST}
+
+# Checkout master branch in git
+pushd ${DIR_GIT}
+	git checkout master
+popd
+
+# Create Jobs folder in Git repo if not exist.
+if [[ ! -e ${DIR_GIT}/jobs ]]; then
+	echo [${SH_NAME}][${LINENO}][INFO]&quot;Creating ${DIR_GIT}/jobs under Git&quot;
+	mkdir -pv ${DIR_GIT}/jobs
+fi
+
+# Create plugins folder in Git repo if not exist.
+if [[ ! -e ${DIR_GIT}/plugins ]]; then
+	echo [${SH_NAME}][${LINENO}][INFO]&quot;Creating ${DIR_GIT}/plugins under Git&quot;
+	mkdir -pv ${DIR_GIT}/plugins
+fi
+
+# Compare Plugin funtion to compare.
+ComparePlugins() {
+	local varGitSourceFile=$1
+	local varLocalSourceFile=$2
+	
+	#do compare and copy plugins.list if difference found
+	diff $varGitSourceFile $varLocalSourceFile
+	if [[ $? -eq 0 ]]; then
+    	echo [${SH_NAME}][${LINENO}][INFO]&quot;${PLUGIN_LIST} is same.&quot;
+        rm $varLocalSourceFile
+	elif [[ $? -eq 1 ]]; then
+    	echo [${SH_NAME}][${LINENO}][INFO]&quot;${PLUGIN_LIST} is different.&quot;
+		# Copy files from Local to git directory
+		CopyFiles $varLocalSourceFile $varGitSourceFile &quot;y&quot;
+	elif [[ $? -eq 2 ]]; then
+		echo [${SH_NAME}][${LINENO}][ERR]&quot;Failed to compare 2 files&quot;
+		exit $?
+	fi
+}
+
+# Compare funtion to compare 2 config files.
+CompareFiles() {
+	local varGitSourceFile=$1
+	local varLocalSourceFile=$2
+	local varCheckInFile=$(echo $varGitSourceFile | cut -d&apos;/&apos; -f2-4 )
+	
+	#do compare and copy config.xml if difference found
+	diff $varGitSourceFile $varLocalSourceFile
+	if [[ $? -eq 0 ]]; then
+    	echo [${SH_NAME}][${LINENO}][INFO]&quot;$(echo $varCheckInFile | cut -d&apos;/&apos; -f2 ) job is same.&quot;
+	elif [[ $? -eq 1 ]]; then
+    	echo [${SH_NAME}][${LINENO}][INFO]&quot;$(echo $varCheckInFile | cut -d&apos;/&apos; -f2 ) job is different.&quot;
+		echo $varCheckInFile &gt;&gt; ${DIFF_CONFIG_LIST}
+		# Copy files from Local to git directory
+		CopyFiles $varLocalSourceFile $(echo $varGitSourceFile | cut -d&apos;/&apos; -f1-3 ) &quot;n&quot;
+        # Add Job Name in DiffJobName.txt&quot;
+        echo $(echo $varCheckInFile | cut -d&apos;/&apos; -f2 ) &gt;&gt; ${DIFF_JOB_NAME}
+	elif [[ $? -eq 2 ]]; then
+		echo [${SH_NAME}][${LINENO}][ERR]&quot;Failed to compare 2 files&quot;
+		exit $?
+	fi
+}
+
+# Copy files function
+CopyFiles() {
+	local varLocalFile=$1
+	local varGitFile=$2
+    local varPlugin=$3
+	
+    if [[ &quot;$varPlugin&quot; == &quot;n&quot; ]]; then
+		if [[ ! -e $varGitFile ]]; then
+			echo [${SH_NAME}][${LINENO}][INFO]&quot;Executing mkdir -pv $varGitFile&quot;
+			mkdir -pv $varGitFile
+		fi
+
+	#	echo [${SH_NAME}][${LINENO}][INFO]&quot;Executing cp -v $varLocalFile $varGitFile/config.xml&quot;
+		cp -v $varLocalFile $varGitFile/config.xml
+	else
+    	echo [${SH_NAME}][${LINENO}][INFO]Updating plugins.list
+    	cp -v $varLocalFile $varGitFile
+	fi
+}
+
+# Check plugins.list present in git. If present, then compare else add
+if [[ -s ${DIR_GIT}/plugins/${PLUGIN_LIST} ]]; then
+	# Compare the configs
+	ComparePlugins ${DIR_GIT}/plugins/${PLUGIN_LIST} ${WORKSPACE}/${PLUGIN_LIST}
+elif [[ ! -s ${DIR_GIT}/plugins/${PLUGIN_LIST} ]]; then
+	# Copy plugins.list to git directory
+    CopyFiles ${WORKSPACE}/${PLUGIN_LIST} ${DIR_GIT}/plugins/${PLUGIN_LIST} y
+else
+	rm ${WORKSPACE}/${PLUGIN_LIST}
+fi
+
+# Config.xml
+while IFS= read -r var
+do
+	JOB_NAME=$var
+	
+	# Check if config file exists in Git as well as local
+	if [[ -s ${DIR_GIT}/jobs/${JOB_NAME}/config.xml &amp;&amp; -s $JENKINS_HOME/jobs/${JOB_NAME}/config.xml ]]; then
+
+		# Compare the configs
+		CompareFiles ${DIR_GIT}/jobs/${JOB_NAME}/config.xml $JENKINS_HOME/jobs/${JOB_NAME}/config.xml
+
+	elif [[ ! -s ${DIR_GIT}/jobs/${JOB_NAME}/config.xml &amp;&amp; -s $JENKINS_HOME/jobs/${JOB_NAME}/config.xml ]]; then
+
+		# Copy files to Git folder and create list for the same
+		CopyFiles $JENKINS_HOME/jobs/${JOB_NAME}/config.xml ${DIR_GIT}/jobs/${JOB_NAME} &quot;n&quot;
+		echo jobs/${JOB_NAME} &gt;&gt; ${NEW_CONFIG_LIST}
+        # Add Job Name in DiffJobName.txt&quot;
+        echo ${JOB_NAME} &gt;&gt; ${NEW_JOB_NAME}
+	fi
+
+done &lt; &quot;${JOB_INPUT_FILE}&quot;
+
+# Updating $NEW_JOB_NAME with appropriate format to display message during commit in git
+if [[ -s $NEW_JOB_NAME ]]; then
+	if [[ $(wc -l &quot;$NEW_JOB_NAME&quot; | awk &apos;{print $1}&apos;) &gt; 1 ]]; then
+		echo $(sed -e :a -e &apos;N;s/\n/,/;ba&apos; $NEW_JOB_NAME) &gt; $NEW_JOB_NAME
+	else
+		echo $(sed -n &apos;1p&apos; $NEW_JOB_NAME) &gt; $NEW_JOB_NAME
+	fi
+fi
+
+# Updating $DIFF_JOB_NAME with appropriate format to display message during commit in git
+if [[ -s $DIFF_JOB_NAME ]]; then
+	if [[ $(wc -l &quot;$DIFF_JOB_NAME&quot; | awk &apos;{print $1}&apos;) &gt; 1 ]]; then
+		echo $(sed -e :a -e &apos;N;s/\n/,/;ba&apos; $DIFF_JOB_NAME) &gt; $DIFF_JOB_NAME
+	else
+		echo $(sed -n &apos;1p&apos; $DIFF_JOB_NAME) &gt; $DIFF_JOB_NAME
+	fi
+fi</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+# This script will:
+# 	1. Check if New Job List present, Add folder in Git by running add git command, commit command and thenpush in git
+#	2. Check if Difference List present, update the config in Git by running add git command, commit command and thenpush in git.
+#	3. If no New job List or Difference List present, display appropriate command.
+
+set -e
+
+SH_NAME=$(basename &quot;${BASH_SOURCE}&quot;)
+
+DATE=$(date +%d&quot;-&quot;%m&quot;-&quot;%Y&quot;T&quot;)
+TIME=$(date +%T | grep &quot;:&quot; | sed &apos;s/:/./g&apos;)
+COMMIT_DATE=${DATE}${TIME}
+
+New_list=&quot;&quot;
+Update_list=&quot;&quot;
+
+# Run git add command for all files or folders to add
+AddFileOrFolderInGit() {
+	local varFilesName=$1
+	
+	pushd ${DIR_GIT}
+    	git add $varFilesName
+	popd
+}
+
+# Perform commit message to git repo
+CommitMessageInGit() {
+	local varMessage=$1
+	
+	pushd ${DIR_GIT}
+#    	git config user.name &quot;jenkinshas&quot;
+#        git config user.email &quot;Jenkins.Has@amd.com&quot;
+		git commit -am &quot;$varMessage&quot;
+#        git push RepoName --tags
+	popd
+    echo COMMIT_DATE=${COMMIT_DATE} &gt; Environ.props
+}
+
+# Add tag
+#if [[ -s ${DIFF_CONFIG_LIST} || -s ${NEW_CONFIG_LIST} || -s ${PLUGIN_LIST} ]]; then
+#	pushd ${DIR_GIT}
+#    	git tag $COMMIT_DATE master
+#	popd
+#fi
+
+# If difference list present, add files and update git 
+if [[ -s ${DIFF_CONFIG_LIST} ]]; then
+	while IFS= read -r var
+	do
+		GitPath=$var
+
+		AddFileOrFolderInGit $GitPath
+	done &lt; &quot;${DIFF_CONFIG_LIST}&quot;
+	
+	#Create $DIFF_JOB_NAME with list of modified jobs
+    Update_list=$( cat $DIFF_JOB_NAME )
+fi
+	
+# If New list present, add folder and update git
+if [[ -s ${NEW_CONFIG_LIST} ]]; then
+	while IFS= read -r var
+	do
+		GitPath=$var
+
+		AddFileOrFolderInGit $GitPath
+	done &lt; &quot;${NEW_CONFIG_LIST}&quot;
+	
+	#Create $NEW_JOB_NAME with list of newly created jobs
+    New_list=$( cat $NEW_JOB_NAME )
+fi
+
+# If plugins.list present, add folder and update git
+if [[ -s ${PLUGIN_LIST} ]]; then
+	AddFileOrFolderInGit plugins
+fi
+
+# If NEW_JOB_NAME and DIFF_JOB_NAME exists, then do commit for both else separately
+if [[ ! -s ${PLUGIN_LIST} ]]; then
+	if [[ -s ${NEW_CONFIG_LIST} &amp;&amp; -s ${DIFF_CONFIG_LIST} ]]; then
+		CommitMessageInGit &quot;Updating files for jobs. Modified Jobs: $Update_list 
+Adding files for new jobs. Newly created Jobs: $New_list&quot;
+	elif [[ ! -s ${NEW_CONFIG_LIST} &amp;&amp; -s ${DIFF_CONFIG_LIST} ]]; then
+		CommitMessageInGit &quot;Updating files for jobs. Modified Jobs: $Update_list&quot;
+	elif [[ -s ${NEW_CONFIG_LIST} &amp;&amp; ! -s ${DIFF_CONFIG_LIST} ]]; then
+		CommitMessageInGit &quot;Adding files for new jobs. Newly created Jobs: $New_list&quot;
+	fi
+elif [[ -s ${NEW_CONFIG_LIST} &amp;&amp; -s ${DIFF_CONFIG_LIST} &amp;&amp; -s ${PLUGIN_LIST} ]]; then
+	CommitMessageInGit &quot;Updating files for jobs. Modified Jobs: $Update_list 
+Adding files for new jobs. Newly created Jobs: $New_list
+Adding plugins.list&quot;
+elif [[ ! -s ${NEW_CONFIG_LIST} &amp;&amp; -s ${DIFF_CONFIG_LIST} &amp;&amp; -s ${PLUGIN_LIST} ]]; then
+	CommitMessageInGit &quot;Updating files for jobs. Modified Jobs: $Update_list
+Adding plugins.list&quot;
+elif [[ -s ${NEW_CONFIG_LIST} &amp;&amp; ! -s ${DIFF_CONFIG_LIST} &amp;&amp; -s ${PLUGIN_LIST} ]]; then
+	CommitMessageInGit &quot;Adding files for new jobs. Newly created Jobs: $New_list
+Adding plugins.list&quot;
+elif [[ ! -s ${NEW_CONFIG_LIST} &amp;&amp; ! -s ${DIFF_CONFIG_LIST} &amp;&amp; -s ${PLUGIN_LIST} ]]; then
+   	CommitMessageInGit &quot;Adding plugins.list&quot;
+fi
+
+# If no difference list and new list present, do nothing
+if [[ ! -s ${DIFF_CONFIG_LIST} &amp;&amp; ! -s ${NEW_CONFIG_LIST} &amp;&amp; ! -s ${PLUGIN_LIST} ]]; then
+	echo COMMIT_DATE=&quot;&quot; &gt; Environ.props
+	echo [${SH_NAME}][${LINENO}][INFO]&quot;Nothing to update in git repo....&quot;
+fi</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>${WORKSPACE}/Environ.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.git.GitPublisher plugin="git@2.4.4">
+      <configVersion>2</configVersion>
+      <pushMerge>true</pushMerge>
+      <pushOnlyIfSuccess>true</pushOnlyIfSuccess>
+      <forcePush>false</forcePush>
+      <branchesToPush>
+        <hudson.plugins.git.GitPublisher_-BranchToPush>
+          <targetRepoName>RepoName</targetRepoName>
+          <branchName>master</branchName>
+        </hudson.plugins.git.GitPublisher_-BranchToPush>
+      </branchesToPush>
+    </hudson.plugins.git.GitPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.29">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.2"/>
+  </buildWrappers>
+</project>
