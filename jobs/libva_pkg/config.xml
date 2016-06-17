@@ -1,0 +1,674 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.7">
+  <actions/>
+  <description>This job creates the .deb packages for the libva modules</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:msingh</permission>
+      <permission>hudson.model.Run.Delete:plall</permission>
+      <permission>hudson.model.Run.Delete:msingh</permission>
+      <permission>hudson.model.Item.Workspace:plall</permission>
+      <permission>hudson.model.Item.Workspace:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:msingh</permission>
+      <permission>hudson.model.Run.Replay:plall</permission>
+      <permission>hudson.model.Item.Configure:plall</permission>
+      <permission>hudson.model.Item.Configure:msingh</permission>
+      <permission>hudson.model.Item.Cancel:plall</permission>
+      <permission>hudson.model.Item.Cancel:msingh</permission>
+      <permission>hudson.model.Item.Delete:plall</permission>
+      <permission>hudson.model.Item.Delete:msingh</permission>
+      <permission>hudson.model.Item.Read:plall</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:msingh</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:plall</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:msingh</permission>
+      <permission>hudson.model.Item.Build:plall</permission>
+      <permission>hudson.model.Item.Build:msingh</permission>
+      <permission>hudson.model.Item.ExtendedRead:plall</permission>
+      <permission>hudson.model.Item.ExtendedRead:msingh</permission>
+      <permission>hudson.scm.SCM.Tag:plall</permission>
+      <permission>hudson.scm.SCM.Tag:msingh</permission>
+      <permission>hudson.model.Item.Discover:plall</permission>
+      <permission>hudson.model.Item.Discover:msingh</permission>
+      <permission>hudson.model.Run.Update:plall</permission>
+      <permission>hudson.model.Run.Update:msingh</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>10</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <org.jenkinsci.plugins.requeuejob.RequeueJobProperty plugin="jobrequeue@1.0">
+      <requeueJob>false</requeueJob>
+    </org.jenkinsci.plugins.requeuejob.RequeueJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.38">
+          <name>BUILD_SELECTOR_libvabuild</name>
+          <description>libva_build which needs to be packaged.</description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+            <allowUpstreamDependencies>false</allowUpstreamDependencies>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition plugin="dynamicparameter@0.2.0">
+          <name>libva_BuildNumber</name>
+          <description>Build Number of the libva_build job, which will be used. Note: This build number should match with the build selected in BUILD_SELECTOR_libvabuild</description>
+          <__uuid>b4f02aed-457c-43d0-a36e-5f723ec7fbfc</__uuid>
+          <__remote>false</__remote>
+          <__scriptlerScriptId>ListBuildNumbers.groovy</__scriptlerScriptId>
+          <__parameters>
+            <com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+              <name>BUILD_JOB_NAME</name>
+              <value>libva_build</value>
+            </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerParameterDefinition_-ScriptParameter>
+          </__parameters>
+          <readonlyInputField>false</readonlyInputField>
+        </com.seitenbau.jenkins.plugins.dynamicparameter.scriptler.ScriptlerChoiceParameterDefinition>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.38">
+          <name>BUILD_SELECTOR_linuxkernel</name>
+          <description>Linux Kernel build to use</description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+            <allowUpstreamDependencies>false</allowUpstreamDependencies>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.38">
+          <name>BUILD_SELECTOR_libdrmpkg</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+            <allowUpstreamDependencies>false</allowUpstreamDependencies>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.38">
+          <name>BUILD_SELECTOR_linuxkernel_ESE_linux-4.1.24</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+            <allowUpstreamDependencies>false</allowUpstreamDependencies>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.38">
+          <name>BUILD_SELECTOR_linuxkernel_ESE_linux-4.4.11</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+            <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+            <upstreamFilterStrategy>UseGlobalSetting</upstreamFilterStrategy>
+            <allowUpstreamDependencies>false</allowUpstreamDependencies>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition plugin="matrix-combinations-parameter@1.0.9">
+          <name>BUILD_MATRIX</name>
+          <description></description>
+        </hudson.plugins.matrix__configuration__parameter.MatrixCombinationsParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>RemoveCHROOTEnvironment</name>
+          <description>Needed, don&apos;t remove it when you are debugging things. In that case you will need to manually log into the slave and clean it up.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.9.0">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories class="java.util.concurrent.CopyOnWriteArrayList"/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
+      <matrixOptions>
+        <throttleMatrixBuilds>true</throttleMatrixBuilds>
+        <throttleMatrixConfigurations>false</throttleMatrixConfigurations>
+      </matrixOptions>
+      <paramsToUseForLimit></paramsToUseForLimit>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <EnvInjectJobProperty plugin="envinject@1.92.1">
+      <info>
+        <groovyScriptContent>// Copyright (c) 2016 Advanced Micro Devices, Inc. All rights reserved.
+
+//Dump the environment variables
+def map = [:] ;
+def PRODUCT_NAME=&quot;libva&quot;;
+map.put( &quot;PRODUCT_NAME&quot;, PRODUCT_NAME );
+
+def PRODUCT_VERSION = libva_BuildNumber + &quot;.&quot; + BUILD_NUMBER;
+println &quot;PRODUCT_VERSION: &quot; + PRODUCT_VERSION;
+map.put( &quot;PRODUCT_VERSION&quot;, PRODUCT_VERSION );
+map.put( &quot;ARCHIVE_EXTENSION&quot;, &quot;tar.bz2&quot; );
+
+def varChrootName=&quot;src&quot;;
+if( JOB_NAME != PRODUCT_NAME + &quot;_pkg&quot; ) {
+        varChrootName = P == &quot;x86&quot; ? &quot;chroot_x86&quot; : &quot;chroot_amd64&quot;;
+	map.put( &quot;O_VERSION&quot;, O.split( &quot;-&quot; )[1] );
+}
+
+map.put( &quot;CHROOT_NAME&quot;, varChrootName);
+
+map.put( &quot;PKGS_NEEDED&quot;, &quot;apt-utils debhelper quilt dh-autoreconf xutils-dev pkg-config dpkg-dev libpciaccess0 libssl-dev initramfs-tools x11proto-gl-dev libxxf86vm-dev libexpat1-dev libxfixes-dev libxdamage-dev libxext-dev libselinux1-dev x11proto-dri2-dev x11proto-dri3-dev x11proto-present-dev libx11-xcb-dev libxcb-dri2-0-dev libxcb-glx0-dev libxcb-xfixes0-dev libxcb-dri3-dev libxcb-present-dev libxcb-randr0-dev libxcb-sync-dev libxshmfence-dev python python-mako libudev-dev flex bison libelf-dev libomxil-bellagio-dev locales dialog libfile-fcntllock-perl&quot; );
+
+map.put( &quot;PKGS_NEEDED2&quot;, &quot;libdrm-dev libdrm2 libegl1-mesa-dev libgl1-mesa-dev libwayland-dev libxfixes-dev&quot;  );
+
+println map;
+println &apos;---------------------------------&apos;;
+return map;</groovyScriptContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>UBM</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>P</name>
+      <values>
+        <string>amd64</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>C</name>
+      <values>
+        <string>Release</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>R</name>
+      <values>
+        <string>shared</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <org.jenkinsci.plugins.GroovyAxis plugin="groovyaxis@0.3">
+      <name>V</name>
+      <values>
+        <string>amd-staging-4.6</string>
+        <string>amd-staging-4.5</string>
+        <string>amd-staging-4.4</string>
+        <string>amd-staging-4.3</string>
+        <string>linux-4.1.24</string>
+        <string>linux-4.4.11</string>
+      </values>
+      <groovyString>GIT_REPO = &apos;git://people.freedesktop.org/~agd5f/linux&apos;;
+
+def list = [];
+def processName = &apos;git ls-remote --heads &apos; + GIT_REPO + &apos; amd-staging-*&apos;;
+println processName;
+def process = processName.execute();
+process.text.eachLine {
+  	list &lt;&lt; it.split( &apos;/&apos; )[2];
+}
+
+Collections.sort( list );
+list = list.reverse();
+
+list &lt;&lt; &quot;linux-4.1.24&quot;;
+list &lt;&lt; &quot;linux-4.4.11&quot;;
+
+return list;</groovyString>
+      <computedValues>
+        <string>amd-staging-4.6</string>
+        <string>amd-staging-4.5</string>
+        <string>amd-staging-4.4</string>
+        <string>amd-staging-4.3</string>
+        <string>linux-4.1.24</string>
+        <string>linux-4.4.11</string>
+      </computedValues>
+    </org.jenkinsci.plugins.GroovyAxis>
+    <hudson.matrix.LabelExpAxis>
+      <name>O</name>
+      <values>
+        <string>Ubuntu-15.04</string>
+        <string>Ubuntu-15.10</string>
+        <string>Ubuntu-16.04</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+    <hudson.matrix.TextAxis>
+      <name>T</name>
+      <values>
+        <string>gcc-default</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelAxis>
+      <name>L</name>
+      <values>
+        <string>LBM</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+  </axes>
+  <combinationFilter>!( O == &apos;Ubuntu-15.04&apos; &amp;&amp; V == &apos;linux-4.1.24&apos; ) &amp;&amp; !( O == &apos;Ubuntu-15.10&apos; &amp;&amp; V == &apos;linux-4.1.24&apos; ) &amp;&amp; !( O == &apos;Ubuntu-15.04&apos; &amp;&amp; V == &apos;linux-4.4.11&apos; ) &amp;&amp; !( O == &apos;Ubuntu-15.10&apos; &amp;&amp; V == &apos;linux-4.4.11&apos; )</combinationFilter>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38">
+      <project>libva_build/C=${C},L=${L},O=${O},P=${P},R=${R},T=${T},V=${V}/</project>
+      <filter>libva-*-${O}-${R}-${P}-*-${V}.${ARCHIVE_EXTENSION}, Values.props</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_libvabuild</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+      <resultVariableSuffix>LIBDRM_BUILD</resultVariableSuffix>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38">
+      <project>libva_build/C=Release,L=LBM,O=Ubuntu-15.10,P=amd64,R=shared,T=gcc-default,V=amd-staging-4.4/</project>
+      <filter>libva-*-sources.tar.bz2</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_libvabuild</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38">
+      <project>libdrm_pkg/C=${C},L=${L},O=${O},P=${P},R=static,T=${T},V=${V}/</project>
+      <filter>*.deb</filter>
+      <target>${CHROOT_DIR}/packages</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>BUILD_SELECTOR_libdrmpkg</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <condition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>${V}</arg1>
+        <arg2>linux-4.1.24</arg2>
+        <ignoreCase>true</ignoreCase>
+      </condition>
+      <buildStep class="hudson.plugins.copyartifact.CopyArtifact" plugin="copyartifact@1.38">
+        <project>LinuxKernel_ESE_linux-4.1.24/C=${C},L=${L},O=${O},P=${P},R=shared,T=${T}/</project>
+        <filter>*.deb</filter>
+        <target>${CHROOT_DIR}/linux_kernel_build</target>
+        <excludes></excludes>
+        <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+          <parameterName>BUILD_SELECTOR_linuxkernel_ESE_linux-4.1.24</parameterName>
+        </selector>
+        <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+      </buildStep>
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <condition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>${V}</arg1>
+        <arg2>linux-4.4.11</arg2>
+        <ignoreCase>true</ignoreCase>
+      </condition>
+      <buildStep class="hudson.plugins.copyartifact.CopyArtifact" plugin="copyartifact@1.38">
+        <project>LinuxKernel_ESE_linux-4.4.11/C=${C},L=${L},O=${O},P=${P},R=shared,T=${T}/</project>
+        <filter>*.deb</filter>
+        <target>${CHROOT_DIR}/linux_kernel_build</target>
+        <excludes></excludes>
+        <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+          <parameterName>BUILD_SELECTOR_linuxkernel_ESE_linux-4.4.11</parameterName>
+        </selector>
+        <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+      </buildStep>
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <condition class="org.jenkins_ci.plugins.run_condition.core.ExpressionCondition" plugin="run-condition@1.0">
+        <expression>amd-staging-\d*.\d*</expression>
+        <label>$V</label>
+      </condition>
+      <buildStep class="hudson.plugins.copyartifact.CopyArtifact" plugin="copyartifact@1.38">
+        <project>linux_kernel_build/C=${C},L=${L},O=${O},P=${P},R=shared,T=${T},V=${V}/</project>
+        <filter>*.deb</filter>
+        <target>${CHROOT_DIR}/linux_kernel_build</target>
+        <excludes></excludes>
+        <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+          <parameterName>BUILD_SELECTOR_linuxkernel</parameterName>
+        </selector>
+        <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+      </buildStep>
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>Values.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+set -e
+
+SH_NAME=$(basename &quot;${BASH_SOURCE}&quot;)
+#Extract the libva package
+echo [${SH_NAME}][${LINENO}][INFO]COPYARTIFACT_BUILD_NUMBER_LIBVA_BUILD: ${COPYARTIFACT_BUILD_NUMBER_LIBVA_BUILD}
+
+#PRODUCT_VERSION=2.4.67.HEAD-52.2
+#We need to check if ${COPYARTIFACT_BUILD_NUMBER_LIBVA_BUILD} is equal to the number after HEAD- in PRODUCT_VERSION.
+#If they do not match, then incorrect parameters, so fail the build.
+#Parse the string
+EXTRACTED_VERSION=$(echo $PRODUCT_VERSION | cut -d - -f2 | cut -d . -f1)
+
+echo [${SH_NAME}][${LINENO}][INFO]EXTRACTED_VERSION: ${EXTRACTED_VERSION}, Articfacts copied from: ${COPYARTIFACT_BUILD_NUMBER_LIBVA_BUILD}
+
+if [ ${EXTRACTED_VERSION} -ne ${COPYARTIFACT_BUILD_NUMBER_LIBVA_BUILD} ]; then
+	echo [${SH_NAME}][${LINENO}][ERR]Incorrect builds selected, the parameters selected in BUILD_SELECTOR_libvabuild and in libva_BuildNumber do not match.
+    exit 1
+else
+	echo [${SH_NAME}][${LINENO}][INFO]The parameters selected in BUILD_SELECTOR_libvabuild and in libva_BuildNumber are a match.
+fi
+
+
+
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+set -e
+# This script will prepare environment for installing chroot package and install new OS in chroot for 64bit and 32bit.
+
+SH_NAME=$(basename &quot;${BASH_SOURCE}&quot;)
+
+DIST_NAME=$(lsb_release -is)
+DIST_CODE=$(lsb_release -cs)
+
+echo [${SH_NAME}][${LINENO}][INFO]DIST_NAME: ${DIST_NAME}
+echo [${SH_NAME}][${LINENO}][INFO]DIST_CODE: ${DIST_CODE}
+echo [${SH_NAME}][${LINENO}][INFO]User: ${USER}
+
+varARCH=amd64
+varForeign=
+if [ &quot;${P}&quot; = &quot;x86&quot; ]; then
+	varARCH=i386
+	varForeign=&quot;--foreign&quot;
+fi
+
+DEBOOTSTRAP_OPTIONS=&quot;--variant=buildd $varForeign --arch $varARCH $DIST_CODE $CHROOT_DIR $UBUNTU_ARCHIVE_URL&quot;
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo ${JENKINS_PWD} \| sudo -S debootstrap ${DEBOOTSTRAP_OPTIONS}
+echo ${JENKINS_PWD} | sudo -S debootstrap ${DEBOOTSTRAP_OPTIONS}
+
+if [ &quot;${P}&quot; = &quot;x86&quot; ]; then
+	echo [${SH_NAME}][${LINENO}][INFO]Executing echo ${JENKINS_PWD} \| sudo -S chroot /$CHROOT_NAME /debootstrap/debootstrap --second-stage
+	echo ${JENKINS_PWD} | sudo -S chroot /$CHROOT_NAME /debootstrap/debootstrap --second-stage
+fi
+
+copyfile() {
+	local varSource=$1
+    local varTarget=$2
+
+	echo [${SH_NAME}][${LINENO}][INFO]Executing echo ${JENKINS_PWD} \| sudo -S cp -vf $varSource ${varTarget}
+	echo ${JENKINS_PWD} | sudo -S cp -vf $varSource ${varTarget}
+}
+
+# Copy hosts file, resolv.con and sources.list files to have access to correct network information
+copyfile /etc/hosts ${CHROOT_DIR}/etc/hosts
+copyfile /etc/resolv.conf ${CHROOT_DIR}/etc/resolv.conf
+copyfile /etc/apt/sources.list ${CHROOT_DIR}/etc/apt/sources.list
+
+# Copy mtab file which is required during installation of linux kernel
+copyfile /etc/mtab ${CHROOT_DIR}/etc/mtab
+
+#Mount the filesystems needed in the chroot environment
+echo [${SH_NAME}][${LINENO}][INFO]echo $JENKINS_PWD \| sudo -S mount -o bind /proc $CHROOT_DIR/proc
+echo $JENKINS_PWD | sudo -S mount -o bind /proc $CHROOT_DIR/proc
+
+echo [${SH_NAME}][${LINENO}][INFO]echo $JENKINS_PWD \| sudo -S mount -o bind /dev $CHROOT_DIR/dev
+echo $JENKINS_PWD | sudo -S mount -o bind /dev $CHROOT_DIR/dev
+
+echo [${SH_NAME}][${LINENO}][INFO]echo $JENKINS_PWD \| sudo -S mount -o bind /dev/pts $CHROOT_DIR/dev/pts
+echo $JENKINS_PWD | sudo -S mount -o bind /dev/pts $CHROOT_DIR/dev/pts
+
+echo [${SH_NAME}][${LINENO}][INFO]echo $JENKINS_PWD \| sudo -S mount -o bind /sys $CHROOT_DIR/sys
+echo $JENKINS_PWD | sudo -S mount -o bind /sys $CHROOT_DIR/sys</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>Values.props</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+#This script creates the required deb packages
+
+#Exit if a command returns with a non-zero value
+set -e
+
+SH_NAME=$(basename &quot;${BASH_SOURCE}&quot;)
+
+BUILD_DIR=${CHROOT_DIR}/build/libva
+DEBIAN_DIR=${BUILD_DIR}/debian
+SOURCES_DIR=${CHROOT_DIR}/sources/libva
+PACKAGES_DIR=${CHROOT_DIR}/packages
+
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD | sudo -S mkdir -pv ${DEBIAN_DIR}/tmp ${SOURCES_DIR}
+echo $JENKINS_PWD | sudo -S mkdir -pv ${DEBIAN_DIR}/tmp ${SOURCES_DIR}
+
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S cp -arv brahma/debian/libva/* ${DEBIAN_DIR}
+echo $JENKINS_PWD | sudo -S cp -arv brahma/debian/libva/* ${DEBIAN_DIR}
+
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S cp -avf brahma/rules ${DEBIAN_DIR}
+echo $JENKINS_PWD | sudo -S cp -avf brahma/rules ${DEBIAN_DIR}
+
+#Extract the sources used
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S tar -jxvf libva-*-sources.tar.bz2 -C ${SOURCES_DIR}
+echo $JENKINS_PWD | sudo -S tar -jxf libva-*-sources.tar.bz2 -C ${SOURCES_DIR}
+
+#Copy Copying from sources/drm to builld/drm
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S cp -arv ${SOURCES_DIR}/COPYING ${BUILD_DIR}
+echo $JENKINS_PWD | sudo -S cp -arv ${SOURCES_DIR}/COPYING ${BUILD_DIR}
+
+#Extract the libva build.
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S tar -jxvf libva-*-${O}-${R}-${P}-*-${V}.tar.bz2 -C ${BUILD_DIR}
+echo $JENKINS_PWD | sudo -S tar -jxf libva-*-${O}-${R}-${P}-*-${V}.tar.bz2 -C ${BUILD_DIR}
+
+#Delete the .la files
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S find ${BUILD_DIR} -type f -name &apos;*.la&apos; | xargs rm -f -- || :
+echo $JENKINS_PWD | sudo -S find ${BUILD_DIR} -type f -name &apos;*.la&apos; | sudo xargs rm -f -- || :
+
+#Now generate the changelog file in the build/libva/debian directory
+#TODO Instead of date can we use Jenkins Product Version
+CHANGELOG=changelog
+echo &quot;libva (${PRODUCT_VERSION}-`date +%s`) unstable; urgency=low&quot; &gt; ${CHANGELOG}
+echo &quot;&quot; &gt;&gt; ${CHANGELOG}
+echo &quot;  * Checkout from git up to commit&quot; &gt;&gt; ${CHANGELOG}
+echo &quot;  * ${URL}&quot; &gt;&gt; ${CHANGELOG}
+echo &quot;    ${BRANCH}&quot; &gt;&gt; ${CHANGELOG}
+echo &quot;    ${COMMIT}&quot; &gt;&gt; ${CHANGELOG}
+echo &quot;&quot; &gt;&gt; ${CHANGELOG}
+echo &quot; -- AMD Automated Build System &lt;Manish1.Singh@amd.com&gt; `date -R`&quot; &gt;&gt; ${CHANGELOG}
+echo &quot;&quot; &gt;&gt; ${CHANGELOG}
+
+echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S mv -vf changelog $DEBIAN_DIR
+echo $JENKINS_PWD | sudo -S mv -vf changelog $DEBIAN_DIR</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+set -e
+# This script will login to the chroot environment and then build the sources
+
+SH_NAME=$(basename &quot;${BASH_SOURCE}&quot;)
+
+unmount() {
+	set +e
+	#This script unmounts the virtual filesystems
+	echo [${SH_NAME}][${LINENO}][INFO]Unmounting /proc, /dev/pts, /dev and /sys in $CHROOT_DIR
+  	echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/proc
+  	echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/dev/pts
+  	echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/dev
+  	echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/sys
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S mv -v ${CHROOT_DIR}/build/*.deb $WORKSPACE
+    echo $JENKINS_PWD | sudo -S mv -v ${CHROOT_DIR}/build/*.deb $WORKSPACE
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S mv -v ${CHROOT_DIR}/build/*.dsc $WORKSPACE
+    echo $JENKINS_PWD | sudo -S mv -v ${CHROOT_DIR}/build/*.dsc $WORKSPACE
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing echo $JENKINS_PWD \| sudo -S mv -v ${CHROOT_DIR}/build/*.changes $WORKSPACE
+    echo $JENKINS_PWD | sudo -S mv -v ${CHROOT_DIR}/build/*.changes $WORKSPACE
+    
+    
+    if [ &quot;$RemoveCHROOTEnvironment&quot; == &quot;false&quot; ]; then
+        echo [${SH_NAME}][${LINENO}][INFO]SKIPPING CLEANING UP CHROOT. YOU NEED TO MANUALLY CLEAN IT UP.
+        exit
+    fi
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Calling echo $JENKINS_PWD | sudo -S rm -rf $CHROOT_DIR
+    echo $JENKINS_PWD | sudo -S rm -rf $CHROOT_DIR
+
+    set -e
+}
+
+trap unmount INT TERM EXIT
+
+# Extract linux_kernel version from deb package
+LINUX_KERNEL_PACKAGE=${CHROOT_DIR}/linux_kernel_build/`basename linux-headers-*.deb`
+if [[ ${V:0:11} == &quot;amd-staging&quot; ]]; then
+	LINUX_KERNEL_VERSION=$(echo $LINUX_KERNEL_PACKAGE | cut -d&apos;-&apos; -f7-12 | cut -d&apos;_&apos; -f1)
+else
+	LINUX_KERNEL_VERSION=$(echo $LINUX_KERNEL_PACKAGE | cut -d&apos;-&apos; -f6-12 | cut -d&apos;_&apos; -f1)
+fi
+
+echo [${SH_NAME}][${LINENO}][INFO]LINUX_KERNEL_PACKAGE=${LINUX_KERNEL_PACKAGE}
+echo [${SH_NAME}][${LINENO}][INFO]LINUX_KERNEL_VERSION=${LINUX_KERNEL_VERSION}
+
+# Login to chroot environment, /usr/bin/env is used to pass variables to chroot.
+echo [${SH_NAME}][${LINENO}][INFO]Executing login to chroot environment
+
+echo ${JENKINS_PWD} | sudo -S cat &lt;&lt; EOF | sudo /usr/sbin/chroot ${CHROOT_DIR} /usr/bin/env PATH=${PATH} LINUX_KERNEL_VERSION=${LINUX_KERNEL_VERSION} PRODUCT_NAME=&quot;${PRODUCT_NAME}&quot; /bin/bash
+if [ $? -eq 0 ]; then
+	echo [${SH_NAME}][${LINENO}][INFO]Entered in chroot environment
+    
+    set -e #Command exits on non-zero return values
+    
+    #Install Dependencies
+    echo [${SH_NAME}][${LINENO}][INFO]Executing apt-get update
+    apt-get update
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing apt-get install ${PKGS_NEEDED} -y
+    apt-get install ${PKGS_NEEDED} -y
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing locale-gen en_US.UTF-8
+    locale-gen en_US.UTF-8	#Setup the correct locale
+    
+    TZ=&apos;Asia/Kolkata&apos;; export TZ
+    export LANG=C #avoid locale warning 
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing dpkg -i /linux_kernel_build/*.deb
+    dpkg -i /linux_kernel_build/*.deb
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing update-initramfs -c -k ${LINUX_KERNEL_VERSION}
+    update-initramfs -c -k ${LINUX_KERNEL_VERSION}
+    
+    pushd /packages
+    	echo [${SH_NAME}][${LINENO}][INFO]Executing dpkg-scanpackages . /dev/null \| gzip -9c \&gt; Packages.gz
+        dpkg-scanpackages . /dev/null | gzip -9c &gt; Packages.gz
+    popd
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing sed -i &apos;1s?^?deb file:/packages ./ \n?&apos; /etc/apt/sources.list
+    sed -i &apos;1s?^?deb file:/packages ./ \n?&apos; /etc/apt/sources.list
+    
+    echo [${SH_NAME}][${LINENO}][INFO]Executing apt-get update
+    apt-get update
+        
+    echo [${SH_NAME}][${LINENO}][INFO]Executing apt-get install ${PKGS_NEEDED2} -y --force-yes
+    apt-get install ${PKGS_NEEDED2} -y --force-yes
+
+    pushd /build/libva
+		echo [${SH_NAME}][${LINENO}][INFO]Executing dpkg-buildpackage -us -uc.
+		dpkg-buildpackage -us -uc
+	popd
+else
+	echo [${SH_NAME}][${LINENO}][ERR]Not entered in chroot environment
+    exit 1
+fi
+
+EOF
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*.deb, *.changes, *.dsc</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <fingerprint>true</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.29">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.2"/>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.4">
+      <includes>brahma/debian/libva/*,brahma/debian/libva/*/*,brahma/rules</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.92.1">
+      <info>
+        <propertiesContent>CHROOT_DIR=$WORKSPACE/$CHROOT_NAME</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper plugin="preSCMbuildstep@0.3">
+      <buildSteps>
+        <hudson.tasks.Shell>
+          <command>#!/bin/bash
+
+if [ &quot;libva_pkg&quot; == &quot;$JOB_NAME&quot; ]; then
+	exit 0
+fi
+
+CHROOT_DIR=$WORKSPACE/$CHROOT_NAME
+
+echo [PRE_SCM][${LINENO}][INFO]Unmounting /proc, /dev/pts, /dev and /sys in $CHROOT_DIR
+echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/proc
+echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/dev/pts
+echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/dev
+echo $JENKINS_PWD | sudo -S umount --verbose $CHROOT_DIR/sys
+
+exit 0</command>
+        </hudson.tasks.Shell>
+      </buildSteps>
+      <failOnError>false</failOnError>
+    </org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.6.5">
+      <template>${ENV,var=&quot;PRODUCT_VERSION&quot;}</template>
+      <runAtStart>true</runAtStart>
+      <runAtEnd>true</runAtEnd>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>
