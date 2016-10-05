@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Master file"
+echo "Master file for polling"
